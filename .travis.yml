@@ -1,0 +1,20 @@
+language: rust
+matrix:
+  fast_finish: true
+  allow_failures:
+  - rust: nightly
+  include:
+  - os: osx
+    rust: stable
+  - rust: stable
+  - rust: beta
+  - rust: nightly
+  - rust: 1.31.0
+    script: cargo build
+sudo: false
+dist: trusty
+script:
+- cargo build
+- cargo test -- --skip sample
+env:
+  secure: An6GHaSgSd0A+Mbu2eFI1IyQ52qJn4wr7nhFsFdVMnbYc/y1wz+M8Ry4MhZCKxmrkUtqQeP2lJ3uPu7LF/76BYbskhF25OgloP4/vKzoVYI/DnNwyl9tEGgyE+8WJKQVamLiuN+oGAUeJzTbR0VbBsMnysJJ2oDufMApz3MxD6zoHVzAKcHe3NpxZSOsummuTDdiSELHQd19/F5IRVukyGoVtQu0Z8UtrxKcz9M/+6ShZz4h5wkw7xSQfrHBbFl0TK5mtXrs8+Kugf21KMo0r47MlpxFaXJU4eZfxTqvz83T03YhKovOkib0wt6fRvXkJ0H0vE9WP/x62QSaHbUteydB84VOTNIV6fFZAngCx+tgl0khc4k6ELD3f+hiRibsacXsQ20XBGcYLL539ZDZT3VL6/Xi5FduT0mTEh3kCCbSV3BzRC8Mh+N9vBTwAk37ks/SO9SoQ5/AzP0OB6CrOncp8NM2LpQQAHrokmMzoQ7Gm8Oc2+PuBDmJEmtWDMh5jbspuX8OdkCKdu1/5gVRAcIJXhtypN62xDnH+N+DZgsVYRC72GA6c8WHvQgGY8monmbJen/qjsplGuuPhVCzvsTmBjMbIx7z/0z4zRPRR17vJfU/fGTdm+0UC9R4PGdQsfmdeZ2osny7e75GabOsFDQcTb54dJ0FQ+PW26x84do=
