@@ -1,6 +1,7 @@
 # iyzipay-rust
 
 [![Build Status](https://travis-ci.org/atakurt/iyzipay-rust.svg?branch=master)](https://travis-ci.org/atakurt/iyzipay-rust)
+[![crates.io](https://img.shields.io/crates/v/iyzipay-rust.svg)](https://crates.io/crates/iyzipay-rust)
 
 
 **Unofficial** rust client for iyzipay.
