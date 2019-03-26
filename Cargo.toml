@@ -3,6 +3,8 @@ name = "iyzipay-rust"
 version = "0.1.0"
 authors = ["İsmail Ata Kurt <atakurt@yandex.com>"]
 edition = "2018"
+description = "iyzipay rust client"
+license = "MIT/Apache-2.0"
 
 [dependencies]
 reqwest = "0.9.11"
