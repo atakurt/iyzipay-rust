@@ -5,12 +5,12 @@ use crate::types::Result;
 
 #[derive(Debug, Default, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
-pub struct ApiTest {
+pub struct Api {
     #[serde(flatten)]
     resource: IyzipayResource
 }
 
-impl ApiTest {
+impl Api {
     pub fn retrieve(options: &Options) -> Result<IyzipayResource> {
         let mut res = HttpClient::create().get(format!("{}{}", options.base_url(), "/payment/test").as_str(), None)?;
         let response = res.json()?;

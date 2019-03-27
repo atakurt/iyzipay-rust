@@ -1,6 +1,6 @@
 use log::debug;
 
-use iyzipay_rust::model::ApiTest;
+use iyzipay_rust::model::Api;
 use iyzipay_rust::model::Locale;
 use iyzipay_rust::model::Status;
 
@@ -10,7 +10,7 @@ use crate::get_test_options;
 fn should_test_api() {
     let _ = env_logger::try_init();
 
-    let resource = ApiTest::retrieve(&get_test_options()).unwrap();
+    let resource = Api::retrieve(&get_test_options()).unwrap();
 
     debug!("{:?}", resource);
 

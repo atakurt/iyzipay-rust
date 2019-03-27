@@ -1,4 +1,4 @@
-pub use self::api::ApiTest;
+pub use self::api::Api;
 pub use self::bin_number::BinNumber;
 pub use self::card::Card;
 pub use self::card::CardInformation;
