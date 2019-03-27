@@ -1,6 +1,6 @@
 [package]
 name = "iyzipay-rust"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["İsmail Ata Kurt <atakurt@yandex.com>"]
 edition = "2018"
 description = "iyzipay rust client"
