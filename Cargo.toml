@@ -5,6 +5,8 @@ authors = ["İsmail Ata Kurt <atakurt@yandex.com>"]
 edition = "2018"
 description = "iyzipay rust client"
 license = "MIT/Apache-2.0"
+keywords = ["iyzico", "payment", "client"]
+repository = "https://github.com/atakurt/iyzipay-rust"
 
 [dependencies]
 reqwest = "0.9.11"
