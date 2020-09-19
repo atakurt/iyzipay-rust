@@ -27,7 +27,7 @@ impl HttpClient {
         }
     }
 
-    pub fn post(&mut self, url: &str, request: String, header_map: HeaderMap) -> Result<(Response)> {
+    pub fn post(&mut self, url: &str, request: String, header_map: HeaderMap) -> Result<Response> {
         let response = self.client
             .post(url)
             .headers(header_map)
@@ -37,7 +37,7 @@ impl HttpClient {
         Ok(response)
     }
 
-    pub fn put(&mut self, url: &str, request: String, header_map: HeaderMap) -> Result<(Response)> {
+    pub fn put(&mut self, url: &str, request: String, header_map: HeaderMap) -> Result<Response> {
         let response = self.client
             .put(url)
             .headers(header_map)
@@ -47,7 +47,7 @@ impl HttpClient {
         Ok(response)
     }
 
-    pub fn delete(&mut self, url: &str, request: String, header_map: HeaderMap) -> Result<(Response)> {
+    pub fn delete(&mut self, url: &str, request: String, header_map: HeaderMap) -> Result<Response> {
         let response = self.client
             .delete(url)
             .headers(header_map)
@@ -57,7 +57,7 @@ impl HttpClient {
         Ok(response)
     }
 
-    pub fn get(&mut self, url: &str, header_map: Option<HeaderMap>) -> Result<(Response)> {
+    pub fn get(&mut self, url: &str, header_map: Option<HeaderMap>) -> Result<Response> {
         let headers: HeaderMap = if header_map.is_some() { header_map.unwrap() } else { HeaderMap::new() };
         let response = self.client.get(url).headers(headers).send()?;
         Ok(response)

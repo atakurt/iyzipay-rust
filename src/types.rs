@@ -1,6 +1,6 @@
 use std::error::Error;
 
-pub type Result<T> = std::result::Result<T, Box<Error>>;
+pub type Result<T> = std::result::Result<T, Box<dyn Error>>;
 
 const CHARS: &[u8] = b"0123456789abcdef";
 
