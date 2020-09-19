@@ -25,7 +25,6 @@ fn should_retrieve_installments() {
     println!("{:?}", installment_info);
 
     assert_eq!(Some(&Status::Success.to_string()), installment_info.status());
-    ;
     assert_eq!(Some(&String::from("123456789")), installment_info.conversation_id());
     assert_ne!(None, installment_info.system_time());
     assert_eq!(None, installment_info.error_code());
