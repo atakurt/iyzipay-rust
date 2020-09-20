@@ -3,7 +3,6 @@ name = "iyzipay-rust"
 version = "0.1.2"
 authors = ["İsmail Ata Kurt <atakurt@yandex.com>"]
 edition = "2018"
-rust = "1.41"
 description = "iyzipay rust client"
 license = "MIT/Apache-2.0"
 keywords = ["iyzico", "payment", "client"]
