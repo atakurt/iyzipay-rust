@@ -35,7 +35,6 @@ fn should_refund_payment() {
     assert_eq!(None, refund.error_group());
 }
 
-
 #[test]
 fn should_refund_payment_with_reason() {
     let _ = env_logger::try_init();
@@ -48,7 +47,6 @@ fn should_refund_payment_with_reason() {
     request.set_ip("85.34.78.112");
     request.set_reason(RefundReason::DoublePayment);
     request.set_description("customer requested for default sample");
-
 
     let refund = Refund::create(&request, &get_test_options()).unwrap();
 
@@ -75,7 +73,6 @@ fn should_refund_fraudulent_payment() {
     request.set_ip("85.34.78.112");
     request.set_reason(RefundReason::Fraud);
     request.set_description("stolen card request with 11000 try payment for default sample");
-
 
     let refund = Refund::create(&request, &get_test_options()).unwrap();
 

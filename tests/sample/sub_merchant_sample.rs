@@ -32,7 +32,10 @@ fn should_create_personal_sub_merchant() {
 
     assert_eq!(Some(&Status::Success.to_string()), sub_merchant.status());
     assert_eq!(Some(&Locale::TR.to_string()), sub_merchant.locale());
-    assert_eq!(Some(&String::from("123456789")), sub_merchant.conversation_id());
+    assert_eq!(
+        Some(&String::from("123456789")),
+        sub_merchant.conversation_id()
+    );
     assert_ne!(None, sub_merchant.system_time());
     assert_eq!(None, sub_merchant.error_code());
     assert_eq!(None, sub_merchant.error_message());
@@ -56,14 +59,16 @@ fn should_create_private_sub_merchant() {
     request.set_identity_number("31300864726");
     request.set_currency(Currency::TRY.value());
 
-
     let sub_merchant = SubMerchant::create(&request, &get_test_options()).unwrap();
 
     println!("{:?}", sub_merchant);
 
     assert_eq!(Some(&Status::Success.to_string()), sub_merchant.status());
     assert_eq!(Some(&Locale::TR.to_string()), sub_merchant.locale());
-    assert_eq!(Some(&String::from("123456789")), sub_merchant.conversation_id());
+    assert_eq!(
+        Some(&String::from("123456789")),
+        sub_merchant.conversation_id()
+    );
     assert_ne!(None, sub_merchant.system_time());
     assert_eq!(None, sub_merchant.error_code());
     assert_eq!(None, sub_merchant.error_message());
@@ -88,14 +93,16 @@ fn should_create_limited_company_sub_merchant() {
     request.set_identity_number("31300864726");
     request.set_currency(Currency::TRY.value());
 
-
     let sub_merchant = SubMerchant::create(&request, &get_test_options()).unwrap();
 
     println!("{:?}", sub_merchant);
 
     assert_eq!(Some(&Status::Success.to_string()), sub_merchant.status());
     assert_eq!(Some(&Locale::TR.to_string()), sub_merchant.locale());
-    assert_eq!(Some(&String::from("123456789")), sub_merchant.conversation_id());
+    assert_eq!(
+        Some(&String::from("123456789")),
+        sub_merchant.conversation_id()
+    );
     assert_ne!(None, sub_merchant.system_time());
     assert_eq!(None, sub_merchant.error_code());
     assert_eq!(None, sub_merchant.error_message());
@@ -125,7 +132,10 @@ fn should_update_personal_sub_merchant() {
 
     assert_eq!(Some(&Status::Success.to_string()), sub_merchant.status());
     assert_eq!(Some(&Locale::TR.to_string()), sub_merchant.locale());
-    assert_eq!(Some(&String::from("123456789")), sub_merchant.conversation_id());
+    assert_eq!(
+        Some(&String::from("123456789")),
+        sub_merchant.conversation_id()
+    );
     assert_ne!(None, sub_merchant.system_time());
     assert_eq!(None, sub_merchant.error_code());
     assert_eq!(None, sub_merchant.error_message());
@@ -155,7 +165,10 @@ fn should_update_private_sub_merchant() {
 
     assert_eq!(Some(&Status::Success.to_string()), sub_merchant.status());
     assert_eq!(Some(&Locale::TR.to_string()), sub_merchant.locale());
-    assert_eq!(Some(&String::from("123456789")), sub_merchant.conversation_id());
+    assert_eq!(
+        Some(&String::from("123456789")),
+        sub_merchant.conversation_id()
+    );
     assert_ne!(None, sub_merchant.system_time());
     assert_eq!(None, sub_merchant.error_code());
     assert_eq!(None, sub_merchant.error_message());
@@ -185,7 +198,10 @@ fn should_update_limited_company_sub_merchant() {
 
     assert_eq!(Some(&Status::Success.to_string()), sub_merchant.status());
     assert_eq!(Some(&Locale::TR.to_string()), sub_merchant.locale());
-    assert_eq!(Some(&String::from("123456789")), sub_merchant.conversation_id());
+    assert_eq!(
+        Some(&String::from("123456789")),
+        sub_merchant.conversation_id()
+    );
     assert_ne!(None, sub_merchant.system_time());
     assert_eq!(None, sub_merchant.error_code());
     assert_eq!(None, sub_merchant.error_message());
@@ -205,10 +221,12 @@ fn should_retrieve_sub_merchant() {
     println!("{:?}", sub_merchant);
 
     assert_eq!(Some(&Status::Success.to_string()), sub_merchant.status());
-    assert_eq!(Some(&String::from("123456789")), sub_merchant.conversation_id());
+    assert_eq!(
+        Some(&String::from("123456789")),
+        sub_merchant.conversation_id()
+    );
     assert_ne!(None, sub_merchant.system_time());
     assert_eq!(None, sub_merchant.error_code());
     assert_eq!(None, sub_merchant.error_message());
     assert_eq!(None, sub_merchant.error_group());
 }
-

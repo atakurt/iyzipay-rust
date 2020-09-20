@@ -20,12 +20,19 @@ fn should_retrieve_installments() {
     request.set_bin_number("550960");
     request.set_price(BigDecimal::from_str("100").unwrap());
 
-    let installment_info: InstallmentInfo = InstallmentInfo::retrieve(&request, &get_test_options()).unwrap();
+    let installment_info: InstallmentInfo =
+        InstallmentInfo::retrieve(&request, &get_test_options()).unwrap();
 
     println!("{:?}", installment_info);
 
-    assert_eq!(Some(&Status::Success.to_string()), installment_info.status());
-    assert_eq!(Some(&String::from("123456789")), installment_info.conversation_id());
+    assert_eq!(
+        Some(&Status::Success.to_string()),
+        installment_info.status()
+    );
+    assert_eq!(
+        Some(&String::from("123456789")),
+        installment_info.conversation_id()
+    );
     assert_ne!(None, installment_info.system_time());
     assert_eq!(None, installment_info.error_code());
     assert_eq!(None, installment_info.error_message());

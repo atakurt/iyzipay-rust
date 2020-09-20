@@ -30,7 +30,10 @@ fn should_initialize_pecco() {
     debug!("{:?}", pecco_initialize);
 
     assert_eq!(Some(&Locale::TR.to_string()), pecco_initialize.locale());
-    assert_eq!(Some(&Status::Success.to_string()), pecco_initialize.status());
+    assert_eq!(
+        Some(&Status::Success.to_string()),
+        pecco_initialize.status()
+    );
     assert_ne!(None, pecco_initialize.system_time());
     assert_ne!(None, pecco_initialize.html_content());
     assert_eq!(None, pecco_initialize.error_code());

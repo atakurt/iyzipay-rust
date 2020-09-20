@@ -2,16 +2,18 @@ use std::str::FromStr;
 
 use bigdecimal::BigDecimal;
 
-use iyzipay_rust::model::{Address, Apm, ApmType, BasketItem, BasketItemType, Buyer, Currency, PaymentChannel, PaymentGroup};
 use iyzipay_rust::model::Locale;
 use iyzipay_rust::model::Status;
+use iyzipay_rust::model::{
+    Address, Apm, ApmType, BasketItem, BasketItemType, Buyer, Currency, PaymentChannel,
+    PaymentGroup,
+};
 use iyzipay_rust::requests::{CreateApmInitializeRequest, RetrieveApmRequest};
 
 use crate::get_test_options;
 
 #[test]
-fn should_initialize_apm_payment()
-{
+fn should_initialize_apm_payment() {
     let _ = env_logger::try_init();
     let mut request = CreateApmInitializeRequest::new();
     request.set_locale(Locale::TR.value());
@@ -95,7 +97,10 @@ fn should_initialize_apm_payment()
 
     assert_eq!(Some(&Status::Success.to_string()), apm_initialize.status());
     assert_eq!(Some(&Locale::TR.to_string()), apm_initialize.locale());
-    assert_eq!(Some(&String::from("123456789")), apm_initialize.conversation_id());
+    assert_eq!(
+        Some(&String::from("123456789")),
+        apm_initialize.conversation_id()
+    );
     assert_ne!(None, apm_initialize.redirect_url());
     assert_eq!(None, apm_initialize.error_code());
     assert_eq!(None, apm_initialize.error_message());
@@ -103,8 +108,7 @@ fn should_initialize_apm_payment()
 }
 
 #[test]
-fn should_retrieve_apm_result()
-{
+fn should_retrieve_apm_result() {
     let _ = env_logger::try_init();
     let mut retrieve_apm_request = RetrieveApmRequest::new();
     retrieve_apm_request.set_locale(Locale::TR.value());

@@ -68,9 +68,11 @@ impl SubMerchant {
     pub fn create(req: &CreateSubMerchantRequest, options: &Options) -> Result<SubMerchant> {
         let request = serde_json::to_string(req)?;
         debug!("RequestBody:{}", request);
-        let res = HttpClient::create().post(format!("{}{}", options.base_url(), "/onboarding/submerchant").as_str(),
-                                                request,
-                                                IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options))?;
+        let res = HttpClient::create().post(
+            format!("{}{}", options.base_url(), "/onboarding/submerchant").as_str(),
+            request,
+            IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options),
+        )?;
         let response = res.json()?;
         Ok(response)
     }
@@ -78,9 +80,11 @@ impl SubMerchant {
     pub fn update(req: &UpdateSubMerchantRequest, options: &Options) -> Result<SubMerchant> {
         let request = serde_json::to_string(req)?;
         debug!("RequestBody:{}", request);
-        let res = HttpClient::create().put(format!("{}{}", options.base_url(), "/onboarding/submerchant").as_str(),
-                                               request,
-                                               IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options))?;
+        let res = HttpClient::create().put(
+            format!("{}{}", options.base_url(), "/onboarding/submerchant").as_str(),
+            request,
+            IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options),
+        )?;
         let response = res.json()?;
         Ok(response)
     }
@@ -88,13 +92,14 @@ impl SubMerchant {
     pub fn retrieve(req: &RetrieveSubMerchantRequest, options: &Options) -> Result<SubMerchant> {
         let request = serde_json::to_string(req)?;
         debug!("RequestBody:{}", request);
-        let res = HttpClient::create().post(format!("{}{}", options.base_url(), "/onboarding/submerchant/detail").as_str(),
-                                                request,
-                                                IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options))?;
+        let res = HttpClient::create().post(
+            format!("{}{}", options.base_url(), "/onboarding/submerchant/detail").as_str(),
+            request,
+            IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options),
+        )?;
         let response = res.json()?;
         Ok(response)
     }
-
 
     pub fn set_name<T: Into<String>>(&mut self, name: T) {
         self.name = Some(name.into());
@@ -223,7 +228,7 @@ impl SubMerchantType {
         match self {
             SubMerchantType::Personal => "PERSONAL",
             SubMerchantType::PrivateCompany => "PRIVATE_COMPANY",
-            SubMerchantType::LimitedOrJointStockCompany => "LIMITED_OR_JOINT_STOCK_COMPANY"
+            SubMerchantType::LimitedOrJointStockCompany => "LIMITED_OR_JOINT_STOCK_COMPANY",
         }
     }
 }
@@ -247,9 +252,11 @@ impl Approval {
     pub fn create(req: &CreateApprovalRequest, options: &Options) -> Result<Approval> {
         let request = serde_json::to_string(req)?;
         debug!("RequestBody:{}", request);
-        let res = HttpClient::create().post(format!("{}{}", options.base_url(), "/payment/iyzipos/item/approve").as_str(),
-                                                request,
-                                                IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options))?;
+        let res = HttpClient::create().post(
+            format!("{}{}", options.base_url(), "/payment/iyzipos/item/approve").as_str(),
+            request,
+            IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options),
+        )?;
         let response = res.json()?;
         Ok(response)
     }
@@ -262,7 +269,6 @@ impl Approval {
         self.payment_transaction_id.as_ref()
     }
 }
-
 
 impl std::ops::Deref for Approval {
     type Target = IyzipayResource;
@@ -284,9 +290,16 @@ impl Disapproval {
     pub fn create(req: &CreateApprovalRequest, options: &Options) -> Result<Disapproval> {
         let request = serde_json::to_string(req)?;
         debug!("RequestBody:{}", request);
-        let res = HttpClient::create().post(format!("{}{}", options.base_url(), "/payment/iyzipos/item/disapprove").as_str(),
-                                                request,
-                                                IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options))?;
+        let res = HttpClient::create().post(
+            format!(
+                "{}{}",
+                options.base_url(),
+                "/payment/iyzipos/item/disapprove"
+            )
+            .as_str(),
+            request,
+            IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options),
+        )?;
         let response = res.json()?;
         Ok(response)
     }
@@ -318,18 +331,30 @@ pub struct PayoutCompletedTransactionList {
 }
 
 impl PayoutCompletedTransactionList {
-    pub fn retrieve(req: &RetrieveTransactionsRequest, options: &Options) -> Result<PayoutCompletedTransactionList> {
+    pub fn retrieve(
+        req: &RetrieveTransactionsRequest,
+        options: &Options,
+    ) -> Result<PayoutCompletedTransactionList> {
         let request = serde_json::to_string(req)?;
         debug!("RequestBody:{}", request);
-        let res = HttpClient::create().post(format!("{}{}", options.base_url(), "/reporting/settlement/payoutcompleted").as_str(),
-                                                request,
-                                                IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options))?;
+        let res = HttpClient::create().post(
+            format!(
+                "{}{}",
+                options.base_url(),
+                "/reporting/settlement/payoutcompleted"
+            )
+            .as_str(),
+            request,
+            IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options),
+        )?;
         let response = res.json()?;
         Ok(response)
     }
 
-
-    pub fn set_payout_completed_transactions<T: Into<Vec<PayoutCompletedTransaction>>>(&mut self, payout_completed_transactions: T) {
+    pub fn set_payout_completed_transactions<T: Into<Vec<PayoutCompletedTransaction>>>(
+        &mut self,
+        payout_completed_transactions: T,
+    ) {
         self.payout_completed_transactions = Some(payout_completed_transactions.into());
     }
 
@@ -409,16 +434,20 @@ pub struct BouncedBankTransferList {
 }
 
 impl BouncedBankTransferList {
-    pub fn retrieve(req: &RetrieveTransactionsRequest, options: &Options) -> Result<BouncedBankTransferList> {
+    pub fn retrieve(
+        req: &RetrieveTransactionsRequest,
+        options: &Options,
+    ) -> Result<BouncedBankTransferList> {
         let request = serde_json::to_string(req)?;
         debug!("RequestBody:{}", request);
-        let res = HttpClient::create().post(format!("{}{}", options.base_url(), "/reporting/settlement/bounced").as_str(),
-                                                request,
-                                                IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options))?;
+        let res = HttpClient::create().post(
+            format!("{}{}", options.base_url(), "/reporting/settlement/bounced").as_str(),
+            request,
+            IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options),
+        )?;
         let response = res.json()?;
         Ok(response)
     }
-
 
     pub fn set_bank_transfers<T: Into<Vec<BankTransfer>>>(&mut self, bank_transfers: T) {
         self.bank_transfers = Some(bank_transfers.into());
@@ -475,7 +504,10 @@ impl BankTransfer {
         self.legal_company_title = Some(legal_company_title.into());
     }
 
-    pub fn set_marketplace_sub_merchant_type<T: Into<String>>(&mut self, marketplace_sub_merchant_type: T) {
+    pub fn set_marketplace_sub_merchant_type<T: Into<String>>(
+        &mut self,
+        marketplace_sub_merchant_type: T,
+    ) {
         self.marketplace_sub_merchant_type = Some(marketplace_sub_merchant_type.into());
     }
 
@@ -512,9 +544,11 @@ impl Apm {
     pub fn create(req: &CreateApmInitializeRequest, options: &Options) -> Result<Apm> {
         let request = serde_json::to_string(req)?;
         debug!("RequestBody:{}", request);
-        let res = HttpClient::create().post(format!("{}{}", options.base_url(), "/payment/apm/initialize").as_str(),
-                                                request,
-                                                IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options))?;
+        let res = HttpClient::create().post(
+            format!("{}{}", options.base_url(), "/payment/apm/initialize").as_str(),
+            request,
+            IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options),
+        )?;
         let response = res.json()?;
         Ok(response)
     }
@@ -522,9 +556,11 @@ impl Apm {
     pub fn retrieve(req: &RetrieveApmRequest, options: &Options) -> Result<Apm> {
         let request = serde_json::to_string(req)?;
         debug!("RequestBody:{}", request);
-        let res = HttpClient::create().post(format!("{}{}", options.base_url(), "/payment/apm/retrieve").as_str(),
-                                                request,
-                                                IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options))?;
+        let res = HttpClient::create().post(
+            format!("{}{}", options.base_url(), "/payment/apm/retrieve").as_str(),
+            request,
+            IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options),
+        )?;
         let response = res.json()?;
         Ok(response)
     }
@@ -616,15 +652,24 @@ impl ApmResource {
         self.payment_id = Some(payment_id.into());
     }
 
-    pub fn set_merchant_commission_rate<T: Into<BigDecimal>>(&mut self, merchant_commission_rate: T) {
+    pub fn set_merchant_commission_rate<T: Into<BigDecimal>>(
+        &mut self,
+        merchant_commission_rate: T,
+    ) {
         self.merchant_commission_rate = Some(merchant_commission_rate.into());
     }
 
-    pub fn set_merchant_commission_rate_amount<T: Into<BigDecimal>>(&mut self, merchant_commission_rate_amount: T) {
+    pub fn set_merchant_commission_rate_amount<T: Into<BigDecimal>>(
+        &mut self,
+        merchant_commission_rate_amount: T,
+    ) {
         self.merchant_commission_rate_amount = Some(merchant_commission_rate_amount.into());
     }
 
-    pub fn set_iyzi_commission_rate_amount<T: Into<BigDecimal>>(&mut self, iyzi_commission_rate_amount: T) {
+    pub fn set_iyzi_commission_rate_amount<T: Into<BigDecimal>>(
+        &mut self,
+        iyzi_commission_rate_amount: T,
+    ) {
         self.iyzi_commission_rate_amount = Some(iyzi_commission_rate_amount.into());
     }
 

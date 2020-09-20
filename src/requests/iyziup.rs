@@ -49,7 +49,6 @@ impl CreateIyziupFormInitializeRequest {
         CreateIyziupFormInitializeRequest::default()
     }
 
-
     pub fn set_merchant_order_id<T: Into<String>>(&mut self, merchant_order_id: T) {
         self.merchant_order_id = Some(merchant_order_id.into());
     }
@@ -206,7 +205,7 @@ impl RetrieveIyziupFormRequest {
     pub fn new() -> Self {
         RetrieveIyziupFormRequest::default()
     }
-    
+
     pub fn set_token<T: Into<String>>(&mut self, token: T) {
         self.token = Some(token.into());
     }

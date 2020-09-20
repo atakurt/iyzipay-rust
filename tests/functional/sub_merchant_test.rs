@@ -28,7 +28,10 @@ fn should_create_personal_sub_merchant() {
 
     assert_eq!(Some(&Status::Success.to_string()), sub_merchant.status());
     assert_eq!(Some(&Locale::TR.to_string()), sub_merchant.locale());
-    assert_eq!(Some(&String::from("123456789")), sub_merchant.conversation_id());
+    assert_eq!(
+        Some(&String::from("123456789")),
+        sub_merchant.conversation_id()
+    );
     assert_ne!(None, sub_merchant.system_time());
     assert_eq!(None, sub_merchant.error_code());
     assert_eq!(None, sub_merchant.error_message());
@@ -52,7 +55,10 @@ fn should_create_private_sub_merchant() {
 
     assert_eq!(Some(&Status::Success.to_string()), sub_merchant.status());
     assert_eq!(Some(&Locale::TR.to_string()), sub_merchant.locale());
-    assert_eq!(Some(&String::from("123456789")), sub_merchant.conversation_id());
+    assert_eq!(
+        Some(&String::from("123456789")),
+        sub_merchant.conversation_id()
+    );
     assert_ne!(None, sub_merchant.system_time());
     assert_eq!(None, sub_merchant.error_code());
     assert_eq!(None, sub_merchant.error_message());
@@ -76,7 +82,10 @@ fn should_create_limited_company_sub_merchant() {
 
     assert_eq!(Some(&Status::Success.to_string()), sub_merchant.status());
     assert_eq!(Some(&Locale::TR.to_string()), sub_merchant.locale());
-    assert_eq!(Some(&String::from("123456789")), sub_merchant.conversation_id());
+    assert_eq!(
+        Some(&String::from("123456789")),
+        sub_merchant.conversation_id()
+    );
     assert_ne!(None, sub_merchant.system_time());
     assert_eq!(None, sub_merchant.error_code());
     assert_eq!(None, sub_merchant.error_message());
@@ -101,13 +110,17 @@ fn should_update_personal_sub_merchant() {
         .name("Jane's market")
         .build();
 
-    let sub_merchant = SubMerchant::update(&update_sub_merchant_request, &get_test_options()).unwrap();
+    let sub_merchant =
+        SubMerchant::update(&update_sub_merchant_request, &get_test_options()).unwrap();
 
     debug!("{:?}", sub_merchant);
 
     assert_eq!(Some(&Status::Success.to_string()), sub_merchant.status());
     assert_eq!(Some(&Locale::TR.to_string()), sub_merchant.locale());
-    assert_eq!(Some(&String::from("123456789")), sub_merchant.conversation_id());
+    assert_eq!(
+        Some(&String::from("123456789")),
+        sub_merchant.conversation_id()
+    );
     assert_ne!(None, sub_merchant.system_time());
     assert_eq!(None, sub_merchant.error_code());
     assert_eq!(None, sub_merchant.error_message());
@@ -131,13 +144,17 @@ fn should_update_private_sub_merchant() {
         .legal_company_title("Jane Doe inc")
         .build();
 
-    let sub_merchant = SubMerchant::update(&update_sub_merchant_request, &get_test_options()).unwrap();
+    let sub_merchant =
+        SubMerchant::update(&update_sub_merchant_request, &get_test_options()).unwrap();
 
     debug!("{:?}", sub_merchant);
 
     assert_eq!(Some(&Status::Success.to_string()), sub_merchant.status());
     assert_eq!(Some(&Locale::TR.to_string()), sub_merchant.locale());
-    assert_eq!(Some(&String::from("123456789")), sub_merchant.conversation_id());
+    assert_eq!(
+        Some(&String::from("123456789")),
+        sub_merchant.conversation_id()
+    );
     assert_ne!(None, sub_merchant.system_time());
     assert_eq!(None, sub_merchant.error_code());
     assert_eq!(None, sub_merchant.error_message());
@@ -162,13 +179,17 @@ fn should_update_limited_company_sub_merchant() {
         .legal_company_title("ABC inc")
         .build();
 
-    let sub_merchant = SubMerchant::update(&update_sub_merchant_request, &get_test_options()).unwrap();
+    let sub_merchant =
+        SubMerchant::update(&update_sub_merchant_request, &get_test_options()).unwrap();
 
     debug!("{:?}", sub_merchant);
 
     assert_eq!(Some(&Status::Success.to_string()), sub_merchant.status());
     assert_eq!(Some(&Locale::TR.to_string()), sub_merchant.locale());
-    assert_eq!(Some(&String::from("123456789")), sub_merchant.conversation_id());
+    assert_eq!(
+        Some(&String::from("123456789")),
+        sub_merchant.conversation_id()
+    );
     assert_ne!(None, sub_merchant.system_time());
     assert_eq!(None, sub_merchant.error_code());
     assert_eq!(None, sub_merchant.error_message());
@@ -184,7 +205,11 @@ fn should_retrieve_sub_merchant() {
         .sub_merchant_external_id(sub_merchant_external_id.as_str())
         .build();
 
-    SubMerchant::create(&create_limited_company_sub_merchant_request, &get_test_options()).unwrap();
+    SubMerchant::create(
+        &create_limited_company_sub_merchant_request,
+        &get_test_options(),
+    )
+    .unwrap();
 
     let request = RetrieveSubMerchantRequestBuilder::create()
         .sub_merchant_external_id(sub_merchant_external_id.as_str())
@@ -196,11 +221,20 @@ fn should_retrieve_sub_merchant() {
 
     assert_eq!(Some(&Status::Success.to_string()), sub_merchant.status());
     assert_eq!(Some(&Locale::TR.to_string()), sub_merchant.locale());
-    assert_eq!(Some(&String::from("123456789")), sub_merchant.conversation_id());
+    assert_eq!(
+        Some(&String::from("123456789")),
+        sub_merchant.conversation_id()
+    );
     assert_eq!(Some(&String::from("9261877")), sub_merchant.tax_number());
-    assert_eq!(Some(&String::from("TR180006200119000006672315")), sub_merchant.iban());
+    assert_eq!(
+        Some(&String::from("TR180006200119000006672315")),
+        sub_merchant.iban()
+    );
     assert_eq!(Some(&String::from("Tax office")), sub_merchant.tax_office());
-    assert_eq!(Some(&String::from(sub_merchant_external_id)), sub_merchant.sub_merchant_external_id());
+    assert_eq!(
+        Some(&String::from(sub_merchant_external_id)),
+        sub_merchant.sub_merchant_external_id()
+    );
     assert_ne!(None, sub_merchant.system_time());
     assert_eq!(None, sub_merchant.error_code());
     assert_eq!(None, sub_merchant.error_message());

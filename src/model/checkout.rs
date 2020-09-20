@@ -18,12 +18,22 @@ pub struct CheckoutFormInitialize {
 }
 
 impl CheckoutFormInitialize {
-    pub fn create(req: &CreateCheckoutFormInitializeRequest, options: &Options) -> Result<CheckoutFormInitialize> {
+    pub fn create(
+        req: &CreateCheckoutFormInitializeRequest,
+        options: &Options,
+    ) -> Result<CheckoutFormInitialize> {
         let request = serde_json::to_string(req)?;
         debug!("RequestBody:{}", request);
-        let res = HttpClient::create().post(format!("{}{}", options.base_url(), "/payment/iyzipos/checkoutform/initialize/auth/ecom").as_str(),
-                                                request,
-                                                IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options))?;
+        let res = HttpClient::create().post(
+            format!(
+                "{}{}",
+                options.base_url(),
+                "/payment/iyzipos/checkoutform/initialize/auth/ecom"
+            )
+            .as_str(),
+            request,
+            IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options),
+        )?;
         let response = res.json()?;
         Ok(response)
     }
@@ -106,13 +116,19 @@ impl CheckoutForm {
     pub fn retrieve(req: &RetrieveCheckoutFormRequest, options: &Options) -> Result<CheckoutForm> {
         let request = serde_json::to_string(req)?;
         debug!("RequestBody:{}", request);
-        let res = HttpClient::create().post(format!("{}{}", options.base_url(), "/payment/iyzipos/checkoutform/auth/ecom/detail").as_str(),
-                                                request,
-                                                IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options))?;
+        let res = HttpClient::create().post(
+            format!(
+                "{}{}",
+                options.base_url(),
+                "/payment/iyzipos/checkoutform/auth/ecom/detail"
+            )
+            .as_str(),
+            request,
+            IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options),
+        )?;
         let response = res.json()?;
         Ok(response)
     }
-
 
     pub fn set_token<T: Into<String>>(&mut self, token: T) {
         self.token = Some(token.into());

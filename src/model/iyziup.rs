@@ -2,8 +2,8 @@ use bigdecimal::BigDecimal;
 use log::debug;
 
 use crate::client::HttpClient;
-use crate::model::Address;
 use crate::model::payment::PaymentItem;
+use crate::model::Address;
 use crate::options::Options;
 use crate::requests::CreateIyziupFormInitializeRequest;
 use crate::requests::PKISerialize;
@@ -104,7 +104,6 @@ impl IyziupAddress {
     pub fn new() -> Self {
         Self::default()
     }
-
 
     pub fn set_alias<T: Into<String>>(&mut self, alias: T) {
         self.alias = Some(alias.into());
@@ -275,12 +274,11 @@ pub enum OrderItemType {
     Virtual,
 }
 
-
 impl OrderItemType {
     pub fn value(&self) -> &'static str {
         match self {
             OrderItemType::Physical => "PHYSICAL",
-            OrderItemType::Virtual => "VIRTUAL"
+            OrderItemType::Virtual => "VIRTUAL",
         }
     }
 }
@@ -294,12 +292,17 @@ pub struct IyziupFormInitialize {
 }
 
 impl IyziupFormInitialize {
-    pub fn create(req: &CreateIyziupFormInitializeRequest, options: &Options) -> Result<IyziupFormInitialize> {
+    pub fn create(
+        req: &CreateIyziupFormInitializeRequest,
+        options: &Options,
+    ) -> Result<IyziupFormInitialize> {
         let request = serde_json::to_string(req)?;
         debug!("RequestBody:{}", request);
-        let res = HttpClient::create().post(format!("{}{}", options.base_url(), "/v1/iyziup/form/initialize").as_str(),
-                                                request,
-                                                IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options))?;
+        let res = HttpClient::create().post(
+            format!("{}{}", options.base_url(), "/v1/iyziup/form/initialize").as_str(),
+            request,
+            IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options),
+        )?;
         let response = res.json()?;
         Ok(response)
     }
@@ -383,13 +386,14 @@ impl IyziupForm {
     pub fn retrieve(req: &RetrieveIyziupFormRequest, options: &Options) -> Result<IyziupForm> {
         let request = serde_json::to_string(req)?;
         debug!("RequestBody:{}", request);
-        let res = HttpClient::create().post(format!("{}{}", options.base_url(), "/v1/iyziup/form/order/retrieve").as_str(),
-                                                request,
-                                                IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options))?;
+        let res = HttpClient::create().post(
+            format!("{}{}", options.base_url(), "/v1/iyziup/form/order/retrieve").as_str(),
+            request,
+            IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options),
+        )?;
         let response = res.json()?;
         Ok(response)
     }
-
 
     pub fn set_order_response_status<T: Into<String>>(&mut self, order_response_status: T) {
         self.order_response_status = Some(order_response_status.into());
@@ -464,8 +468,7 @@ pub struct Consumer {
     gsm_number: Option<String>,
 }
 
-impl Consumer
-{
+impl Consumer {
     pub fn set_name<T: Into<String>>(&mut self, name: T) {
         self.name = Some(name.into());
     }
@@ -582,15 +585,24 @@ impl IyziupPayment {
         self.fraud_status = Some(fraud_status.into());
     }
 
-    pub fn set_merchant_commission_rate<T: Into<BigDecimal>>(&mut self, merchant_commission_rate: T) {
+    pub fn set_merchant_commission_rate<T: Into<BigDecimal>>(
+        &mut self,
+        merchant_commission_rate: T,
+    ) {
         self.merchant_commission_rate = Some(merchant_commission_rate.into());
     }
 
-    pub fn set_merchant_commission_rate_amount<T: Into<BigDecimal>>(&mut self, merchant_commission_rate_amount: T) {
+    pub fn set_merchant_commission_rate_amount<T: Into<BigDecimal>>(
+        &mut self,
+        merchant_commission_rate_amount: T,
+    ) {
         self.merchant_commission_rate_amount = Some(merchant_commission_rate_amount.into());
     }
 
-    pub fn set_iyzi_commission_rate_amount<T: Into<BigDecimal>>(&mut self, iyzi_commission_rate_amount: T) {
+    pub fn set_iyzi_commission_rate_amount<T: Into<BigDecimal>>(
+        &mut self,
+        iyzi_commission_rate_amount: T,
+    ) {
         self.iyzi_commission_rate_amount = Some(iyzi_commission_rate_amount.into());
     }
 

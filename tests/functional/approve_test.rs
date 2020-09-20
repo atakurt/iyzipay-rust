@@ -29,7 +29,10 @@ fn should_approve_payment_item() {
 
     println!("{:?}", payment);
 
-    let payment_transaction_id = payment.payment_items().unwrap()[0].payment_transaction_id().unwrap().to_owned();
+    let payment_transaction_id = payment.payment_items().unwrap()[0]
+        .payment_transaction_id()
+        .unwrap()
+        .to_owned();
 
     let approval_request = CreateApprovalRequestBuilder::create()
         .payment_transaction_id(payment_transaction_id.to_owned())
@@ -39,7 +42,10 @@ fn should_approve_payment_item() {
 
     debug!("{:?}", approval);
 
-    assert_eq!(Some(&payment_transaction_id), approval.payment_transaction_id());
+    assert_eq!(
+        Some(&payment_transaction_id),
+        approval.payment_transaction_id()
+    );
     assert_eq!(Some(&Status::Success.to_string()), approval.status());
     assert_eq!(Some(&Locale::TR.to_string()), approval.locale());
     assert_ne!(None, approval.system_time());

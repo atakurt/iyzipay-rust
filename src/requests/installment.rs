@@ -23,7 +23,6 @@ impl RetrieveInstallmentInfoRequest {
         RetrieveInstallmentInfoRequest::default()
     }
 
-
     pub fn set_bin_number<T: Into<String>>(&mut self, bin_number: T) {
         self.bin_number = Some(bin_number.into());
     }

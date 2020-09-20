@@ -36,7 +36,10 @@ fn should_cancel_payment() {
     assert_eq!(Some(&Locale::TR.to_string()), cancel.locale());
     assert_eq!(Some(&Status::Success.to_string()), cancel.status());
     assert_eq!(payment.payment_id(), cancel.payment_id());
-    assert_eq!(Some(&BigDecimal::from_str("1.10000000").unwrap()), cancel.price());
+    assert_eq!(
+        Some(&BigDecimal::from_str("1.10000000").unwrap()),
+        cancel.price()
+    );
     assert_eq!(Some(&Currency::TRY.to_string()), cancel.currency());
     assert_ne!(None, cancel.auth_code());
     assert_ne!(None, cancel.system_time());
@@ -68,7 +71,10 @@ fn should_cancel_fraudulent_payment() {
     assert_eq!(Some(&Locale::TR.to_string()), cancel.locale());
     assert_eq!(Some(&Status::Success.to_string()), cancel.status());
     assert_eq!(payment.payment_id(), cancel.payment_id());
-    assert_eq!(Some(&BigDecimal::from_str("1.10000000").unwrap()), cancel.price());
+    assert_eq!(
+        Some(&BigDecimal::from_str("1.10000000").unwrap()),
+        cancel.price()
+    );
     assert_eq!(Some(&Currency::TRY.to_string()), cancel.currency());
     assert_ne!(None, cancel.auth_code());
     assert_ne!(None, cancel.system_time());

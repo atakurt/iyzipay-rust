@@ -53,7 +53,6 @@ impl CreatePaymentRequest {
         CreatePaymentRequest::default()
     }
 
-
     pub fn set_price<T: Into<BigDecimal>>(&mut self, price: T) {
         self.price = Some(price.into());
     }
@@ -235,7 +234,10 @@ impl PKISerialize for RetrievePaymentRequest {
         let mut ser = RequestStringBuilder::new();
         ser.append_option_val(self.request.serialize());
         ser.append_option("paymentId", self.payment_id.as_ref());
-        ser.append_option("paymentConversationId", self.payment_conversation_id.as_ref());
+        ser.append_option(
+            "paymentConversationId",
+            self.payment_conversation_id.as_ref(),
+        );
         Option::from(ser.build(true))
     }
 }

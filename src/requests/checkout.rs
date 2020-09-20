@@ -54,7 +54,6 @@ impl CreateCheckoutFormInitializeRequest {
         CreateCheckoutFormInitializeRequest::default()
     }
 
-
     pub fn set_price<T: Into<BigDecimal>>(&mut self, price: T) {
         self.price = Some(price.into());
     }
@@ -115,7 +114,10 @@ impl CreateCheckoutFormInitializeRequest {
         self.enabled_installments = Some(enabled_installments.into());
     }
 
-    pub fn set_payment_with_new_card_enabled<T: Into<bool>>(&mut self, payment_with_new_card_enabled: T) {
+    pub fn set_payment_with_new_card_enabled<T: Into<bool>>(
+        &mut self,
+        payment_with_new_card_enabled: T,
+    ) {
         self.payment_with_new_card_enabled = Some(payment_with_new_card_enabled.into());
     }
 
@@ -176,7 +178,6 @@ impl CreateCheckoutFormInitializeRequest {
     }
 }
 
-
 impl PKISerialize for CreateCheckoutFormInitializeRequest {
     fn serialize(&self) -> Option<String> {
         let mut ser = RequestStringBuilder::new();
@@ -196,7 +197,10 @@ impl PKISerialize for CreateCheckoutFormInitializeRequest {
         ser.append_option("forceThreeDS", self.force_three_ds);
         ser.append_option("cardUserKey", self.card_user_key.as_ref());
         ser.append_option("enabledInstallments", self.enabled_installments.serialize());
-        ser.append_option("paymentWithNewCardEnabled", self.payment_with_new_card_enabled);
+        ser.append_option(
+            "paymentWithNewCardEnabled",
+            self.payment_with_new_card_enabled,
+        );
         ser.append_option("debitCardAllowed", self.debit_card_allowed);
         Option::from(ser.build(true))
     }
@@ -214,7 +218,6 @@ impl std::ops::DerefMut for CreateCheckoutFormInitializeRequest {
         &mut self.request
     }
 }
-
 
 #[derive(Debug, Default, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]

@@ -7,11 +7,13 @@ use bigdecimal::BigDecimal;
 use bigdecimal::One;
 use log::debug;
 
-use iyzipay_rust::model::{Currency, IyziLinkPagingResource, IyziLinkResource, IyziLinkSaveResource};
 use iyzipay_rust::model::IyziLink;
 use iyzipay_rust::model::IyziLinkStatus;
 use iyzipay_rust::model::Locale;
 use iyzipay_rust::model::Status;
+use iyzipay_rust::model::{
+    Currency, IyziLinkPagingResource, IyziLinkResource, IyziLinkSaveResource,
+};
 use iyzipay_rust::requests::IyziLinkSaveRequest;
 use iyzipay_rust::requests::PagingRequest;
 use iyzipay_rust::requests::Request;
@@ -61,7 +63,13 @@ fn should_update_iyzi_link() {
     create_request.set_sold_limit(1);
     create_request.set_installment_requested(false);
 
-    let token: String = IyziLink::create(&create_request, &get_test_options()).unwrap().data().unwrap().token().unwrap().to_string();
+    let token: String = IyziLink::create(&create_request, &get_test_options())
+        .unwrap()
+        .data()
+        .unwrap()
+        .token()
+        .unwrap()
+        .to_string();
 
     let mut request: IyziLinkSaveRequest = IyziLinkSaveRequest::new();
     request.set_locale(Locale::TR.value());
@@ -71,7 +79,8 @@ fn should_update_iyzi_link() {
     request.set_price(BigDecimal::from_str("10").unwrap());
     request.set_currency(Currency::TRY.value());
 
-    let response: IyziLinkSaveResource = IyziLink::update(token.as_str(), &request, &get_test_options()).unwrap();
+    let response: IyziLinkSaveResource =
+        IyziLink::update(token.as_str(), &request, &get_test_options()).unwrap();
 
     debug!("{:?}", response);
 
@@ -108,7 +117,8 @@ fn should_retrieve_iyzi_links_with_pagination() {
     paging_request.set_locale(Locale::TR.value());
     paging_request.set_conversation_id("123456789");
 
-    let response: IyziLinkPagingResource = IyziLink::retrieve_all(&paging_request, &get_test_options()).unwrap();
+    let response: IyziLinkPagingResource =
+        IyziLink::retrieve_all(&paging_request, &get_test_options()).unwrap();
 
     debug!("{:?}", response);
 
@@ -137,11 +147,18 @@ fn should_retrieve_iyzi_link_with_token() {
     create_request.set_sold_limit(1);
     create_request.set_installment_requested(false);
 
-    let token: String = IyziLink::create(&create_request, &get_test_options()).unwrap().data().unwrap().token().unwrap().to_string();
+    let token: String = IyziLink::create(&create_request, &get_test_options())
+        .unwrap()
+        .data()
+        .unwrap()
+        .token()
+        .unwrap()
+        .to_string();
 
     let request = Request::new("123456789", Locale::TR.value());
 
-    let response: IyziLinkResource = IyziLink::retrieve(token.to_owned(), &request, &get_test_options()).unwrap();
+    let response: IyziLinkResource =
+        IyziLink::retrieve(token.to_owned(), &request, &get_test_options()).unwrap();
 
     debug!("{:?}", response);
 
@@ -150,11 +167,23 @@ fn should_retrieve_iyzi_link_with_token() {
     assert_eq!(Some(&String::from("123456789")), response.conversation_id());
     assert_ne!(None, response.system_time());
     assert_eq!("ft-name", response.data().unwrap().name().unwrap());
-    assert_eq!("ft-description", response.data().unwrap().description().unwrap());
-    assert_eq!(&BigDecimal::from_str("1.00000000").unwrap(), response.data().unwrap().price().unwrap());
-    assert_eq!(Currency::TRY.value(), response.data().unwrap().currency().unwrap());
+    assert_eq!(
+        "ft-description",
+        response.data().unwrap().description().unwrap()
+    );
+    assert_eq!(
+        &BigDecimal::from_str("1.00000000").unwrap(),
+        response.data().unwrap().price().unwrap()
+    );
+    assert_eq!(
+        Currency::TRY.value(),
+        response.data().unwrap().currency().unwrap()
+    );
     assert_eq!(token, response.data().unwrap().token().unwrap().to_string());
-    assert_eq!(&IyziLinkStatus::Active, response.data().unwrap().iyzi_link_status().unwrap());
+    assert_eq!(
+        &IyziLinkStatus::Active,
+        response.data().unwrap().iyzi_link_status().unwrap()
+    );
 }
 
 #[test]
@@ -174,7 +203,13 @@ pub fn should_delete_iyzi_link() {
     create_request.set_sold_limit(1);
     create_request.set_installment_requested(false);
 
-    let token: String = IyziLink::create(&create_request, &get_test_options()).unwrap().data().unwrap().token().unwrap().to_string();
+    let token: String = IyziLink::create(&create_request, &get_test_options())
+        .unwrap()
+        .data()
+        .unwrap()
+        .token()
+        .unwrap()
+        .to_string();
 
     let request: Request = Request::new("123456789", Locale::TR.value());
 

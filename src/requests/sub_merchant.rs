@@ -50,7 +50,6 @@ impl CreateSubMerchantRequest {
         CreateSubMerchantRequest::default()
     }
 
-
     pub fn set_name<T: Into<String>>(&mut self, name: T) {
         self.name = Some(name.into());
     }
@@ -173,7 +172,10 @@ impl PKISerialize for CreateSubMerchantRequest {
         ser.append_option("legalCompanyTitle", self.legal_company_title.as_ref());
         ser.append_option("swiftCode", self.swift_code.as_ref());
         ser.append_option("currency", self.currency.as_ref());
-        ser.append_option("subMerchantExternalId", self.sub_merchant_external_id.as_ref());
+        ser.append_option(
+            "subMerchantExternalId",
+            self.sub_merchant_external_id.as_ref(),
+        );
         ser.append_option("identityNumber", self.identity_number.as_ref());
         ser.append_option("taxNumber", self.tax_number.as_ref());
         ser.append_option("subMerchantType", self.sub_merchant_type.as_ref());
@@ -233,7 +235,6 @@ impl UpdateSubMerchantRequest {
     pub fn new() -> Self {
         UpdateSubMerchantRequest::default()
     }
-
 
     pub fn set_name<T: Into<String>>(&mut self, name: T) {
         self.name = Some(name.into());
@@ -384,7 +385,6 @@ impl RetrieveSubMerchantRequest {
         RetrieveSubMerchantRequest::default()
     }
 
-
     pub fn set_sub_merchant_external_id<T: Into<String>>(&mut self, sub_merchant_external_id: T) {
         self.sub_merchant_external_id = Some(sub_merchant_external_id.into());
     }
@@ -398,7 +398,10 @@ impl PKISerialize for RetrieveSubMerchantRequest {
     fn serialize(&self) -> Option<String> {
         let mut ser = RequestStringBuilder::new();
         ser.append_option_val(self.request.serialize());
-        ser.append_option("subMerchantExternalId", self.sub_merchant_external_id.as_ref());
+        ser.append_option(
+            "subMerchantExternalId",
+            self.sub_merchant_external_id.as_ref(),
+        );
         Option::from(ser.build(true))
     }
 }
@@ -508,7 +511,6 @@ impl CreateApmInitializeRequest {
     pub fn new() -> Self {
         CreateApmInitializeRequest::default()
     }
-
 
     pub fn set_price<T: Into<BigDecimal>>(&mut self, price: T) {
         self.price = Some(price.into());
@@ -653,7 +655,10 @@ impl PKISerialize for CreateApmInitializeRequest {
         ser.append_option("accountHolderName", self.account_holder_name.as_ref());
         ser.append_option("merchantCallbackUrl", self.merchant_callback_url.as_ref());
         ser.append_option("merchantErrorUrl", self.merchant_error_url.as_ref());
-        ser.append_option("merchantNotificationUrl", self.merchant_notification_url.as_ref());
+        ser.append_option(
+            "merchantNotificationUrl",
+            self.merchant_notification_url.as_ref(),
+        );
         ser.append_option("apmType", self.apm_type.as_ref());
         ser.append_option("basketId", self.basket_id.as_ref());
         ser.append_option("buyer", self.buyer.serialize());

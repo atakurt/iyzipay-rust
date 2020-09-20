@@ -95,14 +95,23 @@ fn should_initialize_checkout_form() {
     basket_items.push(third_basket_item);
     request.set_basket_items(basket_items);
 
-    let checkout_form_initialize = CheckoutFormInitialize::create(&request, &get_test_options()).unwrap();
+    let checkout_form_initialize =
+        CheckoutFormInitialize::create(&request, &get_test_options()).unwrap();
 
     println!("{:?}", checkout_form_initialize);
 
-
-    assert_eq!(Some(&Status::Success.to_string()), checkout_form_initialize.status());
-    assert_eq!(Some(&Locale::TR.to_string()), checkout_form_initialize.locale());
-    assert_eq!(Some(&String::from("123456789")), checkout_form_initialize.conversation_id());
+    assert_eq!(
+        Some(&Status::Success.to_string()),
+        checkout_form_initialize.status()
+    );
+    assert_eq!(
+        Some(&Locale::TR.to_string()),
+        checkout_form_initialize.locale()
+    );
+    assert_eq!(
+        Some(&String::from("123456789")),
+        checkout_form_initialize.conversation_id()
+    );
     assert_ne!(None, checkout_form_initialize.system_time());
     assert_eq!(None, checkout_form_initialize.error_code());
     assert_eq!(None, checkout_form_initialize.error_message());
@@ -122,7 +131,10 @@ fn should_retrieve_checkout_form_result() {
 
     assert_eq!(Some(&Status::Success.to_string()), checkout_form.status());
     assert_eq!(Some(&Locale::TR.to_string()), checkout_form.locale());
-    assert_eq!(Some(&String::from("123456789")), checkout_form.conversation_id());
+    assert_eq!(
+        Some(&String::from("123456789")),
+        checkout_form.conversation_id()
+    );
     assert_ne!(None, checkout_form.system_time());
     assert_eq!(None, checkout_form.error_code());
     assert_eq!(None, checkout_form.error_message());

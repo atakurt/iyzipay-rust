@@ -21,4 +21,3 @@ fn should_test_api() {
     assert_eq!(None, resource.error_message());
     assert_eq!(None, resource.error_group());
 }
-

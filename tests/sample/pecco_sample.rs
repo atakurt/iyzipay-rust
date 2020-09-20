@@ -95,9 +95,15 @@ fn should_initialize_pecco() {
 
     println!("{:?}", pecco_initialize);
 
-    assert_eq!(Some(&Status::Success.to_string()), pecco_initialize.status());
+    assert_eq!(
+        Some(&Status::Success.to_string()),
+        pecco_initialize.status()
+    );
     assert_eq!(Some(&Locale::TR.to_string()), pecco_initialize.locale());
-    assert_eq!(Some(&String::from("123456789")), pecco_initialize.conversation_id());
+    assert_eq!(
+        Some(&String::from("123456789")),
+        pecco_initialize.conversation_id()
+    );
     assert_ne!(None, pecco_initialize.system_time());
     assert_eq!(None, pecco_initialize.error_code());
     assert_eq!(None, pecco_initialize.error_message());
@@ -119,7 +125,10 @@ fn should_create_pecco_payment() {
 
     assert_eq!(Some(&Status::Success.to_string()), pecco_payment.status());
     assert_eq!(Some(&Locale::TR.to_string()), pecco_payment.locale());
-    assert_eq!(Some(&String::from("123456789")), pecco_payment.conversation_id());
+    assert_eq!(
+        Some(&String::from("123456789")),
+        pecco_payment.conversation_id()
+    );
     assert_ne!(None, pecco_payment.system_time());
     assert_eq!(None, pecco_payment.error_code());
     assert_eq!(None, pecco_payment.error_message());

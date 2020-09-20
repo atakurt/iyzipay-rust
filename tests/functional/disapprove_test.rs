@@ -28,7 +28,10 @@ fn should_disapprove_payment() {
 
     let payment = Payment::create(&payment_request, &get_test_options()).unwrap();
 
-    let payment_transaction_id = payment.payment_items().unwrap()[0].payment_transaction_id().unwrap().to_owned();
+    let payment_transaction_id = payment.payment_items().unwrap()[0]
+        .payment_transaction_id()
+        .unwrap()
+        .to_owned();
 
     let approval_request = CreateApprovalRequestBuilder::create()
         .payment_transaction_id(payment_transaction_id.to_owned())
@@ -36,11 +39,15 @@ fn should_disapprove_payment() {
 
     Approval::create(&approval_request, &get_test_options()).unwrap();
 
-    let disapproval: Disapproval = Disapproval::create(&approval_request, &get_test_options()).unwrap();
+    let disapproval: Disapproval =
+        Disapproval::create(&approval_request, &get_test_options()).unwrap();
 
     debug!("{:?}", disapproval);
 
-    assert_eq!(Some(&payment_transaction_id), disapproval.payment_transaction_id());
+    assert_eq!(
+        Some(&payment_transaction_id),
+        disapproval.payment_transaction_id()
+    );
     assert_eq!(Some(&Status::Success.to_string()), disapproval.status());
     assert_eq!(Some(&Locale::TR.to_string()), disapproval.locale());
     assert_ne!(None, disapproval.system_time());

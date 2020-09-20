@@ -20,7 +20,10 @@ use crate::get_test_options;
 #[test]
 fn should_initialize_iyziup_form_for_standard_merchant() {
     let _ = env_logger::try_init();
-    let order_items = vec![OrderItemBuilder::create().price(BigDecimal::from_str("0.3").unwrap()).item_description("item description").build()];
+    let order_items = vec![OrderItemBuilder::create()
+        .price(BigDecimal::from_str("0.3").unwrap())
+        .item_description("item description")
+        .build()];
 
     let request = CreateIyziupFormInitializeRequestBuilder::create()
         .price(BigDecimal::from_str("0.3").unwrap())
@@ -33,12 +36,19 @@ fn should_initialize_iyziup_form_for_standard_merchant() {
         .order_items(order_items)
         .build();
 
-    let iyziup_form_initialize: IyziupFormInitialize = IyziupFormInitialize::create(&request, &get_options()).unwrap();
+    let iyziup_form_initialize: IyziupFormInitialize =
+        IyziupFormInitialize::create(&request, &get_options()).unwrap();
 
     debug!("{:?}", iyziup_form_initialize);
 
-    assert_eq!(Some(&Status::Success.to_string()), iyziup_form_initialize.status());
-    assert_eq!(Some(&Locale::TR.to_string()), iyziup_form_initialize.locale());
+    assert_eq!(
+        Some(&Status::Success.to_string()),
+        iyziup_form_initialize.status()
+    );
+    assert_eq!(
+        Some(&Locale::TR.to_string()),
+        iyziup_form_initialize.locale()
+    );
     assert_ne!(None, iyziup_form_initialize.system_time());
     assert_ne!(None, iyziup_form_initialize.token());
     assert_ne!(None, iyziup_form_initialize.content());
@@ -47,7 +57,10 @@ fn should_initialize_iyziup_form_for_standard_merchant() {
 #[test]
 fn should_initialize_iyziup_form_for_standard_merchant_with_initial_consumer_data() {
     let _ = env_logger::try_init();
-    let order_items = vec![OrderItemBuilder::create().price(BigDecimal::from_str("0.3").unwrap()).item_description("item description").build()];
+    let order_items = vec![OrderItemBuilder::create()
+        .price(BigDecimal::from_str("0.3").unwrap())
+        .item_description("item description")
+        .build()];
 
     let request = CreateIyziupFormInitializeRequestBuilder::create()
         .price(BigDecimal::from_str("0.3").unwrap())
@@ -65,8 +78,14 @@ fn should_initialize_iyziup_form_for_standard_merchant_with_initial_consumer_dat
 
     debug!("{:?}", iyziup_form_initialize);
 
-    assert_eq!(Some(&Status::Success.to_string()), iyziup_form_initialize.status());
-    assert_eq!(Some(&Locale::TR.to_string()), iyziup_form_initialize.locale());
+    assert_eq!(
+        Some(&Status::Success.to_string()),
+        iyziup_form_initialize.status()
+    );
+    assert_eq!(
+        Some(&Locale::TR.to_string()),
+        iyziup_form_initialize.locale()
+    );
     assert_ne!(None, iyziup_form_initialize.system_time());
     assert_ne!(None, iyziup_form_initialize.token());
     assert_ne!(None, iyziup_form_initialize.content());
@@ -75,7 +94,10 @@ fn should_initialize_iyziup_form_for_standard_merchant_with_initial_consumer_dat
 #[test]
 fn should_retrieve_checkout_form_result() {
     let _ = env_logger::try_init();
-    let order_items = vec![OrderItemBuilder::create().price(BigDecimal::from_str("0.3").unwrap()).item_description("item description").build()];
+    let order_items = vec![OrderItemBuilder::create()
+        .price(BigDecimal::from_str("0.3").unwrap())
+        .item_description("item description")
+        .build()];
 
     let request = CreateIyziupFormInitializeRequestBuilder::create()
         .price(BigDecimal::from_str("0.3").unwrap())

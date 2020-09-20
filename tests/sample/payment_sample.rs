@@ -109,7 +109,6 @@ fn should_create_payment() {
 
     request.set_basket_items(basket_items);
 
-
     let payment = Payment::create(&request, &get_test_options()).unwrap();
 
     println!("{:?}", payment);
@@ -333,7 +332,6 @@ fn should_create_payment_with_registered_card() {
     assert_eq!(None, payment.error_message());
     assert_eq!(None, payment.error_group());
 }
-
 
 #[test]
 fn should_retrieve_payment_result() {

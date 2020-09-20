@@ -17,13 +17,23 @@ fn should_retrieve_payout_completed_transactions() {
     request.set_conversation_id("123456789");
     request.set_date("2016-01-22 19:13:00");
 
-    let payout_completed_transaction_list = PayoutCompletedTransactionList::retrieve(&request, &get_test_options()).unwrap();
+    let payout_completed_transaction_list =
+        PayoutCompletedTransactionList::retrieve(&request, &get_test_options()).unwrap();
 
     debug!("{:?}", payout_completed_transaction_list);
 
-    assert_eq!(Some(&Status::Success.to_string()), payout_completed_transaction_list.status());
-    assert_eq!(Some(&Locale::TR.to_string()), payout_completed_transaction_list.locale());
-    assert_eq!(Some(&String::from("123456789")), payout_completed_transaction_list.conversation_id());
+    assert_eq!(
+        Some(&Status::Success.to_string()),
+        payout_completed_transaction_list.status()
+    );
+    assert_eq!(
+        Some(&Locale::TR.to_string()),
+        payout_completed_transaction_list.locale()
+    );
+    assert_eq!(
+        Some(&String::from("123456789")),
+        payout_completed_transaction_list.conversation_id()
+    );
     assert_ne!(None, payout_completed_transaction_list.system_time());
     assert_eq!(None, payout_completed_transaction_list.error_code());
     assert_eq!(None, payout_completed_transaction_list.error_message());
@@ -39,13 +49,23 @@ fn should_retrieve_bounced_bank_transfers() {
     request.set_conversation_id("123456789");
     request.set_date("2016-01-22 19:13:00");
 
-    let bounced_bank_transfer_list = BouncedBankTransferList::retrieve(&request, &get_test_options()).unwrap();
+    let bounced_bank_transfer_list =
+        BouncedBankTransferList::retrieve(&request, &get_test_options()).unwrap();
 
     debug!("{:?}", bounced_bank_transfer_list);
 
-    assert_eq!(Some(&Status::Success.to_string()), bounced_bank_transfer_list.status());
-    assert_eq!(Some(&Locale::TR.to_string()), bounced_bank_transfer_list.locale());
-    assert_eq!(Some(&String::from("123456789")), bounced_bank_transfer_list.conversation_id());
+    assert_eq!(
+        Some(&Status::Success.to_string()),
+        bounced_bank_transfer_list.status()
+    );
+    assert_eq!(
+        Some(&Locale::TR.to_string()),
+        bounced_bank_transfer_list.locale()
+    );
+    assert_eq!(
+        Some(&String::from("123456789")),
+        bounced_bank_transfer_list.conversation_id()
+    );
     assert_ne!(None, bounced_bank_transfer_list.system_time());
     assert_eq!(None, bounced_bank_transfer_list.error_code());
     assert_eq!(None, bounced_bank_transfer_list.error_message());

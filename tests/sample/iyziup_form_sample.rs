@@ -75,17 +75,23 @@ fn should_initialize_iyziup_form() {
     order_items.push(third_order_item);
     request.set_order_items(order_items);
 
-    let iyziup_form_initialize: IyziupFormInitialize = IyziupFormInitialize::create(&request, &get_test_options()).unwrap();
+    let iyziup_form_initialize: IyziupFormInitialize =
+        IyziupFormInitialize::create(&request, &get_test_options()).unwrap();
 
     println!("{:?}", iyziup_form_initialize);
 
-    assert_eq!(Some(&Status::Success.to_string()), iyziup_form_initialize.status());
-    assert_eq!(Some(&Locale::TR.to_string()), iyziup_form_initialize.locale());
+    assert_eq!(
+        Some(&Status::Success.to_string()),
+        iyziup_form_initialize.status()
+    );
+    assert_eq!(
+        Some(&Locale::TR.to_string()),
+        iyziup_form_initialize.locale()
+    );
     assert_ne!(None, iyziup_form_initialize.system_time());
     assert_ne!(None, iyziup_form_initialize.token());
     assert_ne!(None, iyziup_form_initialize.content());
 }
-
 
 #[test]
 fn should_initialize_iyziup_form_with_initial_consumer_data() {
@@ -175,12 +181,19 @@ fn should_initialize_iyziup_form_with_initial_consumer_data() {
     initial_consumer.set_address_list(address_list);
     request.set_initial_consumer(initial_consumer);
 
-    let iyziup_form_initialize = IyziupFormInitialize::create(&request, &get_test_options()).unwrap();
+    let iyziup_form_initialize =
+        IyziupFormInitialize::create(&request, &get_test_options()).unwrap();
 
     println!("{:?}", iyziup_form_initialize);
 
-    assert_eq!(Some(&Status::Success.to_string()), iyziup_form_initialize.status());
-    assert_eq!(Some(&Locale::TR.to_string()), iyziup_form_initialize.locale());
+    assert_eq!(
+        Some(&Status::Success.to_string()),
+        iyziup_form_initialize.status()
+    );
+    assert_eq!(
+        Some(&Locale::TR.to_string()),
+        iyziup_form_initialize.locale()
+    );
     assert_ne!(None, iyziup_form_initialize.system_time());
     assert_ne!(None, iyziup_form_initialize.token());
     assert_ne!(None, iyziup_form_initialize.content());
@@ -200,7 +213,10 @@ fn should_retrieve_checkout_form_result() {
 
     assert_eq!(Some(&Status::Success.to_string()), iyziup_form.status());
     assert_eq!(Some(&Locale::TR.to_string()), iyziup_form.locale());
-    assert_eq!(Some(&String::from("123456789")), iyziup_form.conversation_id());
+    assert_eq!(
+        Some(&String::from("123456789")),
+        iyziup_form.conversation_id()
+    );
     assert_ne!(None, iyziup_form.system_time());
     assert_eq!(None, iyziup_form.error_code());
     assert_eq!(None, iyziup_form.error_message());

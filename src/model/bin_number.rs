@@ -29,9 +29,11 @@ pub struct BinNumber {
 impl BinNumber {
     pub fn retrieve(req: &RetrieveBinNumberRequest, options: &Options) -> Result<BinNumber> {
         let request = serde_json::to_string(req)?;
-        let res = HttpClient::create().post(format!("{}{}", options.base_url(), "/payment/bin/check").as_str(),
-                                                request,
-                                                IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options))?;
+        let res = HttpClient::create().post(
+            format!("{}{}", options.base_url(), "/payment/bin/check").as_str(),
+            request,
+            IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options),
+        )?;
         let bin_number = res.json()?;
         Ok(bin_number)
     }

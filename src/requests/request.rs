@@ -7,13 +7,13 @@ const DOT: &'static str = ".";
 const ZERO: &'static str = "0";
 const COMMA: &'static str = ",";
 
-
 pub trait PKISerialize {
     fn serialize(&self) -> Option<String>;
 }
 
 impl<T> PKISerialize for Vec<T>
-    where T: PKISerialize
+where
+    T: PKISerialize,
 {
     fn serialize(&self) -> Option<String> {
         let mut ser = RequestStringBuilder::new();
@@ -38,16 +38,13 @@ impl PKISerialize for Vec<u8> {
 }
 
 impl<T> PKISerialize for Option<T>
-    where T: PKISerialize
+where
+    T: PKISerialize,
 {
     fn serialize(&self) -> Option<String> {
         match self.as_ref() {
-            Some(val) => {
-                val.serialize()
-            }
-            None => {
-                None
-            }
+            Some(val) => val.serialize(),
+            None => None,
         }
     }
 }
@@ -65,8 +62,7 @@ pub struct Request {
 }
 
 impl Request {
-    pub fn new<T: Into<String>>(conversation_id: T, locale: T) -> Self
-    {
+    pub fn new<T: Into<String>>(conversation_id: T, locale: T) -> Self {
         Request {
             conversation_id: Some(conversation_id.into()),
             locale: Some(locale.into()),
@@ -157,8 +153,14 @@ impl PKISerialize for PagingRequest {
     fn serialize(&self) -> Option<String> {
         let mut ser = RequestStringBuilder::new();
         ser.append_option_val(self.request.serialize());
-        ser.append("page", str::from_utf8(&[self.page.unwrap_or_default()]).unwrap());
-        ser.append("count", str::from_utf8(&[self.count.unwrap_or_default()]).unwrap());
+        ser.append(
+            "page",
+            str::from_utf8(&[self.page.unwrap_or_default()]).unwrap(),
+        );
+        ser.append(
+            "count",
+            str::from_utf8(&[self.count.unwrap_or_default()]).unwrap(),
+        );
         Option::from(ser.build(true))
     }
 }
@@ -234,7 +236,11 @@ impl RequestStringBuilder {
         self
     }
 
-    pub fn append_option<T: Into<String>, S: ::std::string::ToString>(&mut self, key: T, value: Option<S>) -> &mut Self {
+    pub fn append_option<T: Into<String>, S: ::std::string::ToString>(
+        &mut self,
+        key: T,
+        value: Option<S>,
+    ) -> &mut Self {
         let val: Option<S> = value.into();
         if val.is_some() {
             self.append_raw(format!("{}={},", key.into(), val.unwrap().to_string()).as_str());
@@ -242,10 +248,21 @@ impl RequestStringBuilder {
         self
     }
 
-    pub fn append_price_option<T: Into<String>>(&mut self, key: T, value: Option<&BigDecimal>) -> &mut Self {
+    pub fn append_price_option<T: Into<String>>(
+        &mut self,
+        key: T,
+        value: Option<&BigDecimal>,
+    ) -> &mut Self {
         let val: Option<&BigDecimal> = value.into();
         if val.is_some() {
-            self.append_raw(format!("{}={},", key.into(), RequestFormatter::format_price(val.unwrap())).as_str());
+            self.append_raw(
+                format!(
+                    "{}={},",
+                    key.into(),
+                    RequestFormatter::format_price(val.unwrap())
+                )
+                .as_str(),
+            );
         }
         self
     }
@@ -264,15 +281,13 @@ impl RequestStringBuilder {
         self.0 = format!("[{}]", self.0);
     }
 
-    fn remove_trailing_comma(&mut self)
-    {
+    fn remove_trailing_comma(&mut self) {
         if self.0.ends_with(COMMA) {
             self.0.truncate(self.0.len() - 1);
         }
     }
 
-    fn remove_prefix_comma(&mut self)
-    {
+    fn remove_prefix_comma(&mut self) {
         if self.0.starts_with(COMMA) {
             self.0.remove(0);
         }

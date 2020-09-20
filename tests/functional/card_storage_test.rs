@@ -17,8 +17,7 @@ use crate::get_test_options;
 fn should_create_user_and_add_card() {
     let _ = env_logger::try_init();
     let external_user_id = RandomGenerator::random_id();
-    let card_information = CardInformationBuilder::create()
-        .build();
+    let card_information = CardInformationBuilder::create().build();
     let create_card_request = CreateCardRequestBuilder::create()
         .card(card_information)
         .external_id(external_user_id)
@@ -49,8 +48,7 @@ fn should_create_user_and_add_card() {
 fn should_create_card_and_add_card_to_existing_user() {
     let _ = env_logger::try_init();
     let external_user_id = RandomGenerator::random_id();
-    let card_information = CardInformationBuilder::create()
-        .build();
+    let card_information = CardInformationBuilder::create().build();
 
     let card_request = CreateCardRequestBuilder::create()
         .card(card_information.to_owned())
@@ -134,7 +132,10 @@ fn should_retrieve_card() {
 
     assert_eq!(Some(&Status::Success.to_string()), card_list.status());
     assert_eq!(Some(&Locale::TR.to_string()), card_list.locale());
-    assert_eq!(Some(&String::from("123456789")), card_list.conversation_id());
+    assert_eq!(
+        Some(&String::from("123456789")),
+        card_list.conversation_id()
+    );
     assert_ne!(None, card_list.system_time());
     assert_eq!(None, card_list.error_code());
     assert_eq!(None, card_list.error_message());
@@ -143,8 +144,7 @@ fn should_retrieve_card() {
 }
 
 fn create_card() -> Card {
-    let card_information = CardInformationBuilder::create()
-        .build();
+    let card_information = CardInformationBuilder::create().build();
     let create_card_request = CreateCardRequestBuilder::create()
         .card(card_information)
         .email("email@email.com")

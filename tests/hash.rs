@@ -3,6 +3,9 @@ pub mod hash_test {
 
     #[test]
     fn should_generate_hash() {
-        assert_eq!("Cy84UuLZpfGhI7oaPD0Ckx1M0mo=", HashGenerator::generate_hash("apiKey", "secretKey", "random", "[data=value]"));
+        assert_eq!(
+            "Cy84UuLZpfGhI7oaPD0Ckx1M0mo=",
+            HashGenerator::generate_hash("apiKey", "secretKey", "random", "[data=value]")
+        );
     }
 }

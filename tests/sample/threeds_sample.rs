@@ -108,9 +108,15 @@ fn should_initialize_threeds() {
 
     println!("{:?}", threeds_initialize);
 
-    assert_eq!(Some(&Status::Success.to_string()), threeds_initialize.status());
+    assert_eq!(
+        Some(&Status::Success.to_string()),
+        threeds_initialize.status()
+    );
     assert_eq!(Some(&Locale::TR.to_string()), threeds_initialize.locale());
-    assert_eq!(Some(&String::from("123456789")), threeds_initialize.conversation_id());
+    assert_eq!(
+        Some(&String::from("123456789")),
+        threeds_initialize.conversation_id()
+    );
     assert_ne!(None, threeds_initialize.system_time());
     assert_eq!(None, threeds_initialize.error_code());
     assert_eq!(None, threeds_initialize.error_message());
@@ -133,7 +139,10 @@ fn should_create_threeds_payment() {
 
     assert_eq!(Some(&Status::Success.to_string()), threeds_payment.status());
     assert_eq!(Some(&Locale::TR.to_string()), threeds_payment.locale());
-    assert_eq!(Some(&String::from("123456789")), threeds_payment.conversation_id());
+    assert_eq!(
+        Some(&String::from("123456789")),
+        threeds_payment.conversation_id()
+    );
     assert_ne!(None, threeds_payment.system_time());
     assert_eq!(None, threeds_payment.error_code());
     assert_eq!(None, threeds_payment.error_message());

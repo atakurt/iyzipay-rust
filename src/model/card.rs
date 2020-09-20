@@ -60,9 +60,11 @@ impl Card {
     pub fn create(req: &CreateCardRequest, options: &Options) -> Result<Card> {
         let request = serde_json::to_string(req)?;
         debug!("RequestBody:{}", request);
-        let res = HttpClient::create().post(format!("{}{}", options.base_url(), "/cardstorage/card").as_str(),
-                                                request,
-                                                IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options))?;
+        let res = HttpClient::create().post(
+            format!("{}{}", options.base_url(), "/cardstorage/card").as_str(),
+            request,
+            IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options),
+        )?;
         let response = res.json()?;
         Ok(response)
     }
@@ -70,9 +72,11 @@ impl Card {
     pub fn delete(req: &DeleteCardRequest, options: &Options) -> Result<Card> {
         let request = serde_json::to_string(req)?;
         debug!("RequestBody:{}", request);
-        let res = HttpClient::create().delete(format!("{}{}", options.base_url(), "/cardstorage/card").as_str(),
-                                                  request,
-                                                  IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options))?;
+        let res = HttpClient::create().delete(
+            format!("{}{}", options.base_url(), "/cardstorage/card").as_str(),
+            request,
+            IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options),
+        )?;
         let response = res.json()?;
         Ok(response)
     }
@@ -206,13 +210,14 @@ impl CardList {
     pub fn retrieve(req: &RetrieveCardListRequest, options: &Options) -> Result<CardList> {
         let request = serde_json::to_string(req)?;
         debug!("RequestBody:{}", request);
-        let res = HttpClient::create().post(format!("{}{}", options.base_url(), "/cardstorage/cards").as_str(),
-                                                request,
-                                                IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options))?;
+        let res = HttpClient::create().post(
+            format!("{}{}", options.base_url(), "/cardstorage/cards").as_str(),
+            request,
+            IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options),
+        )?;
         let response = res.json()?;
         Ok(response)
     }
-
 
     pub fn set_card_user_key<T: Into<String>>(&mut self, card_user_key: T) {
         self.card_user_key = Some(card_user_key.into());
@@ -270,7 +275,6 @@ impl CardInformation {
     }
 }
 
-
 impl PKISerialize for CardInformation {
     fn serialize(&self) -> Option<String> {
         let mut ser = RequestStringBuilder::new();
@@ -297,12 +301,17 @@ pub struct CardManagementPageInitialize {
 }
 
 impl CardManagementPageInitialize {
-    pub fn create(req: &CreateCardManagementPageInitializeRequest, options: &Options) -> Result<CardManagementPageInitialize> {
+    pub fn create(
+        req: &CreateCardManagementPageInitializeRequest,
+        options: &Options,
+    ) -> Result<CardManagementPageInitialize> {
         let request = serde_json::to_string(req)?;
         debug!("RequestBody:{}", request);
-        let res = HttpClient::create().post(format!("{}{}", options.base_url(), "/v1/card-management/pages").as_str(),
-                                                request,
-                                                IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options))?;
+        let res = HttpClient::create().post(
+            format!("{}{}", options.base_url(), "/v1/card-management/pages").as_str(),
+            request,
+            IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options),
+        )?;
         let response = res.json()?;
         Ok(response)
     }
@@ -329,21 +338,35 @@ pub struct CardManagementPageCard {
 }
 
 impl CardManagementPageCard {
-    pub fn retrieve(req: &RetrieveCardManagementPageCardRequest, options: &Options) -> Result<CardManagementPageCard> {
+    pub fn retrieve(
+        req: &RetrieveCardManagementPageCardRequest,
+        options: &Options,
+    ) -> Result<CardManagementPageCard> {
         let request = serde_json::to_string(req)?;
         debug!("RequestBody:{}", request);
-        let res = HttpClient::create().get(Self::prepare_retrieve_card_management_page_card_request(&req, &options).as_str(),
-                                               Some(IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options)))?;
+        let res = HttpClient::create().get(
+            Self::prepare_retrieve_card_management_page_card_request(&req, &options).as_str(),
+            Some(IyzipayResource::get_http_headers(
+                req.serialize().unwrap_or_default(),
+                &options,
+            )),
+        )?;
         let response = res.json()?;
         Ok(response)
     }
 
-    fn prepare_retrieve_card_management_page_card_request(req: &RetrieveCardManagementPageCardRequest, options: &Options) -> String {
+    fn prepare_retrieve_card_management_page_card_request(
+        req: &RetrieveCardManagementPageCardRequest,
+        options: &Options,
+    ) -> String {
         let mut ser = RequestStringBuilder::new();
         ser.append_raw(options.base_url());
-        ser.append_raw("/v1/card-management/pages/").append_raw_option(req.page_token());
-        ser.append_raw("/cards?locale=").append_raw_option(req.locale());
-        ser.append_raw("&conversationId=").append_raw_option(req.conversation_id());
+        ser.append_raw("/v1/card-management/pages/")
+            .append_raw_option(req.page_token());
+        ser.append_raw("/cards?locale=")
+            .append_raw_option(req.locale());
+        ser.append_raw("&conversationId=")
+            .append_raw_option(req.conversation_id());
         ser.build(false)
     }
 }

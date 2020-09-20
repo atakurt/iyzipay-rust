@@ -19,7 +19,10 @@ fn should_disapprove_payment_item() {
 
     assert_eq!(Some(&Status::Success.to_string()), disapproval.status());
     assert_eq!(Some(&Locale::TR.to_string()), disapproval.locale());
-    assert_eq!(Some(&String::from("123456789")), disapproval.conversation_id());
+    assert_eq!(
+        Some(&String::from("123456789")),
+        disapproval.conversation_id()
+    );
     assert_ne!(None, disapproval.system_time());
     assert_eq!(None, disapproval.error_code());
     assert_eq!(None, disapproval.error_message());

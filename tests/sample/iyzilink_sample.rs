@@ -6,11 +6,11 @@ use base64::encode;
 use bigdecimal::BigDecimal;
 use bigdecimal::One;
 
-use iyzipay_rust::model::{Currency, IyziLinkResource};
 use iyzipay_rust::model::IyziLink;
 use iyzipay_rust::model::IyziLinkStatus;
 use iyzipay_rust::model::Locale;
 use iyzipay_rust::model::Status;
+use iyzipay_rust::model::{Currency, IyziLinkResource};
 use iyzipay_rust::requests::IyziLinkSaveRequest;
 use iyzipay_rust::requests::PagingRequest;
 use iyzipay_rust::requests::Request;
@@ -97,7 +97,8 @@ pub fn should_retrieve_iyzi_link_with_token() {
     let _ = env_logger::try_init();
     let request = Request::new("123456789", Locale::TR.value());
 
-    let response: IyziLinkResource = IyziLink::retrieve("TOKEN", &request, &get_test_options()).unwrap();
+    let response: IyziLinkResource =
+        IyziLink::retrieve("TOKEN", &request, &get_test_options()).unwrap();
 
     println!("{:?}", response);
 
@@ -107,9 +108,18 @@ pub fn should_retrieve_iyzi_link_with_token() {
     assert_ne!(None, response.system_time());
     assert_ne!(None, response.data().unwrap().name());
     assert_ne!(None, response.data().unwrap().description());
-    assert_eq!(&BigDecimal::from_str("1.00000000").unwrap(), response.data().unwrap().price().unwrap());
-    assert_eq!(Currency::TRY.value(), response.data().unwrap().currency().unwrap());
-    assert_eq!(&IyziLinkStatus::Active, response.data().unwrap().iyzi_link_status().unwrap());
+    assert_eq!(
+        &BigDecimal::from_str("1.00000000").unwrap(),
+        response.data().unwrap().price().unwrap()
+    );
+    assert_eq!(
+        Currency::TRY.value(),
+        response.data().unwrap().currency().unwrap()
+    );
+    assert_eq!(
+        &IyziLinkStatus::Active,
+        response.data().unwrap().iyzi_link_status().unwrap()
+    );
 }
 
 #[test]

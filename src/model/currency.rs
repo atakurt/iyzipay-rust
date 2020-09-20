@@ -23,7 +23,7 @@ impl Currency {
             Currency::IRR => "IRR",
             Currency::NOK => "NOK",
             Currency::RUB => "RUB",
-            Currency::CHF => "CHF"
+            Currency::CHF => "CHF",
         }
     }
 }

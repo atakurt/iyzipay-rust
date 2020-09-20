@@ -20,13 +20,23 @@ fn should_initialize_card_management_page() {
     request.set_debit_card_allowed(true);
     request.set_locale(Locale::TR.value());
 
-    let card_management_page_initialize = CardManagementPageInitialize::create(&request, &get_test_options()).unwrap();
+    let card_management_page_initialize =
+        CardManagementPageInitialize::create(&request, &get_test_options()).unwrap();
 
     println!("{:?}", card_management_page_initialize);
 
-    assert_eq!(Some(&Status::Success.to_string()), card_management_page_initialize.status());
-    assert_eq!(Some(&Locale::TR.to_string()), card_management_page_initialize.locale());
-    assert_eq!(Some(&String::from("123456789")), card_management_page_initialize.conversation_id());
+    assert_eq!(
+        Some(&Status::Success.to_string()),
+        card_management_page_initialize.status()
+    );
+    assert_eq!(
+        Some(&Locale::TR.to_string()),
+        card_management_page_initialize.locale()
+    );
+    assert_eq!(
+        Some(&String::from("123456789")),
+        card_management_page_initialize.conversation_id()
+    );
     assert_ne!(None, card_management_page_initialize.token);
     assert_ne!(None, card_management_page_initialize.card_page_url);
     assert_ne!(None, card_management_page_initialize.system_time());

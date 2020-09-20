@@ -5,7 +5,6 @@ use log::debug;
 
 use crate::client::HttpClient;
 use crate::options::Options;
-use crate::requests::{CreateBkmInitializeRequest, UpdatePaymentItemRequest};
 use crate::requests::CreateCancelRequest;
 use crate::requests::CreatePaymentRequest;
 use crate::requests::CreatePeccoInitializeRequest;
@@ -16,6 +15,7 @@ use crate::requests::PKISerialize;
 use crate::requests::RequestStringBuilder;
 use crate::requests::RetrieveBkmRequest;
 use crate::requests::RetrievePaymentRequest;
+use crate::requests::{CreateBkmInitializeRequest, UpdatePaymentItemRequest};
 use crate::resource::IyzipayResource;
 use crate::types::Result;
 
@@ -42,7 +42,7 @@ impl PaymentChannel {
             PaymentChannel::MobileAndroid => "MOBILE_ANDROID",
             PaymentChannel::MobileWindows => "MOBILE_WINDOWS",
             PaymentChannel::MobileTablet => "MOBILE_TABLET",
-            PaymentChannel::MobilePhone => "MOBILE_PHONE"
+            PaymentChannel::MobilePhone => "MOBILE_PHONE",
         }
     }
 }
@@ -66,7 +66,7 @@ impl PaymentGroup {
         match self {
             PaymentGroup::Product => "PRODUCT",
             PaymentGroup::Listing => "LISTING",
-            PaymentGroup::Subscription => "SUBSCRIPTION"
+            PaymentGroup::Subscription => "SUBSCRIPTION",
         }
     }
 }
@@ -88,7 +88,7 @@ impl BasketItemType {
     pub fn value(&self) -> &'static str {
         match self {
             BasketItemType::Physical => "PHYSICAL",
-            BasketItemType::Virtual => "VIRTUAL"
+            BasketItemType::Virtual => "VIRTUAL",
         }
     }
 }
@@ -114,7 +114,7 @@ impl RefundReason {
             RefundReason::DoublePayment => "DOUBLE_PAYMENT",
             RefundReason::BuyerRequest => "BUYER_REQUEST",
             RefundReason::Fraud => "FRAUD",
-            RefundReason::Other => "OTHER"
+            RefundReason::Other => "OTHER",
         }
     }
 }
@@ -128,12 +128,8 @@ impl Default for RefundReason {
 impl PKISerialize for Option<RefundReason> {
     fn serialize(&self) -> Option<String> {
         match &self {
-            Some(val) => {
-                Option::from(val.value().to_string())
-            }
-            None => {
-                None
-            }
+            Some(val) => Option::from(val.value().to_string()),
+            None => None,
         }
     }
 }
@@ -163,7 +159,6 @@ impl BasketItem {
     pub fn new() -> Self {
         BasketItem::default()
     }
-
 
     pub fn set_id<T: Into<String>>(&mut self, id: T) {
         self.id = Some(id.into());
@@ -258,7 +253,6 @@ impl Address {
         Address::default()
     }
 
-
     pub fn set_address<T: Into<String>>(&mut self, address: T) {
         self.address = Some(address.into());
     }
@@ -335,7 +329,6 @@ impl PaymentCard {
     pub fn new() -> Self {
         PaymentCard::default()
     }
-
 
     pub fn set_card_holder_name<T: Into<String>>(&mut self, card_holder_name: T) {
         self.card_holder_name = Some(card_holder_name.into());
@@ -453,7 +446,6 @@ impl Buyer {
     pub fn new() -> Self {
         Buyer::default()
     }
-
 
     pub fn set_id<T: Into<String>>(&mut self, id: T) {
         self.id = Some(id.into());
@@ -579,9 +571,11 @@ impl Payment {
     pub fn create(req: &CreatePaymentRequest, options: &Options) -> Result<Payment> {
         let request = serde_json::to_string(req)?;
         debug!("RequestBody:{}", request);
-        let res = HttpClient::create().post(format!("{}{}", options.base_url(), "/payment/auth").as_str(),
-                                                request,
-                                                IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options))?;
+        let res = HttpClient::create().post(
+            format!("{}{}", options.base_url(), "/payment/auth").as_str(),
+            request,
+            IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options),
+        )?;
         let response = res.json()?;
         Ok(response)
     }
@@ -589,9 +583,11 @@ impl Payment {
     pub fn retrieve(req: &RetrievePaymentRequest, options: &Options) -> Result<Payment> {
         let request = serde_json::to_string(req)?;
         debug!("RequestBody:{}", request);
-        let res = HttpClient::create().post(format!("{}{}", options.base_url(), "/payment/detail").as_str(),
-                                                request,
-                                                IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options))?;
+        let res = HttpClient::create().post(
+            format!("{}{}", options.base_url(), "/payment/detail").as_str(),
+            request,
+            IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options),
+        )?;
         let response = res.json()?;
         Ok(response)
     }
@@ -692,15 +688,24 @@ impl PaymentResource {
         self.fraud_status = Some(fraud_status.into());
     }
 
-    pub fn set_merchant_commission_rate<T: Into<BigDecimal>>(&mut self, merchant_commission_rate: T) {
+    pub fn set_merchant_commission_rate<T: Into<BigDecimal>>(
+        &mut self,
+        merchant_commission_rate: T,
+    ) {
         self.merchant_commission_rate = Some(merchant_commission_rate.into());
     }
 
-    pub fn set_merchant_commission_rate_amount<T: Into<BigDecimal>>(&mut self, merchant_commission_rate_amount: T) {
+    pub fn set_merchant_commission_rate_amount<T: Into<BigDecimal>>(
+        &mut self,
+        merchant_commission_rate_amount: T,
+    ) {
         self.merchant_commission_rate_amount = Some(merchant_commission_rate_amount.into());
     }
 
-    pub fn set_iyzi_commission_rate_amount<T: Into<BigDecimal>>(&mut self, iyzi_commission_rate_amount: T) {
+    pub fn set_iyzi_commission_rate_amount<T: Into<BigDecimal>>(
+        &mut self,
+        iyzi_commission_rate_amount: T,
+    ) {
         self.iyzi_commission_rate_amount = Some(iyzi_commission_rate_amount.into());
     }
 
@@ -898,13 +903,14 @@ impl PaymentItem {
     pub fn update(req: &UpdatePaymentItemRequest, options: &Options) -> Result<PaymentItem> {
         let request = serde_json::to_string(req)?;
         debug!("RequestBody:{}", request);
-        let res = HttpClient::create().put(format!("{}{}", options.base_url(), "/payment/item").as_str(),
-                                               request,
-                                               IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options))?;
+        let res = HttpClient::create().put(
+            format!("{}{}", options.base_url(), "/payment/item").as_str(),
+            request,
+            IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options),
+        )?;
         let response = res.json()?;
         Ok(response)
     }
-
 
     pub fn set_item_id<T: Into<String>>(&mut self, item_id: T) {
         self.item_id = Some(item_id.into());
@@ -926,15 +932,24 @@ impl PaymentItem {
         self.paid_price = Some(paid_price.into());
     }
 
-    pub fn set_merchant_commission_rate<T: Into<BigDecimal>>(&mut self, merchant_commission_rate: T) {
+    pub fn set_merchant_commission_rate<T: Into<BigDecimal>>(
+        &mut self,
+        merchant_commission_rate: T,
+    ) {
         self.merchant_commission_rate = Some(merchant_commission_rate.into());
     }
 
-    pub fn set_merchant_commission_rate_amount<T: Into<BigDecimal>>(&mut self, merchant_commission_rate_amount: T) {
+    pub fn set_merchant_commission_rate_amount<T: Into<BigDecimal>>(
+        &mut self,
+        merchant_commission_rate_amount: T,
+    ) {
         self.merchant_commission_rate_amount = Some(merchant_commission_rate_amount.into());
     }
 
-    pub fn set_iyzi_commission_rate_amount<T: Into<BigDecimal>>(&mut self, iyzi_commission_rate_amount: T) {
+    pub fn set_iyzi_commission_rate_amount<T: Into<BigDecimal>>(
+        &mut self,
+        iyzi_commission_rate_amount: T,
+    ) {
         self.iyzi_commission_rate_amount = Some(iyzi_commission_rate_amount.into());
     }
 
@@ -946,11 +961,17 @@ impl PaymentItem {
         self.blockage_rate = Some(blockage_rate.into());
     }
 
-    pub fn set_blockage_rate_amount_merchant<T: Into<BigDecimal>>(&mut self, blockage_rate_amount_merchant: T) {
+    pub fn set_blockage_rate_amount_merchant<T: Into<BigDecimal>>(
+        &mut self,
+        blockage_rate_amount_merchant: T,
+    ) {
         self.blockage_rate_amount_merchant = Some(blockage_rate_amount_merchant.into());
     }
 
-    pub fn set_blockage_rate_amount_sub_merchant<T: Into<BigDecimal>>(&mut self, blockage_rate_amount_sub_merchant: T) {
+    pub fn set_blockage_rate_amount_sub_merchant<T: Into<BigDecimal>>(
+        &mut self,
+        blockage_rate_amount_sub_merchant: T,
+    ) {
         self.blockage_rate_amount_sub_merchant = Some(blockage_rate_amount_sub_merchant.into());
     }
 
@@ -966,11 +987,17 @@ impl PaymentItem {
         self.sub_merchant_price = Some(sub_merchant_price.into());
     }
 
-    pub fn set_sub_merchant_payout_rate<T: Into<BigDecimal>>(&mut self, sub_merchant_payout_rate: T) {
+    pub fn set_sub_merchant_payout_rate<T: Into<BigDecimal>>(
+        &mut self,
+        sub_merchant_payout_rate: T,
+    ) {
         self.sub_merchant_payout_rate = Some(sub_merchant_payout_rate.into());
     }
 
-    pub fn set_sub_merchant_payout_amount<T: Into<BigDecimal>>(&mut self, sub_merchant_payout_amount: T) {
+    pub fn set_sub_merchant_payout_amount<T: Into<BigDecimal>>(
+        &mut self,
+        sub_merchant_payout_amount: T,
+    ) {
         self.sub_merchant_payout_amount = Some(sub_merchant_payout_amount.into());
     }
 
@@ -1078,7 +1105,10 @@ impl ConvertedPayout {
         self.paid_price = Some(paid_price.into());
     }
 
-    pub fn set_iyzi_commission_rate_amount<T: Into<BigDecimal>>(&mut self, iyzi_commission_rate_amount: T) {
+    pub fn set_iyzi_commission_rate_amount<T: Into<BigDecimal>>(
+        &mut self,
+        iyzi_commission_rate_amount: T,
+    ) {
         self.iyzi_commission_rate_amount = Some(iyzi_commission_rate_amount.into());
     }
 
@@ -1086,15 +1116,24 @@ impl ConvertedPayout {
         self.iyzi_commission_fee = Some(iyzi_commission_fee.into());
     }
 
-    pub fn set_blockage_rate_amount_merchant<T: Into<BigDecimal>>(&mut self, blockage_rate_amount_merchant: T) {
+    pub fn set_blockage_rate_amount_merchant<T: Into<BigDecimal>>(
+        &mut self,
+        blockage_rate_amount_merchant: T,
+    ) {
         self.blockage_rate_amount_merchant = Some(blockage_rate_amount_merchant.into());
     }
 
-    pub fn set_blockage_rate_amount_sub_merchant<T: Into<BigDecimal>>(&mut self, blockage_rate_amount_sub_merchant: T) {
+    pub fn set_blockage_rate_amount_sub_merchant<T: Into<BigDecimal>>(
+        &mut self,
+        blockage_rate_amount_sub_merchant: T,
+    ) {
         self.blockage_rate_amount_sub_merchant = Some(blockage_rate_amount_sub_merchant.into());
     }
 
-    pub fn set_sub_merchant_payout_amount<T: Into<BigDecimal>>(&mut self, sub_merchant_payout_amount: T) {
+    pub fn set_sub_merchant_payout_amount<T: Into<BigDecimal>>(
+        &mut self,
+        sub_merchant_payout_amount: T,
+    ) {
         self.sub_merchant_payout_amount = Some(sub_merchant_payout_amount.into());
     }
 
@@ -1106,7 +1145,10 @@ impl ConvertedPayout {
         self.iyzi_conversion_rate = Some(iyzi_conversion_rate.into());
     }
 
-    pub fn set_iyzi_conversion_rate_amount<T: Into<BigDecimal>>(&mut self, iyzi_conversion_rate_amount: T) {
+    pub fn set_iyzi_conversion_rate_amount<T: Into<BigDecimal>>(
+        &mut self,
+        iyzi_conversion_rate_amount: T,
+    ) {
         self.iyzi_conversion_rate_amount = Some(iyzi_conversion_rate_amount.into());
     }
 
@@ -1170,13 +1212,14 @@ impl Cancel {
     pub fn create(req: &CreateCancelRequest, options: &Options) -> Result<Cancel> {
         let request = serde_json::to_string(req)?;
         debug!("RequestBody:{}", request);
-        let res = HttpClient::create().post(format!("{}{}", options.base_url(), "/payment/cancel").as_str(),
-                                                request,
-                                                IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options))?;
+        let res = HttpClient::create().post(
+            format!("{}{}", options.base_url(), "/payment/cancel").as_str(),
+            request,
+            IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options),
+        )?;
         let response = res.json()?;
         Ok(response)
     }
-
 
     pub fn set_payment_id<T: Into<String>>(&mut self, payment_id: T) {
         self.payment_id = Some(payment_id.into());
@@ -1244,13 +1287,14 @@ impl ThreedsInitialize {
     pub fn create(req: &CreatePaymentRequest, options: &Options) -> Result<ThreedsInitialize> {
         let request = serde_json::to_string(req)?;
         debug!("RequestBody:{}", request);
-        let res = HttpClient::create().post(format!("{}{}", options.base_url(), "/payment/3dsecure/initialize").as_str(),
-                                                request,
-                                                IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options))?;
+        let res = HttpClient::create().post(
+            format!("{}{}", options.base_url(), "/payment/3dsecure/initialize").as_str(),
+            request,
+            IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options),
+        )?;
         let response = res.json()?;
         Ok(response)
     }
-
 
     pub fn set_html_content<T: Into<String>>(&mut self, html_content: T) {
         self.html_content = Some(html_content.into());
@@ -1280,9 +1324,11 @@ impl ThreedsPayment {
     pub fn create(req: &CreateThreedsPaymentRequest, options: &Options) -> Result<ThreedsPayment> {
         let request = serde_json::to_string(req)?;
         debug!("RequestBody:{}", request);
-        let res = HttpClient::create().post(format!("{}{}", options.base_url(), "/payment/3dsecure/auth").as_str(),
-                                                request,
-                                                IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options))?;
+        let res = HttpClient::create().post(
+            format!("{}{}", options.base_url(), "/payment/3dsecure/auth").as_str(),
+            request,
+            IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options),
+        )?;
         let response = res.json()?;
         Ok(response)
     }
@@ -1290,9 +1336,11 @@ impl ThreedsPayment {
     pub fn retrieve(req: &RetrievePaymentRequest, options: &Options) -> Result<ThreedsPayment> {
         let request = serde_json::to_string(req)?;
         debug!("RequestBody:{}", request);
-        let res = HttpClient::create().post(format!("{}{}", options.base_url(), "/payment/detail").as_str(),
-                                                request,
-                                                IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options))?;
+        let res = HttpClient::create().post(
+            format!("{}{}", options.base_url(), "/payment/detail").as_str(),
+            request,
+            IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options),
+        )?;
         let response = res.json()?;
         Ok(response)
     }
@@ -1331,13 +1379,14 @@ impl Refund {
     pub fn create(req: &CreateRefundRequest, options: &Options) -> Result<Refund> {
         let request = serde_json::to_string(req)?;
         debug!("RequestBody:{}", request);
-        let res = HttpClient::create().post(format!("{}{}", options.base_url(), "/payment/refund").as_str(),
-                                                request,
-                                                IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options))?;
+        let res = HttpClient::create().post(
+            format!("{}{}", options.base_url(), "/payment/refund").as_str(),
+            request,
+            IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options),
+        )?;
         let response = res.json()?;
         Ok(response)
     }
-
 
     pub fn set_payment_id<T: Into<String>>(&mut self, payment_id: T) {
         self.payment_id = Some(payment_id.into());
@@ -1413,9 +1462,11 @@ impl BkmInitialize {
     pub fn create(req: &CreateBkmInitializeRequest, options: &Options) -> Result<BkmInitialize> {
         let request = serde_json::to_string(req)?;
         debug!("RequestBody:{}", request);
-        let res = HttpClient::create().post(format!("{}{}", options.base_url(), "/payment/bkm/initialize").as_str(),
-                                                request,
-                                                IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options))?;
+        let res = HttpClient::create().post(
+            format!("{}{}", options.base_url(), "/payment/bkm/initialize").as_str(),
+            request,
+            IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options),
+        )?;
         let response = res.json()?;
         Ok(response)
     }
@@ -1459,13 +1510,14 @@ impl Bkm {
     pub fn retrieve(req: &RetrieveBkmRequest, options: &Options) -> Result<Bkm> {
         let request = serde_json::to_string(req)?;
         debug!("RequestBody:{}", request);
-        let res = HttpClient::create().post(format!("{}{}", options.base_url(), "/payment/bkm/auth/detail").as_str(),
-                                                request,
-                                                IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options))?;
+        let res = HttpClient::create().post(
+            format!("{}{}", options.base_url(), "/payment/bkm/auth/detail").as_str(),
+            request,
+            IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options),
+        )?;
         let response = res.json()?;
         Ok(response)
     }
-
 
     pub fn set_token<T: Into<String>>(&mut self, token: T) {
         self.token = Some(token.into());
@@ -1507,16 +1559,20 @@ pub struct PeccoInitialize {
 }
 
 impl PeccoInitialize {
-    pub fn create(req: &CreatePeccoInitializeRequest, options: &Options) -> Result<PeccoInitialize> {
+    pub fn create(
+        req: &CreatePeccoInitializeRequest,
+        options: &Options,
+    ) -> Result<PeccoInitialize> {
         let request = serde_json::to_string(req)?;
         debug!("RequestBody:{}", request);
-        let res = HttpClient::create().post(format!("{}{}", options.base_url(), "/payment/pecco/initialize").as_str(),
-                                                request,
-                                                IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options))?;
+        let res = HttpClient::create().post(
+            format!("{}{}", options.base_url(), "/payment/pecco/initialize").as_str(),
+            request,
+            IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options),
+        )?;
         let response = res.json()?;
         Ok(response)
     }
-
 
     pub fn set_html_content<T: Into<String>>(&mut self, html_content: T) {
         self.html_content = Some(html_content.into());
@@ -1569,9 +1625,11 @@ impl PeccoPayment {
     pub fn create(req: &CreatePeccoPaymentRequest, options: &Options) -> Result<PeccoPayment> {
         let request = serde_json::to_string(req)?;
         debug!("RequestBody:{}", request);
-        let res = HttpClient::create().post(format!("{}{}", options.base_url(), "/payment/pecco/auth").as_str(),
-                                                request,
-                                                IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options))?;
+        let res = HttpClient::create().post(
+            format!("{}{}", options.base_url(), "/payment/pecco/auth").as_str(),
+            request,
+            IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options),
+        )?;
         let response = res.json()?;
         Ok(response)
     }

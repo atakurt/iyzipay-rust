@@ -9,7 +9,7 @@ pub fn get_test_options() -> Options {
 }
 
 mod functional;
-mod sample;
-mod iyziauth;
 mod hash;
+mod iyziauth;
 mod request_formatter;
+mod sample;

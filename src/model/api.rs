@@ -7,12 +7,15 @@ use crate::types::Result;
 #[serde(rename_all = "camelCase")]
 pub struct Api {
     #[serde(flatten)]
-    resource: IyzipayResource
+    resource: IyzipayResource,
 }
 
 impl Api {
     pub fn retrieve(options: &Options) -> Result<IyzipayResource> {
-        let res = HttpClient::create().get(format!("{}{}", options.base_url(), "/payment/test").as_str(), None)?;
+        let res = HttpClient::create().get(
+            format!("{}{}", options.base_url(), "/payment/test").as_str(),
+            None,
+        )?;
         let response = res.json()?;
         Ok(response)
     }

@@ -2,8 +2,8 @@ use std::str::FromStr;
 
 use bigdecimal::BigDecimal;
 
-use iyzipay_rust::model::{Locale, Status};
 use iyzipay_rust::model::PaymentItem;
+use iyzipay_rust::model::{Locale, Status};
 use iyzipay_rust::requests::UpdatePaymentItemRequest;
 
 use crate::get_test_options;

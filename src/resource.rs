@@ -1,13 +1,12 @@
 extern crate chrono;
 extern crate sha1;
 
-
 use std::iter;
 
 use chrono::prelude::*;
 use log::debug;
-use rand::{Rng, thread_rng};
 use rand::distributions::Alphanumeric;
+use rand::{thread_rng, Rng};
 use reqwest::header::{HeaderMap, HeaderValue};
 use uuid::Uuid;
 
@@ -53,39 +52,100 @@ impl IyzipayResource {
             .map(|()| rng.sample(Alphanumeric))
             .take(RANDOM_STRING_SIZE)
             .collect();
-        let random_string = format!("{}{}", IyzipayResource::get_unix_timestamp_ms(), random_alpanumeric);
+        let random_string = format!(
+            "{}{}",
+            IyzipayResource::get_unix_timestamp_ms(),
+            random_alpanumeric
+        );
         debug!("Request:{}", request);
 
-        headers.insert(RANDOM_HEADER_NAME, HeaderValue::from_str(random_string.as_str()).unwrap());
-        headers.insert(AUTHORIZATION, IyzipayResource::prepare_authorization_header(request, random_string, options));
+        headers.insert(
+            RANDOM_HEADER_NAME,
+            HeaderValue::from_str(random_string.as_str()).unwrap(),
+        );
+        headers.insert(
+            AUTHORIZATION,
+            IyzipayResource::prepare_authorization_header(request, random_string, options),
+        );
 
         IyzipayResource::put_client_version_header(&mut headers);
 
-
-        debug!("Header:{}:{:?}", RANDOM_HEADER_NAME, headers.get(RANDOM_HEADER_NAME).unwrap());
-        debug!("Header:{}:{:?}", AUTHORIZATION, headers.get(AUTHORIZATION).unwrap());
-        debug!("Header:{}:{:?}", CLIENT_VERSION_HEADER_NAME, headers.get(CLIENT_VERSION_HEADER_NAME).unwrap());
+        debug!(
+            "Header:{}:{:?}",
+            RANDOM_HEADER_NAME,
+            headers.get(RANDOM_HEADER_NAME).unwrap()
+        );
+        debug!(
+            "Header:{}:{:?}",
+            AUTHORIZATION,
+            headers.get(AUTHORIZATION).unwrap()
+        );
+        debug!(
+            "Header:{}:{:?}",
+            CLIENT_VERSION_HEADER_NAME,
+            headers.get(CLIENT_VERSION_HEADER_NAME).unwrap()
+        );
         headers
     }
 
-    pub fn prepare_authorization_header(request: String, random_string: String, options: &Options) -> HeaderValue {
-        let auth_str = format!("{} {}:{}", "IYZWS", options.api_key(), HashGenerator::generate_hash(options.api_key(), options.secret_key(), random_string.as_str(), request.as_str()));
+    pub fn prepare_authorization_header(
+        request: String,
+        random_string: String,
+        options: &Options,
+    ) -> HeaderValue {
+        let auth_str = format!(
+            "{} {}:{}",
+            "IYZWS",
+            options.api_key(),
+            HashGenerator::generate_hash(
+                options.api_key(),
+                options.secret_key(),
+                random_string.as_str(),
+                request.as_str()
+            )
+        );
         HeaderValue::from_str(auth_str.as_str()).unwrap()
     }
 
-    pub fn prepare_authorization_header_v2(uri: String, request: String, random_string: String, options: &Options) -> HeaderValue {
-        let auth_str = format!("{} {}", "IYZWSv2", IyziAuthV2Generator::generate_auth_content(uri.as_str(), options.api_key(), options.secret_key(), random_string.as_str(), request.as_str()));
+    pub fn prepare_authorization_header_v2(
+        uri: String,
+        request: String,
+        random_string: String,
+        options: &Options,
+    ) -> HeaderValue {
+        let auth_str = format!(
+            "{} {}",
+            "IYZWSv2",
+            IyziAuthV2Generator::generate_auth_content(
+                uri.as_str(),
+                options.api_key(),
+                options.secret_key(),
+                random_string.as_str(),
+                request.as_str()
+            )
+        );
         HeaderValue::from_str(auth_str.as_str()).unwrap()
     }
 
     pub fn get_http_headers_v2(uri: String, request: String, options: &Options) -> HeaderMap {
         let mut headers = HeaderMap::new();
         let random_string = Uuid::new_v4().to_string();
-        headers.insert(AUTHORIZATION, IyzipayResource::prepare_authorization_header_v2(uri, request, random_string, options));
+        headers.insert(
+            AUTHORIZATION,
+            IyzipayResource::prepare_authorization_header_v2(uri, request, random_string, options),
+        );
         IyzipayResource::put_client_version_header(&mut headers);
 
-        debug!("Header:{}:{:?}", AUTHORIZATION, headers.get(AUTHORIZATION).unwrap());
-        debug!("Header:{}:{:?}", CLIENT_VERSION_HEADER_NAME, headers.get(CLIENT_VERSION_HEADER_NAME).unwrap());
+        debug!(
+            "Header:{}:{:?}",
+            AUTHORIZATION,
+            headers.get(AUTHORIZATION).unwrap()
+        );
+        debug!(
+            "Header:{}:{:?}",
+            CLIENT_VERSION_HEADER_NAME,
+            headers.get(CLIENT_VERSION_HEADER_NAME).unwrap()
+        );
 
         headers
     }
@@ -99,9 +159,11 @@ impl IyzipayResource {
 
     fn put_client_version_header(headers: &mut HeaderMap<HeaderValue>) {
         let client: String = format!("{}-{}", CLIENT_TITLE, CLIENT_VERSION);
-        headers.insert(CLIENT_VERSION_HEADER_NAME, HeaderValue::from_str(client.as_str()).unwrap());
+        headers.insert(
+            CLIENT_VERSION_HEADER_NAME,
+            HeaderValue::from_str(client.as_str()).unwrap(),
+        );
     }
-
 
     pub fn set_status<T: Into<String>>(&mut self, status: T) {
         self.status = Some(status.into());

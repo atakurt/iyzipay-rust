@@ -11,7 +11,7 @@ impl Status {
     pub fn value(&self) -> &'static str {
         match self {
             Status::Success => "success",
-            Status::Failure => "failure"
+            Status::Failure => "failure",
         }
     }
 }

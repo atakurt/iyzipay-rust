@@ -104,7 +104,10 @@ fn should_initialize_bkm() {
 
     assert_eq!(Some(&Status::Success.to_string()), bkm_initialize.status());
     assert_eq!(Some(&Locale::TR.to_string()), bkm_initialize.locale());
-    assert_eq!(Some(&String::from("123456789")), bkm_initialize.conversation_id());
+    assert_eq!(
+        Some(&String::from("123456789")),
+        bkm_initialize.conversation_id()
+    );
     assert_ne!(None, bkm_initialize.system_time());
     assert_eq!(None, bkm_initialize.error_code());
     assert_eq!(None, bkm_initialize.error_message());

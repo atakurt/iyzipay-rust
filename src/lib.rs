@@ -4,11 +4,11 @@ extern crate serde;
 extern crate serde_derive;
 extern crate serde_json;
 
-pub mod options;
-pub mod model;
-pub mod resource;
-pub mod requests;
 pub mod hash;
+pub mod model;
+pub mod options;
+pub mod requests;
+pub mod resource;
 
 mod client;
 mod types;

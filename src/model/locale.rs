@@ -11,7 +11,7 @@ impl Locale {
     pub fn value(&self) -> &'static str {
         match self {
             Locale::EN => "en",
-            Locale::TR => "tr"
+            Locale::TR => "tr",
         }
     }
 }

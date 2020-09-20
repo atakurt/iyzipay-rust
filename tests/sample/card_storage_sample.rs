@@ -131,11 +131,13 @@ fn should_retrieve_cards() {
 
     assert_eq!(Some(&Status::Success.to_string()), card_list.status());
     assert_eq!(Some(&Locale::TR.to_string()), card_list.locale());
-    assert_eq!(Some(&String::from("123456789")), card_list.conversation_id());
+    assert_eq!(
+        Some(&String::from("123456789")),
+        card_list.conversation_id()
+    );
     assert_ne!(None, card_list.system_time());
     assert_eq!(None, card_list.error_code());
     assert_eq!(None, card_list.error_message());
     assert_eq!(None, card_list.error_group());
     assert_ne!(None, card_list.card_details());
 }
-

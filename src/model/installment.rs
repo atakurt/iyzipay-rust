@@ -18,17 +18,25 @@ pub struct InstallmentInfo {
 }
 
 impl InstallmentInfo {
-    pub fn retrieve(req: &RetrieveInstallmentInfoRequest, options: &Options) -> Result<InstallmentInfo> {
+    pub fn retrieve(
+        req: &RetrieveInstallmentInfoRequest,
+        options: &Options,
+    ) -> Result<InstallmentInfo> {
         let request = serde_json::to_string(req)?;
         debug!("RequestBody:{}", request);
-        let res = HttpClient::create().post(format!("{}{}", options.base_url(), "/payment/iyzipos/installment").as_str(),
-                                                request,
-                                                IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options))?;
+        let res = HttpClient::create().post(
+            format!("{}{}", options.base_url(), "/payment/iyzipos/installment").as_str(),
+            request,
+            IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options),
+        )?;
         let response = res.json()?;
         Ok(response)
     }
 
-    pub fn set_installment_details<T: Into<Vec<InstallmentDetail>>>(&mut self, installment_details: T) {
+    pub fn set_installment_details<T: Into<Vec<InstallmentDetail>>>(
+        &mut self,
+        installment_details: T,
+    ) {
         self.installment_details = Some(installment_details.into());
     }
 
@@ -107,7 +115,10 @@ impl InstallmentDetail {
         self.commercial = Some(commercial.into());
     }
 
-    pub fn set_installment_prices<T: Into<Vec<InstallmentPrice>>>(&mut self, installment_prices: T) {
+    pub fn set_installment_prices<T: Into<Vec<InstallmentPrice>>>(
+        &mut self,
+        installment_prices: T,
+    ) {
         self.installment_prices = Some(installment_prices.into());
     }
 

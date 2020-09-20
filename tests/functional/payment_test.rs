@@ -39,11 +39,26 @@ fn should_create_listing_payment() {
     assert_eq!(None, payment.error_group());
     assert_ne!(None, payment.host_reference());
     assert_eq!(payment.price().unwrap(), &BigDecimal::one());
-    assert_eq!(payment.paid_price().unwrap(), &BigDecimal::from_str("1.1").unwrap());
-    assert_eq!(payment.iyzi_commission_rate_amount().unwrap(), &BigDecimal::from_str("0.02887500").unwrap());
-    assert_eq!(payment.iyzi_commission_fee().unwrap(), &BigDecimal::from_str("0.25000000").unwrap());
-    assert_eq!(payment.merchant_commission_rate().unwrap(), &BigDecimal::from_str("10.00000000").unwrap());
-    assert_eq!(payment.merchant_commission_rate_amount().unwrap(), &BigDecimal::from_str("0.1").unwrap());
+    assert_eq!(
+        payment.paid_price().unwrap(),
+        &BigDecimal::from_str("1.1").unwrap()
+    );
+    assert_eq!(
+        payment.iyzi_commission_rate_amount().unwrap(),
+        &BigDecimal::from_str("0.02887500").unwrap()
+    );
+    assert_eq!(
+        payment.iyzi_commission_fee().unwrap(),
+        &BigDecimal::from_str("0.25000000").unwrap()
+    );
+    assert_eq!(
+        payment.merchant_commission_rate().unwrap(),
+        &BigDecimal::from_str("10.00000000").unwrap()
+    );
+    assert_eq!(
+        payment.merchant_commission_rate_amount().unwrap(),
+        &BigDecimal::from_str("0.1").unwrap()
+    );
 }
 
 #[test]
@@ -53,7 +68,8 @@ fn should_create_marketplace_payment() {
         .personal_sub_merchant_request()
         .build();
 
-    let sub_merchant: SubMerchant = SubMerchant::create(&create_sub_merchant_request, &get_test_options()).unwrap();
+    let sub_merchant: SubMerchant =
+        SubMerchant::create(&create_sub_merchant_request, &get_test_options()).unwrap();
     let sub_merchant_key = sub_merchant.sub_merchant_key().unwrap();
 
     let request = CreatePaymentRequestBuilder::create()
@@ -73,11 +89,26 @@ fn should_create_marketplace_payment() {
     assert_eq!(None, payment.error_group());
     assert_ne!(None, payment.host_reference());
     assert_eq!(payment.price().unwrap(), &BigDecimal::one());
-    assert_eq!(payment.paid_price().unwrap(), &BigDecimal::from_str("1.1").unwrap());
-    assert_eq!(payment.iyzi_commission_rate_amount().unwrap(), &BigDecimal::from_str("0.02887500").unwrap());
-    assert_eq!(payment.iyzi_commission_fee().unwrap(), &BigDecimal::from_str("0.25000000").unwrap());
-    assert_eq!(payment.merchant_commission_rate().unwrap(), &BigDecimal::from_str("10.00000000").unwrap());
-    assert_eq!(payment.merchant_commission_rate_amount().unwrap(), &BigDecimal::from_str("0.1").unwrap());
+    assert_eq!(
+        payment.paid_price().unwrap(),
+        &BigDecimal::from_str("1.1").unwrap()
+    );
+    assert_eq!(
+        payment.iyzi_commission_rate_amount().unwrap(),
+        &BigDecimal::from_str("0.02887500").unwrap()
+    );
+    assert_eq!(
+        payment.iyzi_commission_fee().unwrap(),
+        &BigDecimal::from_str("0.25000000").unwrap()
+    );
+    assert_eq!(
+        payment.merchant_commission_rate().unwrap(),
+        &BigDecimal::from_str("10.00000000").unwrap()
+    );
+    assert_eq!(
+        payment.merchant_commission_rate_amount().unwrap(),
+        &BigDecimal::from_str("0.1").unwrap()
+    );
     assert_eq!(payment.installment().unwrap(), &1);
 }
 
@@ -85,8 +116,7 @@ fn should_create_marketplace_payment() {
 fn should_create_payment_with_registered_card() {
     let _ = env_logger::try_init();
     let external_user_id = RandomGenerator::random_id();
-    let card_information = CardInformationBuilder::create()
-        .build();
+    let card_information = CardInformationBuilder::create().build();
     let create_card_request = CreateCardRequestBuilder::create()
         .card(card_information)
         .external_id(external_user_id)
@@ -118,11 +148,26 @@ fn should_create_payment_with_registered_card() {
     assert_eq!(None, payment.error_group());
     assert_ne!(None, payment.host_reference());
     assert_eq!(payment.price().unwrap(), &BigDecimal::one());
-    assert_eq!(payment.paid_price().unwrap(), &BigDecimal::from_str("1.1").unwrap());
-    assert_eq!(payment.iyzi_commission_rate_amount().unwrap(), &BigDecimal::from_str("0.02887500").unwrap());
-    assert_eq!(payment.iyzi_commission_fee().unwrap(), &BigDecimal::from_str("0.25000000").unwrap());
-    assert_eq!(payment.merchant_commission_rate().unwrap(), &BigDecimal::from_str("10.00000000").unwrap());
-    assert_eq!(payment.merchant_commission_rate_amount().unwrap(), &BigDecimal::from_str("0.1").unwrap());
+    assert_eq!(
+        payment.paid_price().unwrap(),
+        &BigDecimal::from_str("1.1").unwrap()
+    );
+    assert_eq!(
+        payment.iyzi_commission_rate_amount().unwrap(),
+        &BigDecimal::from_str("0.02887500").unwrap()
+    );
+    assert_eq!(
+        payment.iyzi_commission_fee().unwrap(),
+        &BigDecimal::from_str("0.25000000").unwrap()
+    );
+    assert_eq!(
+        payment.merchant_commission_rate().unwrap(),
+        &BigDecimal::from_str("10.00000000").unwrap()
+    );
+    assert_eq!(
+        payment.merchant_commission_rate_amount().unwrap(),
+        &BigDecimal::from_str("0.1").unwrap()
+    );
     assert_eq!(payment.installment().unwrap(), &1);
     assert_eq!(payment.last_four_digits().unwrap(), "0008");
 }

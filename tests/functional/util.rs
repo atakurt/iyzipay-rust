@@ -1,7 +1,7 @@
 use std::iter;
 
-use rand::{Rng, thread_rng};
 use rand::distributions::Alphanumeric;
+use rand::{thread_rng, Rng};
 
 const ID_LENGTH: usize = 11;
 
