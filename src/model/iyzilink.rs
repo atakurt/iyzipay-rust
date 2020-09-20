@@ -26,7 +26,7 @@ impl IyziLink {
         debug!("RequestBody:{}", request.to_owned());
         let uri = format!("{}{}{}", options.base_url(), V2_IYZILINK_PRODUCTS, req.get_query_params());
         debug!("uri:{}", uri.to_owned());
-        let mut res = HttpClient::create().post(uri.as_str(),
+        let res = HttpClient::create().post(uri.as_str(),
                                                 request.to_owned(),
                                                 IyzipayResource::get_http_headers_v2(uri.to_owned(), request.to_owned(), &options))?;
         let response = res.json()?;
@@ -38,7 +38,7 @@ impl IyziLink {
         debug!("RequestBody:{}", request.to_owned());
         let uri = format!("{}{}/{}{}", options.base_url(), V2_IYZILINK_PRODUCTS, token.into(), req.get_query_params());
         debug!("uri:{}", uri.to_owned());
-        let mut res = HttpClient::create().put(uri.as_str(),
+        let res = HttpClient::create().put(uri.as_str(),
                                                request.to_owned(),
                                                IyzipayResource::get_http_headers_v2(uri.to_owned(), request.to_owned(), &options))?;
         let response = res.json()?;
@@ -50,7 +50,7 @@ impl IyziLink {
         debug!("RequestBody:{}", request.to_owned());
         let uri = format!("{}{}/{}{}", options.base_url(), V2_IYZILINK_PRODUCTS, token.into(), req.get_query_params());
         debug!("uri:{}", uri.to_owned());
-        let mut res = HttpClient::create().get(uri.as_str(),
+        let res = HttpClient::create().get(uri.as_str(),
                                                Option::from(IyzipayResource::get_http_headers_v2(uri.to_owned(), String::new(), &options)))?;
 
         let response = res.json()?;
@@ -65,7 +65,7 @@ impl IyziLink {
 
         let uri = format!("{}{}{}", options.base_url(), V2_IYZILINK_PRODUCTS, query_params);
         debug!("uri:{}", uri.to_owned());
-        let mut res = HttpClient::create().get(uri.as_str(),
+        let res = HttpClient::create().get(uri.as_str(),
                                                Option::from(IyzipayResource::get_http_headers_v2(uri.to_owned(), String::new(), &options)))?;
 
         let response = res.json()?;
@@ -77,7 +77,7 @@ impl IyziLink {
         debug!("RequestBody:{}", request.to_owned());
         let uri = format!("{}{}/{}{}", options.base_url(), V2_IYZILINK_PRODUCTS, token.into(), req.get_query_params());
         debug!("uri:{}", uri.to_owned());
-        let mut res = HttpClient::create().delete(uri.as_str(),
+        let res = HttpClient::create().delete(uri.as_str(),
                                                   String::new(),
                                                   IyzipayResource::get_http_headers_v2(uri.to_owned(), String::new(), &options))?;
 

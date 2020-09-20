@@ -60,7 +60,7 @@ impl Card {
     pub fn create(req: &CreateCardRequest, options: &Options) -> Result<Card> {
         let request = serde_json::to_string(req)?;
         debug!("RequestBody:{}", request);
-        let mut res = HttpClient::create().post(format!("{}{}", options.base_url(), "/cardstorage/card").as_str(),
+        let res = HttpClient::create().post(format!("{}{}", options.base_url(), "/cardstorage/card").as_str(),
                                                 request,
                                                 IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options))?;
         let response = res.json()?;
@@ -70,7 +70,7 @@ impl Card {
     pub fn delete(req: &DeleteCardRequest, options: &Options) -> Result<Card> {
         let request = serde_json::to_string(req)?;
         debug!("RequestBody:{}", request);
-        let mut res = HttpClient::create().delete(format!("{}{}", options.base_url(), "/cardstorage/card").as_str(),
+        let res = HttpClient::create().delete(format!("{}{}", options.base_url(), "/cardstorage/card").as_str(),
                                                   request,
                                                   IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options))?;
         let response = res.json()?;
@@ -206,7 +206,7 @@ impl CardList {
     pub fn retrieve(req: &RetrieveCardListRequest, options: &Options) -> Result<CardList> {
         let request = serde_json::to_string(req)?;
         debug!("RequestBody:{}", request);
-        let mut res = HttpClient::create().post(format!("{}{}", options.base_url(), "/cardstorage/cards").as_str(),
+        let res = HttpClient::create().post(format!("{}{}", options.base_url(), "/cardstorage/cards").as_str(),
                                                 request,
                                                 IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options))?;
         let response = res.json()?;
@@ -300,7 +300,7 @@ impl CardManagementPageInitialize {
     pub fn create(req: &CreateCardManagementPageInitializeRequest, options: &Options) -> Result<CardManagementPageInitialize> {
         let request = serde_json::to_string(req)?;
         debug!("RequestBody:{}", request);
-        let mut res = HttpClient::create().post(format!("{}{}", options.base_url(), "/v1/card-management/pages").as_str(),
+        let res = HttpClient::create().post(format!("{}{}", options.base_url(), "/v1/card-management/pages").as_str(),
                                                 request,
                                                 IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options))?;
         let response = res.json()?;
@@ -332,7 +332,7 @@ impl CardManagementPageCard {
     pub fn retrieve(req: &RetrieveCardManagementPageCardRequest, options: &Options) -> Result<CardManagementPageCard> {
         let request = serde_json::to_string(req)?;
         debug!("RequestBody:{}", request);
-        let mut res = HttpClient::create().get(Self::prepare_retrieve_card_management_page_card_request(&req, &options).as_str(),
+        let res = HttpClient::create().get(Self::prepare_retrieve_card_management_page_card_request(&req, &options).as_str(),
                                                Some(IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options)))?;
         let response = res.json()?;
         Ok(response)

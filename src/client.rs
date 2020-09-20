@@ -1,10 +1,10 @@
 use std::time::Duration;
 
-use reqwest::Client;
+use reqwest::blocking::Client;
 use reqwest::header;
 use reqwest::header::HeaderMap;
-use reqwest::RedirectPolicy;
-use reqwest::Response;
+use reqwest::redirect::Policy;
+use reqwest::blocking::Response;
 
 use crate::types::Result;
 
@@ -19,9 +19,9 @@ pub struct HttpClient
 impl HttpClient {
     pub fn create() -> HttpClient {
         HttpClient {
-            client: reqwest::Client::builder()
+            client: reqwest::blocking::Client::builder()
                 .timeout(Duration::from_millis(TIMEOUT))
-                .redirect(RedirectPolicy::none())
+                .redirect(Policy::none())
                 .default_headers(HttpClient::get_default_headers())
                 .build().unwrap()
         }

@@ -21,7 +21,7 @@ impl InstallmentInfo {
     pub fn retrieve(req: &RetrieveInstallmentInfoRequest, options: &Options) -> Result<InstallmentInfo> {
         let request = serde_json::to_string(req)?;
         debug!("RequestBody:{}", request);
-        let mut res = HttpClient::create().post(format!("{}{}", options.base_url(), "/payment/iyzipos/installment").as_str(),
+        let res = HttpClient::create().post(format!("{}{}", options.base_url(), "/payment/iyzipos/installment").as_str(),
                                                 request,
                                                 IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options))?;
         let response = res.json()?;

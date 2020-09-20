@@ -68,7 +68,7 @@ impl SubMerchant {
     pub fn create(req: &CreateSubMerchantRequest, options: &Options) -> Result<SubMerchant> {
         let request = serde_json::to_string(req)?;
         debug!("RequestBody:{}", request);
-        let mut res = HttpClient::create().post(format!("{}{}", options.base_url(), "/onboarding/submerchant").as_str(),
+        let res = HttpClient::create().post(format!("{}{}", options.base_url(), "/onboarding/submerchant").as_str(),
                                                 request,
                                                 IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options))?;
         let response = res.json()?;
@@ -78,7 +78,7 @@ impl SubMerchant {
     pub fn update(req: &UpdateSubMerchantRequest, options: &Options) -> Result<SubMerchant> {
         let request = serde_json::to_string(req)?;
         debug!("RequestBody:{}", request);
-        let mut res = HttpClient::create().put(format!("{}{}", options.base_url(), "/onboarding/submerchant").as_str(),
+        let res = HttpClient::create().put(format!("{}{}", options.base_url(), "/onboarding/submerchant").as_str(),
                                                request,
                                                IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options))?;
         let response = res.json()?;
@@ -88,7 +88,7 @@ impl SubMerchant {
     pub fn retrieve(req: &RetrieveSubMerchantRequest, options: &Options) -> Result<SubMerchant> {
         let request = serde_json::to_string(req)?;
         debug!("RequestBody:{}", request);
-        let mut res = HttpClient::create().post(format!("{}{}", options.base_url(), "/onboarding/submerchant/detail").as_str(),
+        let res = HttpClient::create().post(format!("{}{}", options.base_url(), "/onboarding/submerchant/detail").as_str(),
                                                 request,
                                                 IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options))?;
         let response = res.json()?;
@@ -247,7 +247,7 @@ impl Approval {
     pub fn create(req: &CreateApprovalRequest, options: &Options) -> Result<Approval> {
         let request = serde_json::to_string(req)?;
         debug!("RequestBody:{}", request);
-        let mut res = HttpClient::create().post(format!("{}{}", options.base_url(), "/payment/iyzipos/item/approve").as_str(),
+        let res = HttpClient::create().post(format!("{}{}", options.base_url(), "/payment/iyzipos/item/approve").as_str(),
                                                 request,
                                                 IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options))?;
         let response = res.json()?;
@@ -284,7 +284,7 @@ impl Disapproval {
     pub fn create(req: &CreateApprovalRequest, options: &Options) -> Result<Disapproval> {
         let request = serde_json::to_string(req)?;
         debug!("RequestBody:{}", request);
-        let mut res = HttpClient::create().post(format!("{}{}", options.base_url(), "/payment/iyzipos/item/disapprove").as_str(),
+        let res = HttpClient::create().post(format!("{}{}", options.base_url(), "/payment/iyzipos/item/disapprove").as_str(),
                                                 request,
                                                 IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options))?;
         let response = res.json()?;
@@ -321,7 +321,7 @@ impl PayoutCompletedTransactionList {
     pub fn retrieve(req: &RetrieveTransactionsRequest, options: &Options) -> Result<PayoutCompletedTransactionList> {
         let request = serde_json::to_string(req)?;
         debug!("RequestBody:{}", request);
-        let mut res = HttpClient::create().post(format!("{}{}", options.base_url(), "/reporting/settlement/payoutcompleted").as_str(),
+        let res = HttpClient::create().post(format!("{}{}", options.base_url(), "/reporting/settlement/payoutcompleted").as_str(),
                                                 request,
                                                 IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options))?;
         let response = res.json()?;
@@ -412,7 +412,7 @@ impl BouncedBankTransferList {
     pub fn retrieve(req: &RetrieveTransactionsRequest, options: &Options) -> Result<BouncedBankTransferList> {
         let request = serde_json::to_string(req)?;
         debug!("RequestBody:{}", request);
-        let mut res = HttpClient::create().post(format!("{}{}", options.base_url(), "/reporting/settlement/bounced").as_str(),
+        let res = HttpClient::create().post(format!("{}{}", options.base_url(), "/reporting/settlement/bounced").as_str(),
                                                 request,
                                                 IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options))?;
         let response = res.json()?;
@@ -512,7 +512,7 @@ impl Apm {
     pub fn create(req: &CreateApmInitializeRequest, options: &Options) -> Result<Apm> {
         let request = serde_json::to_string(req)?;
         debug!("RequestBody:{}", request);
-        let mut res = HttpClient::create().post(format!("{}{}", options.base_url(), "/payment/apm/initialize").as_str(),
+        let res = HttpClient::create().post(format!("{}{}", options.base_url(), "/payment/apm/initialize").as_str(),
                                                 request,
                                                 IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options))?;
         let response = res.json()?;
@@ -522,7 +522,7 @@ impl Apm {
     pub fn retrieve(req: &RetrieveApmRequest, options: &Options) -> Result<Apm> {
         let request = serde_json::to_string(req)?;
         debug!("RequestBody:{}", request);
-        let mut res = HttpClient::create().post(format!("{}{}", options.base_url(), "/payment/apm/retrieve").as_str(),
+        let res = HttpClient::create().post(format!("{}{}", options.base_url(), "/payment/apm/retrieve").as_str(),
                                                 request,
                                                 IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options))?;
         let response = res.json()?;

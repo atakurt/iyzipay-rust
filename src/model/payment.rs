@@ -579,7 +579,7 @@ impl Payment {
     pub fn create(req: &CreatePaymentRequest, options: &Options) -> Result<Payment> {
         let request = serde_json::to_string(req)?;
         debug!("RequestBody:{}", request);
-        let mut res = HttpClient::create().post(format!("{}{}", options.base_url(), "/payment/auth").as_str(),
+        let res = HttpClient::create().post(format!("{}{}", options.base_url(), "/payment/auth").as_str(),
                                                 request,
                                                 IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options))?;
         let response = res.json()?;
@@ -589,7 +589,7 @@ impl Payment {
     pub fn retrieve(req: &RetrievePaymentRequest, options: &Options) -> Result<Payment> {
         let request = serde_json::to_string(req)?;
         debug!("RequestBody:{}", request);
-        let mut res = HttpClient::create().post(format!("{}{}", options.base_url(), "/payment/detail").as_str(),
+        let res = HttpClient::create().post(format!("{}{}", options.base_url(), "/payment/detail").as_str(),
                                                 request,
                                                 IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options))?;
         let response = res.json()?;
@@ -898,7 +898,7 @@ impl PaymentItem {
     pub fn update(req: &UpdatePaymentItemRequest, options: &Options) -> Result<PaymentItem> {
         let request = serde_json::to_string(req)?;
         debug!("RequestBody:{}", request);
-        let mut res = HttpClient::create().put(format!("{}{}", options.base_url(), "/payment/item").as_str(),
+        let res = HttpClient::create().put(format!("{}{}", options.base_url(), "/payment/item").as_str(),
                                                request,
                                                IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options))?;
         let response = res.json()?;
@@ -1170,7 +1170,7 @@ impl Cancel {
     pub fn create(req: &CreateCancelRequest, options: &Options) -> Result<Cancel> {
         let request = serde_json::to_string(req)?;
         debug!("RequestBody:{}", request);
-        let mut res = HttpClient::create().post(format!("{}{}", options.base_url(), "/payment/cancel").as_str(),
+        let res = HttpClient::create().post(format!("{}{}", options.base_url(), "/payment/cancel").as_str(),
                                                 request,
                                                 IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options))?;
         let response = res.json()?;
@@ -1244,7 +1244,7 @@ impl ThreedsInitialize {
     pub fn create(req: &CreatePaymentRequest, options: &Options) -> Result<ThreedsInitialize> {
         let request = serde_json::to_string(req)?;
         debug!("RequestBody:{}", request);
-        let mut res = HttpClient::create().post(format!("{}{}", options.base_url(), "/payment/3dsecure/initialize").as_str(),
+        let res = HttpClient::create().post(format!("{}{}", options.base_url(), "/payment/3dsecure/initialize").as_str(),
                                                 request,
                                                 IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options))?;
         let response = res.json()?;
@@ -1280,7 +1280,7 @@ impl ThreedsPayment {
     pub fn create(req: &CreateThreedsPaymentRequest, options: &Options) -> Result<ThreedsPayment> {
         let request = serde_json::to_string(req)?;
         debug!("RequestBody:{}", request);
-        let mut res = HttpClient::create().post(format!("{}{}", options.base_url(), "/payment/3dsecure/auth").as_str(),
+        let res = HttpClient::create().post(format!("{}{}", options.base_url(), "/payment/3dsecure/auth").as_str(),
                                                 request,
                                                 IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options))?;
         let response = res.json()?;
@@ -1290,7 +1290,7 @@ impl ThreedsPayment {
     pub fn retrieve(req: &RetrievePaymentRequest, options: &Options) -> Result<ThreedsPayment> {
         let request = serde_json::to_string(req)?;
         debug!("RequestBody:{}", request);
-        let mut res = HttpClient::create().post(format!("{}{}", options.base_url(), "/payment/detail").as_str(),
+        let res = HttpClient::create().post(format!("{}{}", options.base_url(), "/payment/detail").as_str(),
                                                 request,
                                                 IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options))?;
         let response = res.json()?;
@@ -1331,7 +1331,7 @@ impl Refund {
     pub fn create(req: &CreateRefundRequest, options: &Options) -> Result<Refund> {
         let request = serde_json::to_string(req)?;
         debug!("RequestBody:{}", request);
-        let mut res = HttpClient::create().post(format!("{}{}", options.base_url(), "/payment/refund").as_str(),
+        let res = HttpClient::create().post(format!("{}{}", options.base_url(), "/payment/refund").as_str(),
                                                 request,
                                                 IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options))?;
         let response = res.json()?;
@@ -1413,7 +1413,7 @@ impl BkmInitialize {
     pub fn create(req: &CreateBkmInitializeRequest, options: &Options) -> Result<BkmInitialize> {
         let request = serde_json::to_string(req)?;
         debug!("RequestBody:{}", request);
-        let mut res = HttpClient::create().post(format!("{}{}", options.base_url(), "/payment/bkm/initialize").as_str(),
+        let res = HttpClient::create().post(format!("{}{}", options.base_url(), "/payment/bkm/initialize").as_str(),
                                                 request,
                                                 IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options))?;
         let response = res.json()?;
@@ -1459,7 +1459,7 @@ impl Bkm {
     pub fn retrieve(req: &RetrieveBkmRequest, options: &Options) -> Result<Bkm> {
         let request = serde_json::to_string(req)?;
         debug!("RequestBody:{}", request);
-        let mut res = HttpClient::create().post(format!("{}{}", options.base_url(), "/payment/bkm/auth/detail").as_str(),
+        let res = HttpClient::create().post(format!("{}{}", options.base_url(), "/payment/bkm/auth/detail").as_str(),
                                                 request,
                                                 IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options))?;
         let response = res.json()?;
@@ -1510,7 +1510,7 @@ impl PeccoInitialize {
     pub fn create(req: &CreatePeccoInitializeRequest, options: &Options) -> Result<PeccoInitialize> {
         let request = serde_json::to_string(req)?;
         debug!("RequestBody:{}", request);
-        let mut res = HttpClient::create().post(format!("{}{}", options.base_url(), "/payment/pecco/initialize").as_str(),
+        let res = HttpClient::create().post(format!("{}{}", options.base_url(), "/payment/pecco/initialize").as_str(),
                                                 request,
                                                 IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options))?;
         let response = res.json()?;
@@ -1569,7 +1569,7 @@ impl PeccoPayment {
     pub fn create(req: &CreatePeccoPaymentRequest, options: &Options) -> Result<PeccoPayment> {
         let request = serde_json::to_string(req)?;
         debug!("RequestBody:{}", request);
-        let mut res = HttpClient::create().post(format!("{}{}", options.base_url(), "/payment/pecco/auth").as_str(),
+        let res = HttpClient::create().post(format!("{}{}", options.base_url(), "/payment/pecco/auth").as_str(),
                                                 request,
                                                 IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options))?;
         let response = res.json()?;

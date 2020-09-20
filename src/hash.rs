@@ -1,9 +1,9 @@
 extern crate hmac;
 
 use base64::encode;
-use hmac::{Hmac, Mac};
+use hmac::Hmac;
 use sha2::Sha256;
-
+use crate::hash::hmac::{NewMac, Mac};
 use crate::types::ToHex;
 
 pub struct HashGenerator {}
@@ -28,8 +28,8 @@ impl IyziAuthV2Generator {
     fn get_hmac_256_signature(uri: &str, secret_key: &str, random_string: &str, request_str: &str) -> String {
         let mut hmac = Hmac::<Sha256>::new_varkey(secret_key.as_bytes()).unwrap();
         let data_to_sign = format!("{}{}", random_string, IyziAuthV2Generator::get_payload(uri, request_str));
-        hmac.input(data_to_sign.as_bytes());
-        hmac.result().code().to_hex()
+        hmac.update(data_to_sign.as_bytes());
+        hmac.finalize().into_bytes().to_hex()
     }
 
     fn get_payload(uri: &str, request_str: &str) -> String {

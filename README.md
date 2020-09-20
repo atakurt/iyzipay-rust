@@ -10,7 +10,7 @@ You can sign up for an iyzico account at https://iyzico.com
 
 # Requirements
 
-Rust 1.31.0 (2018 edition) or newer
+Rust 1.41.0 or newer
 
 
 # Usage

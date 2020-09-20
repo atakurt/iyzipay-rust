@@ -9,7 +9,7 @@ matrix:
   - rust: stable
   - rust: beta
   - rust: nightly
-  - rust: 1.31.0
+  - rust: 1.41.0
     script: cargo build
 sudo: false
 dist: trusty

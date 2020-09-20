@@ -297,7 +297,7 @@ impl IyziupFormInitialize {
     pub fn create(req: &CreateIyziupFormInitializeRequest, options: &Options) -> Result<IyziupFormInitialize> {
         let request = serde_json::to_string(req)?;
         debug!("RequestBody:{}", request);
-        let mut res = HttpClient::create().post(format!("{}{}", options.base_url(), "/v1/iyziup/form/initialize").as_str(),
+        let res = HttpClient::create().post(format!("{}{}", options.base_url(), "/v1/iyziup/form/initialize").as_str(),
                                                 request,
                                                 IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options))?;
         let response = res.json()?;
@@ -383,7 +383,7 @@ impl IyziupForm {
     pub fn retrieve(req: &RetrieveIyziupFormRequest, options: &Options) -> Result<IyziupForm> {
         let request = serde_json::to_string(req)?;
         debug!("RequestBody:{}", request);
-        let mut res = HttpClient::create().post(format!("{}{}", options.base_url(), "/v1/iyziup/form/order/retrieve").as_str(),
+        let res = HttpClient::create().post(format!("{}{}", options.base_url(), "/v1/iyziup/form/order/retrieve").as_str(),
                                                 request,
                                                 IyzipayResource::get_http_headers(req.serialize().unwrap_or_default(), &options))?;
         let response = res.json()?;
