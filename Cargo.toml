@@ -22,6 +22,7 @@ chrono = { version = "0.4.15", features = ["serde"] }
 bigdecimal = { version = "0.2.0", features = ["serde"] }
 uuid = { version = "0.8", features = ["v4"] }
 log = "0.4.6"
+derive_builder = "0.11.2"
 
 [dev-dependencies]
 dotenv = "0.15.0"
