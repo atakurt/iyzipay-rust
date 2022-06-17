@@ -1,6 +1,7 @@
 use std::str::FromStr;
 
 use bigdecimal::BigDecimal;
+use iyzipay_rust::options::OptionsBuilder;
 use log::debug;
 
 use iyzipay_rust::model::InitialConsumer;
@@ -126,11 +127,12 @@ fn should_retrieve_checkout_form_result() {
 }
 
 fn get_options() -> Options {
-    let mut options = get_test_options().clone();
-    options.set_api_key("sandbox-qBDJ5ttcxbXNNzLZ02WmkiKtHH3ADONj");
-    options.set_secret_key("sandbox-HfB5nGM5CRAGdtAijxZ8xHlqYkvN1B0p");
-    options.set_base_url("https://sandbox-api.iyzipay.com");
-    options
+    OptionsBuilder::default()
+        .api_key("sandbox-qBDJ5ttcxbXNNzLZ02WmkiKtHH3ADONj")
+        .secret_key("sandbox-HfB5nGM5CRAGdtAijxZ8xHlqYkvN1B0p")
+        .base_url("https://sandbox-api.iyzipay.com")
+        .build()
+        .expect("Failed to build options")
 }
 
 fn create_dummy_initial_consumer_data() -> InitialConsumer {
