@@ -5,6 +5,9 @@ extern crate serde;
 extern crate derive_builder;
 
 #[macro_use]
+extern crate getset;
+
+#[macro_use]
 extern crate serde_derive;
 extern crate serde_json;
 
