@@ -98,8 +98,8 @@ impl IyzipayResource {
             "IYZWS",
             options.api_key(),
             HashGenerator::generate_hash(
-                options.api_key(),
-                options.secret_key(),
+                &options.api_key(),
+                &options.secret_key(),
                 random_string.as_str(),
                 request.as_str()
             )
@@ -118,8 +118,8 @@ impl IyzipayResource {
             "IYZWSv2",
             IyziAuthV2Generator::generate_auth_content(
                 uri.as_str(),
-                options.api_key(),
-                options.secret_key(),
+                &options.api_key(),
+                &options.secret_key(),
                 random_string.as_str(),
                 request.as_str()
             )
