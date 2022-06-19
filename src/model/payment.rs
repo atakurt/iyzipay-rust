@@ -233,61 +233,25 @@ impl PKISerialize for BasketItem {
     }
 }
 
-#[derive(Debug, Default, Serialize, Deserialize, Clone)]
+#[derive(Debug, Default, Serialize, Deserialize, Clone, Builder, Getters)]
 #[serde(rename_all = "camelCase")]
 #[serde(default)]
+#[builder(public, setter(strip_option, into))]
 pub struct Address {
+    #[getset(get = "pub")]
     address: Option<String>,
 
+    #[getset(get = "pub")]
     zip_code: Option<String>,
 
+    #[getset(get = "pub")]
     contact_name: Option<String>,
 
+    #[getset(get = "pub")]
     city: Option<String>,
 
+    #[getset(get = "pub")]
     country: Option<String>,
-}
-
-impl Address {
-    pub fn new() -> Self {
-        Address::default()
-    }
-
-    pub fn set_address<T: Into<String>>(&mut self, address: T) {
-        self.address = Some(address.into());
-    }
-
-    pub fn set_zip_code<T: Into<String>>(&mut self, zip_code: T) {
-        self.zip_code = Some(zip_code.into());
-    }
-
-    pub fn set_contact_name<T: Into<String>>(&mut self, contact_name: T) {
-        self.contact_name = Some(contact_name.into());
-    }
-
-    pub fn set_city<T: Into<String>>(&mut self, city: T) {
-        self.city = Some(city.into());
-    }
-
-    pub fn set_country<T: Into<String>>(&mut self, country: T) {
-        self.country = Some(country.into());
-    }
-
-    pub fn address(&self) -> Option<&String> {
-        self.address.as_ref()
-    }
-    pub fn zip_code(&self) -> Option<&String> {
-        self.zip_code.as_ref()
-    }
-    pub fn contact_name(&self) -> Option<&String> {
-        self.contact_name.as_ref()
-    }
-    pub fn city(&self) -> Option<&String> {
-        self.city.as_ref()
-    }
-    pub fn country(&self) -> Option<&String> {
-        self.country.as_ref()
-    }
 }
 
 impl PKISerialize for Address {

@@ -3,6 +3,7 @@ use std::str::FromStr;
 use bigdecimal::BigDecimal;
 
 use iyzipay_rust::model::Address;
+use iyzipay_rust::model::AddressBuilder;
 use iyzipay_rust::model::BasketItem;
 use iyzipay_rust::model::BasketItemType;
 use iyzipay_rust::model::Buyer;
@@ -64,20 +65,26 @@ fn should_create_payment() {
 
     request.set_buyer(buyer);
 
-    let mut shipping_address = Address::new();
-    shipping_address.set_contact_name("Jane Doe");
-    shipping_address.set_city("Istanbul");
-    shipping_address.set_country("Turkey");
-    shipping_address.set_address("Nidakule Göztepe, Merdivenköy Mah. Bora Sok. No:1");
-    shipping_address.set_zip_code("34742");
+    let shipping_address = AddressBuilder::default()
+        .contact_name("Jane Doe")
+        .city("Istanbul")
+        .country("Turkey")
+        .address("Nidakule Göztepe, Merdivenköy Mah. Bora Sok. No:1")
+        .zip_code("34742")
+        .build()
+        .expect("Could not build Address");
+
     request.set_shipping_address(shipping_address);
 
-    let mut billing_address = Address::new();
-    billing_address.set_contact_name("Jane Doe");
-    billing_address.set_city("Istanbul");
-    billing_address.set_country("Turkey");
-    billing_address.set_address("Nidakule Göztepe, Merdivenköy Mah. Bora Sok. No:1");
-    billing_address.set_zip_code("34742");
+    let billing_address = AddressBuilder::default()
+        .contact_name("Jane Doe")
+        .city("Istanbul")
+        .country("Turkey")
+        .address("Nidakule Göztepe, Merdivenköy Mah. Bora Sok. No:1")
+        .zip_code("34742")
+        .build()
+        .expect("Could not build Address");
+
     request.set_billing_address(billing_address);
 
     let mut basket_items: Vec<BasketItem> = Vec::new();
@@ -173,20 +180,26 @@ fn should_create_marketplace_payment() {
 
     request.set_buyer(buyer);
 
-    let mut shipping_address = Address::new();
-    shipping_address.set_contact_name("Jane Doe");
-    shipping_address.set_city("Istanbul");
-    shipping_address.set_country("Turkey");
-    shipping_address.set_address("Nidakule Göztepe, Merdivenköy Mah. Bora Sok. No:1");
-    shipping_address.set_zip_code("34742");
+    let shipping_address = AddressBuilder::default()
+        .contact_name("Jane Doe")
+        .city("Istanbul")
+        .country("Turkey")
+        .address("Nidakule Göztepe, Merdivenköy Mah. Bora Sok. No:1")
+        .zip_code("34742")
+        .build()
+        .expect("Could not build Address");
+
     request.set_shipping_address(shipping_address);
 
-    let mut billing_address = Address::new();
-    billing_address.set_contact_name("Jane Doe");
-    billing_address.set_city("Istanbul");
-    billing_address.set_country("Turkey");
-    billing_address.set_address("Nidakule Göztepe, Merdivenköy Mah. Bora Sok. No:1");
-    billing_address.set_zip_code("34742");
+    let billing_address = AddressBuilder::default()
+        .contact_name("Jane Doe")
+        .city("Istanbul")
+        .country("Turkey")
+        .address("Nidakule Göztepe, Merdivenköy Mah. Bora Sok. No:1")
+        .zip_code("34742")
+        .build()
+        .expect("Could not build Address");
+
     request.set_billing_address(billing_address);
 
     let mut basket_items: Vec<BasketItem> = Vec::new();
@@ -284,20 +297,26 @@ fn should_create_payment_with_registered_card() {
 
     request.set_buyer(buyer);
 
-    let mut shipping_address = Address::new();
-    shipping_address.set_contact_name("Jane Doe");
-    shipping_address.set_city("Istanbul");
-    shipping_address.set_country("Turkey");
-    shipping_address.set_address("Nidakule Göztepe, Merdivenköy Mah. Bora Sok. No:1");
-    shipping_address.set_zip_code("34742");
+    let shipping_address = AddressBuilder::default()
+        .contact_name("Jane Doe")
+        .city("Istanbul")
+        .country("Turkey")
+        .address("Nidakule Göztepe, Merdivenköy Mah. Bora Sok. No:1")
+        .zip_code("34742")
+        .build()
+        .expect("Could not build Address");
+
     request.set_shipping_address(shipping_address);
 
-    let mut billing_address = Address::new();
-    billing_address.set_contact_name("Jane Doe");
-    billing_address.set_city("Istanbul");
-    billing_address.set_country("Turkey");
-    billing_address.set_address("Nidakule Göztepe, Merdivenköy Mah. Bora Sok. No:1");
-    billing_address.set_zip_code("34742");
+    let billing_address = AddressBuilder::default()
+        .contact_name("Jane Doe")
+        .city("Istanbul")
+        .country("Turkey")
+        .address("Nidakule Göztepe, Merdivenköy Mah. Bora Sok. No:1")
+        .zip_code("34742")
+        .build()
+        .expect("Could not build Address");
+
     request.set_billing_address(billing_address);
 
     let mut basket_items: Vec<BasketItem> = Vec::new();

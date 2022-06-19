@@ -5,7 +5,6 @@ use std::str::FromStr;
 use bigdecimal::BigDecimal;
 use bigdecimal::One;
 
-use iyzipay_rust::model::Address;
 use iyzipay_rust::model::BasketItem;
 use iyzipay_rust::model::BasketItemType;
 use iyzipay_rust::model::CardInformation;
@@ -17,6 +16,7 @@ use iyzipay_rust::model::OrderItemType;
 use iyzipay_rust::model::PaymentChannel;
 use iyzipay_rust::model::PaymentGroup;
 use iyzipay_rust::model::SubMerchantType;
+use iyzipay_rust::model::{Address, AddressBuilder as NewAddressBuilder};
 use iyzipay_rust::model::{Buyer, BuyerBuilder as NewBuyerBuilder};
 use iyzipay_rust::model::{PaymentCard, PaymentCardBuilder as NewPaymentCardBuilder};
 use iyzipay_rust::requests::CreateApprovalRequest;
@@ -1289,21 +1289,14 @@ impl AddressBuilder {
 impl Builder for AddressBuilder {
     type BuildType = Address;
     fn build(&self) -> Address {
-        let mut address = Address::new();
-        self.address
-            .to_owned()
-            .and_then(|x| Some(address.set_address(x)));
-        self.zip_code
-            .to_owned()
-            .and_then(|x| Some(address.set_zip_code(x)));
-        self.contact_name
-            .to_owned()
-            .and_then(|x| Some(address.set_contact_name(x)));
-        self.city.to_owned().and_then(|x| Some(address.set_city(x)));
-        self.country
-            .to_owned()
-            .and_then(|x| Some(address.set_country(x)));
-        address
+        NewAddressBuilder::default()
+            .address(self.address.as_deref().unwrap())
+            .zip_code(self.zip_code.as_deref().unwrap())
+            .contact_name(self.contact_name.as_deref().unwrap())
+            .city(self.city.as_deref().unwrap())
+            .country(self.country.as_deref().unwrap())
+            .build()
+            .expect("Failed to build address")
     }
 }
 
