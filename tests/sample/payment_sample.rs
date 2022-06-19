@@ -6,6 +6,7 @@ use iyzipay_rust::model::Address;
 use iyzipay_rust::model::BasketItem;
 use iyzipay_rust::model::BasketItemType;
 use iyzipay_rust::model::Buyer;
+use iyzipay_rust::model::BuyerBuilder;
 use iyzipay_rust::model::Currency;
 use iyzipay_rust::model::Locale;
 use iyzipay_rust::model::Payment;
@@ -44,20 +45,23 @@ fn should_create_payment() {
 
     request.set_payment_card(payment_card);
 
-    let mut buyer = Buyer::new();
-    buyer.set_id("BY789");
-    buyer.set_name("John");
-    buyer.set_surname("Doe");
-    buyer.set_gsm_number("+905350000000");
-    buyer.set_email("email@email.com");
-    buyer.set_identity_number("74300864791");
-    buyer.set_last_login_date("2015-10-05 12:43:35");
-    buyer.set_registration_date("2013-04-21 15:12:09");
-    buyer.set_registration_address("Nidakule Göztepe, Merdivenköy Mah. Bora Sok. No:1");
-    buyer.set_ip("85.34.78.112");
-    buyer.set_city("Istanbul");
-    buyer.set_country("Turkey");
-    buyer.set_zip_code("34732");
+    let buyer = BuyerBuilder::default()
+        .id("BY789")
+        .name("John")
+        .surname("Doe")
+        .gsm_number("+905350000000")
+        .email("email@email.com")
+        .identity_number("74300864791")
+        .last_login_date("2015-10-05 12:43:35")
+        .registration_date("2013-04-21 15:12:09")
+        .registration_address("Nidakule Göztepe, Merdivenköy Mah. Bora Sok. No:1")
+        .ip("85.34.78.112")
+        .city("Istanbul")
+        .country("Turkey")
+        .zip_code("34732")
+        .build()
+        .expect("Could not build Buyer");
+
     request.set_buyer(buyer);
 
     let mut shipping_address = Address::new();
@@ -150,20 +154,23 @@ fn should_create_marketplace_payment() {
 
     request.set_payment_card(payment_card);
 
-    let mut buyer = Buyer::new();
-    buyer.set_id("BY789");
-    buyer.set_name("John");
-    buyer.set_surname("Doe");
-    buyer.set_gsm_number("+905350000000");
-    buyer.set_email("email@email.com");
-    buyer.set_identity_number("74300864791");
-    buyer.set_last_login_date("2015-10-05 12:43:35");
-    buyer.set_registration_date("2013-04-21 15:12:09");
-    buyer.set_registration_address("Nidakule Göztepe, Merdivenköy Mah. Bora Sok. No:1");
-    buyer.set_ip("85.34.78.112");
-    buyer.set_city("Istanbul");
-    buyer.set_country("Turkey");
-    buyer.set_zip_code("34732");
+    let buyer = BuyerBuilder::default()
+        .id("BY789")
+        .name("John")
+        .surname("Doe")
+        .gsm_number("+905350000000")
+        .email("email@email.com")
+        .identity_number("74300864791")
+        .last_login_date("2015-10-05 12:43:35")
+        .registration_date("2013-04-21 15:12:09")
+        .registration_address("Nidakule Göztepe, Merdivenköy Mah. Bora Sok. No:1")
+        .ip("85.34.78.112")
+        .city("Istanbul")
+        .country("Turkey")
+        .zip_code("34732")
+        .build()
+        .expect("Could not build Buyer");
+
     request.set_buyer(buyer);
 
     let mut shipping_address = Address::new();
@@ -258,20 +265,22 @@ fn should_create_payment_with_registered_card() {
 
     request.set_payment_card(payment_card);
 
-    let mut buyer = Buyer::new();
-    buyer.set_id("BY789");
-    buyer.set_name("John");
-    buyer.set_surname("Doe");
-    buyer.set_gsm_number("+905350000000");
-    buyer.set_email("email@email.com");
-    buyer.set_identity_number("74300864791");
-    buyer.set_last_login_date("2015-10-05 12:43:35");
-    buyer.set_registration_date("2013-04-21 15:12:09");
-    buyer.set_registration_address("Nidakule Göztepe, Merdivenköy Mah. Bora Sok. No:1");
-    buyer.set_ip("85.34.78.112");
-    buyer.set_city("Istanbul");
-    buyer.set_country("Turkey");
-    buyer.set_zip_code("34732");
+    let buyer = BuyerBuilder::default()
+        .id("BY789")
+        .name("John")
+        .surname("Doe")
+        .gsm_number("+905350000000")
+        .email("email@email.com")
+        .identity_number("74300864791")
+        .last_login_date("2015-10-05 12:43:35")
+        .registration_date("2013-04-21 15:12:09")
+        .registration_address("Nidakule Göztepe, Merdivenköy Mah. Bora Sok. No:1")
+        .ip("85.34.78.112")
+        .city("Istanbul")
+        .country("Turkey")
+        .zip_code("34732")
+        .build()
+        .expect("Could not build Buyer");
 
     request.set_buyer(buyer);
 

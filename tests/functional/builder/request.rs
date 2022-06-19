@@ -8,7 +8,6 @@ use bigdecimal::One;
 use iyzipay_rust::model::Address;
 use iyzipay_rust::model::BasketItem;
 use iyzipay_rust::model::BasketItemType;
-use iyzipay_rust::model::Buyer;
 use iyzipay_rust::model::CardInformation;
 use iyzipay_rust::model::Currency;
 use iyzipay_rust::model::InitialConsumer;
@@ -18,6 +17,7 @@ use iyzipay_rust::model::OrderItemType;
 use iyzipay_rust::model::PaymentChannel;
 use iyzipay_rust::model::PaymentGroup;
 use iyzipay_rust::model::SubMerchantType;
+use iyzipay_rust::model::{Buyer, BuyerBuilder as NewBuyerBuilder};
 use iyzipay_rust::model::{PaymentCard, PaymentCardBuilder as NewPaymentCardBuilder};
 use iyzipay_rust::requests::CreateApprovalRequest;
 use iyzipay_rust::requests::CreateBkmInitializeRequest;
@@ -1217,37 +1217,22 @@ impl BuyerBuilder {
 impl Builder for BuyerBuilder {
     type BuildType = Buyer;
     fn build(&self) -> Buyer {
-        let mut buyer = Buyer::new();
-        self.id.to_owned().and_then(|x| Some(buyer.set_id(x)));
-        self.name.to_owned().and_then(|x| Some(buyer.set_name(x)));
-        self.surname
-            .to_owned()
-            .and_then(|x| Some(buyer.set_surname(x)));
-        self.identity_number
-            .to_owned()
-            .and_then(|x| Some(buyer.set_identity_number(x)));
-        self.email.to_owned().and_then(|x| Some(buyer.set_email(x)));
-        self.gsm_number
-            .to_owned()
-            .and_then(|x| Some(buyer.set_gsm_number(x)));
-        self.registration_date
-            .to_owned()
-            .and_then(|x| Some(buyer.set_registration_date(x)));
-        self.last_login_date
-            .to_owned()
-            .and_then(|x| Some(buyer.set_last_login_date(x)));
-        self.registration_address
-            .to_owned()
-            .and_then(|x| Some(buyer.set_registration_address(x)));
-        self.city.to_owned().and_then(|x| Some(buyer.set_city(x)));
-        self.country
-            .to_owned()
-            .and_then(|x| Some(buyer.set_country(x)));
-        self.zip_code
-            .to_owned()
-            .and_then(|x| Some(buyer.set_zip_code(x)));
-        self.ip.to_owned().and_then(|x| Some(buyer.set_ip(x)));
-        buyer
+        NewBuyerBuilder::default()
+            .id(self.id.as_deref().unwrap())
+            .name(self.name.as_deref().unwrap())
+            .surname(self.surname.as_deref().unwrap())
+            .identity_number(self.identity_number.as_deref().unwrap())
+            .email(self.email.as_deref().unwrap())
+            .gsm_number(self.gsm_number.as_deref().unwrap())
+            .registration_date(self.registration_date.as_deref().unwrap())
+            .last_login_date(self.last_login_date.as_deref().unwrap())
+            .registration_address(self.registration_address.as_deref().unwrap())
+            .city(self.city.as_deref().unwrap())
+            .country(self.country.as_deref().unwrap())
+            .zip_code(self.zip_code.as_deref().unwrap())
+            .ip(self.ip.as_deref().unwrap())
+            .build()
+            .expect("Failed to build payment card")
     }
 }
 

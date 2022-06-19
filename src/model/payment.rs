@@ -350,133 +350,49 @@ impl PKISerialize for PaymentCard {
     }
 }
 
-#[derive(Debug, Default, Serialize, Deserialize, Clone)]
+#[derive(Debug, Default, Serialize, Deserialize, Clone, Builder, Getters)]
 #[serde(rename_all = "camelCase")]
 #[serde(default)]
+#[builder(public, setter(strip_option, into))]
 pub struct Buyer {
+    #[getset(get = "pub")]
     id: Option<String>,
 
+    #[getset(get = "pub")]
     name: Option<String>,
 
+    #[getset(get = "pub")]
     surname: Option<String>,
 
+    #[getset(get = "pub")]
     identity_number: Option<String>,
 
+    #[getset(get = "pub")]
     email: Option<String>,
 
+    #[getset(get = "pub")]
     gsm_number: Option<String>,
 
+    #[getset(get = "pub")]
     registration_date: Option<String>,
 
+    #[getset(get = "pub")]
     last_login_date: Option<String>,
 
+    #[getset(get = "pub")]
     registration_address: Option<String>,
 
+    #[getset(get = "pub")]
     city: Option<String>,
 
+    #[getset(get = "pub")]
     country: Option<String>,
 
+    #[getset(get = "pub")]
     zip_code: Option<String>,
 
+    #[getset(get = "pub")]
     ip: Option<String>,
-}
-
-impl Buyer {
-    pub fn new() -> Self {
-        Buyer::default()
-    }
-
-    pub fn set_id<T: Into<String>>(&mut self, id: T) {
-        self.id = Some(id.into());
-    }
-
-    pub fn set_name<T: Into<String>>(&mut self, name: T) {
-        self.name = Some(name.into());
-    }
-
-    pub fn set_surname<T: Into<String>>(&mut self, surname: T) {
-        self.surname = Some(surname.into());
-    }
-
-    pub fn set_identity_number<T: Into<String>>(&mut self, identity_number: T) {
-        self.identity_number = Some(identity_number.into());
-    }
-
-    pub fn set_email<T: Into<String>>(&mut self, email: T) {
-        self.email = Some(email.into());
-    }
-
-    pub fn set_gsm_number<T: Into<String>>(&mut self, gsm_number: T) {
-        self.gsm_number = Some(gsm_number.into());
-    }
-
-    pub fn set_registration_date<T: Into<String>>(&mut self, registration_date: T) {
-        self.registration_date = Some(registration_date.into());
-    }
-
-    pub fn set_last_login_date<T: Into<String>>(&mut self, last_login_date: T) {
-        self.last_login_date = Some(last_login_date.into());
-    }
-
-    pub fn set_registration_address<T: Into<String>>(&mut self, registration_address: T) {
-        self.registration_address = Some(registration_address.into());
-    }
-
-    pub fn set_city<T: Into<String>>(&mut self, city: T) {
-        self.city = Some(city.into());
-    }
-
-    pub fn set_country<T: Into<String>>(&mut self, country: T) {
-        self.country = Some(country.into());
-    }
-
-    pub fn set_zip_code<T: Into<String>>(&mut self, zip_code: T) {
-        self.zip_code = Some(zip_code.into());
-    }
-
-    pub fn set_ip<T: Into<String>>(&mut self, ip: T) {
-        self.ip = Some(ip.into());
-    }
-
-    pub fn id(&self) -> Option<&String> {
-        self.id.as_ref()
-    }
-    pub fn name(&self) -> Option<&String> {
-        self.name.as_ref()
-    }
-    pub fn surname(&self) -> Option<&String> {
-        self.surname.as_ref()
-    }
-    pub fn identity_number(&self) -> Option<&String> {
-        self.identity_number.as_ref()
-    }
-    pub fn email(&self) -> Option<&String> {
-        self.email.as_ref()
-    }
-    pub fn gsm_number(&self) -> Option<&String> {
-        self.gsm_number.as_ref()
-    }
-    pub fn registration_date(&self) -> Option<&String> {
-        self.registration_date.as_ref()
-    }
-    pub fn last_login_date(&self) -> Option<&String> {
-        self.last_login_date.as_ref()
-    }
-    pub fn registration_address(&self) -> Option<&String> {
-        self.registration_address.as_ref()
-    }
-    pub fn city(&self) -> Option<&String> {
-        self.city.as_ref()
-    }
-    pub fn country(&self) -> Option<&String> {
-        self.country.as_ref()
-    }
-    pub fn zip_code(&self) -> Option<&String> {
-        self.zip_code.as_ref()
-    }
-    pub fn ip(&self) -> Option<&String> {
-        self.ip.as_ref()
-    }
 }
 
 impl PKISerialize for Buyer {
