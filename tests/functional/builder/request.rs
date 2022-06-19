@@ -15,10 +15,10 @@ use iyzipay_rust::model::InitialConsumer;
 use iyzipay_rust::model::Locale;
 use iyzipay_rust::model::OrderItem;
 use iyzipay_rust::model::OrderItemType;
-use iyzipay_rust::model::PaymentCard;
 use iyzipay_rust::model::PaymentChannel;
 use iyzipay_rust::model::PaymentGroup;
 use iyzipay_rust::model::SubMerchantType;
+use iyzipay_rust::model::{PaymentCard, PaymentCardBuilder as NewPaymentCardBuilder};
 use iyzipay_rust::requests::CreateApprovalRequest;
 use iyzipay_rust::requests::CreateBkmInitializeRequest;
 use iyzipay_rust::requests::CreateCancelRequest;
@@ -1083,35 +1083,18 @@ impl PaymentCardBuilder {
 impl Builder for PaymentCardBuilder {
     type BuildType = PaymentCard;
     fn build(&self) -> PaymentCard {
-        let mut payment_card = PaymentCard::new();
-        self.card_holder_name
-            .to_owned()
-            .and_then(|x| Some(payment_card.set_card_holder_name(x)));
-        self.card_number
-            .to_owned()
-            .and_then(|x| Some(payment_card.set_card_number(x)));
-        self.expire_year
-            .to_owned()
-            .and_then(|x| Some(payment_card.set_expire_year(x)));
-        self.expire_month
-            .to_owned()
-            .and_then(|x| Some(payment_card.set_expire_month(x)));
-        self.cvc
-            .to_owned()
-            .and_then(|x| Some(payment_card.set_cvc(x)));
-        self.register_card
-            .to_owned()
-            .and_then(|x| Some(payment_card.set_register_card(x)));
-        self.card_alias
-            .to_owned()
-            .and_then(|x| Some(payment_card.set_card_alias(x)));
-        self.card_token
-            .to_owned()
-            .and_then(|x| Some(payment_card.set_card_token(x)));
-        self.card_user_key
-            .to_owned()
-            .and_then(|x| Some(payment_card.set_card_user_key(x)));
-        payment_card
+        NewPaymentCardBuilder::default()
+            .card_holder_name(self.card_holder_name.as_deref().unwrap())
+            .card_number(self.card_number.as_deref().unwrap())
+            .expire_year(self.expire_year.as_deref().unwrap())
+            .expire_month(self.expire_month.as_deref().unwrap())
+            .cvc(self.cvc.as_deref().unwrap())
+            .register_card(self.register_card.unwrap())
+            .card_alias(self.card_alias.as_deref().unwrap())
+            .card_token(self.card_token.as_deref().unwrap())
+            .card_user_key(self.card_user_key.as_deref().unwrap())
+            .build()
+            .expect("Failed to build payment card")
     }
 }
 

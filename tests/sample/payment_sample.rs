@@ -10,6 +10,7 @@ use iyzipay_rust::model::Currency;
 use iyzipay_rust::model::Locale;
 use iyzipay_rust::model::Payment;
 use iyzipay_rust::model::PaymentCard;
+use iyzipay_rust::model::PaymentCardBuilder;
 use iyzipay_rust::model::PaymentChannel;
 use iyzipay_rust::model::PaymentGroup;
 use iyzipay_rust::model::Status;
@@ -31,13 +32,15 @@ fn should_create_payment() {
     request.set_payment_channel(PaymentChannel::Web.value());
     request.set_payment_group(PaymentGroup::Product.value());
 
-    let mut payment_card = PaymentCard::new();
-    payment_card.set_card_holder_name("John Doe");
-    payment_card.set_card_number("5528790000000008");
-    payment_card.set_expire_month("12");
-    payment_card.set_expire_year("2030");
-    payment_card.set_cvc("123");
-    payment_card.set_register_card(0);
+    let payment_card = PaymentCardBuilder::default()
+        .card_holder_name("John Doe")
+        .card_number("5528790000000008")
+        .expire_month("12")
+        .expire_year("2030")
+        .cvc("123")
+        .register_card(0)
+        .build()
+        .expect("Could not build payment card");
 
     request.set_payment_card(payment_card);
 
@@ -135,13 +138,15 @@ fn should_create_marketplace_payment() {
     request.set_payment_channel(PaymentChannel::Web.value());
     request.set_payment_group(PaymentGroup::Product.value());
 
-    let mut payment_card = PaymentCard::new();
-    payment_card.set_card_holder_name("John Doe");
-    payment_card.set_card_number("5528790000000008");
-    payment_card.set_expire_month("12");
-    payment_card.set_expire_year("2030");
-    payment_card.set_cvc("123");
-    payment_card.set_register_card(0);
+    let payment_card = PaymentCardBuilder::default()
+        .card_holder_name("John Doe")
+        .card_number("5528790000000008")
+        .expire_month("12")
+        .expire_year("2030")
+        .cvc("123")
+        .register_card(0)
+        .build()
+        .expect("Could not build payment card");
 
     request.set_payment_card(payment_card);
 
@@ -245,9 +250,11 @@ fn should_create_payment_with_registered_card() {
     request.set_payment_channel(PaymentChannel::Web.value());
     request.set_payment_group(PaymentGroup::Product.value());
 
-    let mut payment_card = PaymentCard::new();
-    payment_card.set_card_user_key("card user key");
-    payment_card.set_card_token("card token");
+    let payment_card = PaymentCardBuilder::default()
+        .card_user_key("card user key")
+        .card_token("card token")
+        .build()
+        .expect("payment card should be created");
 
     request.set_payment_card(payment_card);
 

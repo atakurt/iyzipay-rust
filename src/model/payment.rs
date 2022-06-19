@@ -302,97 +302,36 @@ impl PKISerialize for Address {
     }
 }
 
-#[derive(Debug, Default, Serialize, Deserialize, Clone)]
+#[derive(Debug, Default, Serialize, Deserialize, Clone, Builder, Getters)]
 #[serde(rename_all = "camelCase")]
 #[serde(default)]
+#[builder(public, setter(strip_option, into))]
 pub struct PaymentCard {
+    #[getset(get = "pub")]
     card_holder_name: Option<String>,
 
+    #[getset(get = "pub")]
     card_number: Option<String>,
 
+    #[getset(get = "pub")]
     expire_year: Option<String>,
 
+    #[getset(get = "pub")]
     expire_month: Option<String>,
 
+    #[getset(get = "pub")]
     cvc: Option<String>,
-
+    #[getset(get = "pub")]
     register_card: Option<u8>,
 
+    #[getset(get = "pub")]
     card_alias: Option<String>,
 
+    #[getset(get = "pub")]
     card_token: Option<String>,
 
+    #[getset(get = "pub")]
     card_user_key: Option<String>,
-}
-
-impl PaymentCard {
-    pub fn new() -> Self {
-        PaymentCard::default()
-    }
-
-    pub fn set_card_holder_name<T: Into<String>>(&mut self, card_holder_name: T) {
-        self.card_holder_name = Some(card_holder_name.into());
-    }
-
-    pub fn set_card_number<T: Into<String>>(&mut self, card_number: T) {
-        self.card_number = Some(card_number.into());
-    }
-
-    pub fn set_expire_year<T: Into<String>>(&mut self, expire_year: T) {
-        self.expire_year = Some(expire_year.into());
-    }
-
-    pub fn set_expire_month<T: Into<String>>(&mut self, expire_month: T) {
-        self.expire_month = Some(expire_month.into());
-    }
-
-    pub fn set_cvc<T: Into<String>>(&mut self, cvc: T) {
-        self.cvc = Some(cvc.into());
-    }
-
-    pub fn set_register_card<T: Into<u8>>(&mut self, register_card: T) {
-        self.register_card = Some(register_card.into());
-    }
-
-    pub fn set_card_alias<T: Into<String>>(&mut self, card_alias: T) {
-        self.card_alias = Some(card_alias.into());
-    }
-
-    pub fn set_card_token<T: Into<String>>(&mut self, card_token: T) {
-        self.card_token = Some(card_token.into());
-    }
-
-    pub fn set_card_user_key<T: Into<String>>(&mut self, card_user_key: T) {
-        self.card_user_key = Some(card_user_key.into());
-    }
-
-    pub fn card_holder_name(&self) -> Option<&String> {
-        self.card_holder_name.as_ref()
-    }
-    pub fn card_number(&self) -> Option<&String> {
-        self.card_number.as_ref()
-    }
-    pub fn expire_year(&self) -> Option<&String> {
-        self.expire_year.as_ref()
-    }
-    pub fn expire_month(&self) -> Option<&String> {
-        self.expire_month.as_ref()
-    }
-    pub fn cvc(&self) -> Option<&String> {
-        self.cvc.as_ref()
-    }
-    pub fn register_card(&self) -> Option<&u8> {
-        self.register_card.as_ref()
-    }
-    pub fn card_alias(&self) -> Option<&String> {
-        self.card_alias.as_ref()
-    }
-    pub fn card_token(&self) -> Option<&String> {
-        self.card_token.as_ref()
-    }
-    pub fn card_user_key(&self) -> Option<&String> {
-        self.card_user_key.as_ref()
-    }
 }
 
 impl PKISerialize for PaymentCard {
