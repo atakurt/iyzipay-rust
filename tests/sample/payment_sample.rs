@@ -5,6 +5,7 @@ use bigdecimal::BigDecimal;
 use iyzipay_rust::model::Address;
 use iyzipay_rust::model::AddressBuilder;
 use iyzipay_rust::model::BasketItem;
+use iyzipay_rust::model::BasketItemBuilder;
 use iyzipay_rust::model::BasketItemType;
 use iyzipay_rust::model::Buyer;
 use iyzipay_rust::model::BuyerBuilder;
@@ -87,39 +88,35 @@ fn should_create_payment() {
 
     request.set_billing_address(billing_address);
 
-    let mut basket_items: Vec<BasketItem> = Vec::new();
-
-    let mut first_basket_item = BasketItem::new();
-
-    first_basket_item.set_id("BI101");
-    first_basket_item.set_name("Binocular");
-    first_basket_item.set_category1("Collectibles");
-    first_basket_item.set_category2("Accessories");
-    first_basket_item.set_item_type(BasketItemType::Physical.value());
-    first_basket_item.set_price(BigDecimal::from_str("0.3").unwrap());
-
-    basket_items.push(first_basket_item);
-
-    let mut second_basket_item = BasketItem::new();
-
-    second_basket_item.set_id("BI102");
-    second_basket_item.set_name("Game code");
-    second_basket_item.set_category1("Game");
-    second_basket_item.set_category2("Online Game Items");
-    second_basket_item.set_item_type(BasketItemType::Virtual.value());
-    second_basket_item.set_price(BigDecimal::from_str("0.5").unwrap());
-
-    basket_items.push(second_basket_item);
-
-    let mut third_basket_item = BasketItem::new();
-    third_basket_item.set_id("BI103");
-    third_basket_item.set_name("Usb");
-    third_basket_item.set_category1("Electronics");
-    third_basket_item.set_category2("Usb / Cable");
-    third_basket_item.set_item_type(BasketItemType::Physical.value());
-    third_basket_item.set_price(BigDecimal::from_str("0.2").unwrap());
-
-    basket_items.push(third_basket_item);
+    let basket_items = vec![
+        BasketItemBuilder::default()
+            .id("BI101")
+            .name("Binocular")
+            .category1("Collectibles")
+            .category2("Accessories")
+            .item_type(BasketItemType::Physical.value())
+            .price(BigDecimal::from_str("0.3").unwrap())
+            .build()
+            .expect("Could not build BasketItem"),
+        BasketItemBuilder::default()
+            .id("BI102")
+            .name("Game code")
+            .category1("Game")
+            .category2("Online Game Items")
+            .item_type(BasketItemType::Virtual.value())
+            .price(BigDecimal::from_str("0.5").unwrap())
+            .build()
+            .expect("Could not build BasketItem"),
+        BasketItemBuilder::default()
+            .id("BI103")
+            .name("Usb")
+            .category1("Electronics")
+            .category2("Usb / Cable")
+            .item_type(BasketItemType::Physical.value())
+            .price(BigDecimal::from_str("0.2").unwrap())
+            .build()
+            .expect("Could not build BasketItem"),
+    ];
 
     request.set_basket_items(basket_items);
 
@@ -202,45 +199,35 @@ fn should_create_marketplace_payment() {
 
     request.set_billing_address(billing_address);
 
-    let mut basket_items: Vec<BasketItem> = Vec::new();
-
-    let mut first_basket_item = BasketItem::new();
-
-    first_basket_item.set_id("BI101");
-    first_basket_item.set_name("Binocular");
-    first_basket_item.set_category1("Collectibles");
-    first_basket_item.set_category2("Accessories");
-    first_basket_item.set_item_type(BasketItemType::Physical.value());
-    first_basket_item.set_price(BigDecimal::from_str("0.3").unwrap());
-    first_basket_item.set_sub_merchant_key("sub merchant key");
-    first_basket_item.set_sub_merchant_price(BigDecimal::from_str("0.27").unwrap());
-
-    basket_items.push(first_basket_item);
-
-    let mut second_basket_item = BasketItem::new();
-
-    second_basket_item.set_id("BI102");
-    second_basket_item.set_name("Game code");
-    second_basket_item.set_category1("Game");
-    second_basket_item.set_category2("Online Game Items");
-    second_basket_item.set_item_type(BasketItemType::Virtual.value());
-    second_basket_item.set_price(BigDecimal::from_str("0.5").unwrap());
-    second_basket_item.set_sub_merchant_key("sub merchant key");
-    second_basket_item.set_sub_merchant_price(BigDecimal::from_str("0.42").unwrap());
-
-    basket_items.push(second_basket_item);
-
-    let mut third_basket_item = BasketItem::new();
-    third_basket_item.set_id("BI103");
-    third_basket_item.set_name("Usb");
-    third_basket_item.set_category1("Electronics");
-    third_basket_item.set_category2("Usb / Cable");
-    third_basket_item.set_item_type(BasketItemType::Physical.value());
-    third_basket_item.set_price(BigDecimal::from_str("0.2").unwrap());
-    third_basket_item.set_sub_merchant_key("sub merchant key");
-    third_basket_item.set_sub_merchant_price(BigDecimal::from_str("0.18").unwrap());
-
-    basket_items.push(third_basket_item);
+    let basket_items = vec![
+        BasketItemBuilder::default()
+            .id("BI101")
+            .name("Binocular")
+            .category1("Collectibles")
+            .category2("Accessories")
+            .item_type(BasketItemType::Physical.value())
+            .price(BigDecimal::from_str("0.3").unwrap())
+            .build()
+            .expect("Could not build BasketItem"),
+        BasketItemBuilder::default()
+            .id("BI102")
+            .name("Game code")
+            .category1("Game")
+            .category2("Online Game Items")
+            .item_type(BasketItemType::Virtual.value())
+            .price(BigDecimal::from_str("0.5").unwrap())
+            .build()
+            .expect("Could not build BasketItem"),
+        BasketItemBuilder::default()
+            .id("BI103")
+            .name("Usb")
+            .category1("Electronics")
+            .category2("Usb / Cable")
+            .item_type(BasketItemType::Physical.value())
+            .price(BigDecimal::from_str("0.2").unwrap())
+            .build()
+            .expect("Could not build BasketItem"),
+    ];
 
     request.set_basket_items(basket_items);
 
@@ -319,39 +306,35 @@ fn should_create_payment_with_registered_card() {
 
     request.set_billing_address(billing_address);
 
-    let mut basket_items: Vec<BasketItem> = Vec::new();
-
-    let mut first_basket_item = BasketItem::new();
-
-    first_basket_item.set_id("BI101");
-    first_basket_item.set_name("Binocular");
-    first_basket_item.set_category1("Collectibles");
-    first_basket_item.set_category2("Accessories");
-    first_basket_item.set_item_type(BasketItemType::Physical.value());
-    first_basket_item.set_price(BigDecimal::from_str("0.3").unwrap());
-
-    basket_items.push(first_basket_item);
-
-    let mut second_basket_item = BasketItem::new();
-
-    second_basket_item.set_id("BI102");
-    second_basket_item.set_name("Game code");
-    second_basket_item.set_category1("Game");
-    second_basket_item.set_category2("Online Game Items");
-    second_basket_item.set_item_type(BasketItemType::Virtual.value());
-    second_basket_item.set_price(BigDecimal::from_str("0.5").unwrap());
-
-    basket_items.push(second_basket_item);
-
-    let mut third_basket_item = BasketItem::new();
-    third_basket_item.set_id("BI103");
-    third_basket_item.set_name("Usb");
-    third_basket_item.set_category1("Electronics");
-    third_basket_item.set_category2("Usb / Cable");
-    third_basket_item.set_item_type(BasketItemType::Physical.value());
-    third_basket_item.set_price(BigDecimal::from_str("0.2").unwrap());
-
-    basket_items.push(third_basket_item);
+    let basket_items = vec![
+        BasketItemBuilder::default()
+            .id("BI101")
+            .name("Binocular")
+            .category1("Collectibles")
+            .category2("Accessories")
+            .item_type(BasketItemType::Physical.value())
+            .price(BigDecimal::from_str("0.3").unwrap())
+            .build()
+            .expect("Could not build BasketItem"),
+        BasketItemBuilder::default()
+            .id("BI102")
+            .name("Game code")
+            .category1("Game")
+            .category2("Online Game Items")
+            .item_type(BasketItemType::Virtual.value())
+            .price(BigDecimal::from_str("0.5").unwrap())
+            .build()
+            .expect("Could not build BasketItem"),
+        BasketItemBuilder::default()
+            .id("BI103")
+            .name("Usb")
+            .category1("Electronics")
+            .category2("Usb / Cable")
+            .item_type(BasketItemType::Physical.value())
+            .price(BigDecimal::from_str("0.2").unwrap())
+            .build()
+            .expect("Could not build BasketItem"),
+    ];
 
     request.set_basket_items(basket_items);
 

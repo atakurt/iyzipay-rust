@@ -5,7 +5,6 @@ use std::str::FromStr;
 use bigdecimal::BigDecimal;
 use bigdecimal::One;
 
-use iyzipay_rust::model::BasketItem;
 use iyzipay_rust::model::BasketItemType;
 use iyzipay_rust::model::CardInformation;
 use iyzipay_rust::model::Currency;
@@ -17,6 +16,7 @@ use iyzipay_rust::model::PaymentChannel;
 use iyzipay_rust::model::PaymentGroup;
 use iyzipay_rust::model::SubMerchantType;
 use iyzipay_rust::model::{Address, AddressBuilder as NewAddressBuilder};
+use iyzipay_rust::model::{BasketItem, BasketItemBuilder as NewBasketItemBuilder};
 use iyzipay_rust::model::{Buyer, BuyerBuilder as NewBuyerBuilder};
 use iyzipay_rust::model::{PaymentCard, PaymentCardBuilder as NewPaymentCardBuilder};
 use iyzipay_rust::requests::CreateApprovalRequest;
@@ -1429,30 +1429,17 @@ impl BasketItemBuilder {
 impl Builder for BasketItemBuilder {
     type BuildType = BasketItem;
     fn build(&self) -> BasketItem {
-        let mut basket_item = BasketItem::new();
-        self.id.to_owned().and_then(|x| Some(basket_item.set_id(x)));
-        self.price
-            .to_owned()
-            .and_then(|x| Some(basket_item.set_price(x)));
-        self.name
-            .to_owned()
-            .and_then(|x| Some(basket_item.set_name(x)));
-        self.category1
-            .to_owned()
-            .and_then(|x| Some(basket_item.set_category1(x)));
-        self.category2
-            .to_owned()
-            .and_then(|x| Some(basket_item.set_category2(x)));
-        self.item_type
-            .to_owned()
-            .and_then(|x| Some(basket_item.set_item_type(x)));
-        self.sub_merchant_key
-            .to_owned()
-            .and_then(|x| Some(basket_item.set_sub_merchant_key(x)));
-        self.sub_merchant_price
-            .to_owned()
-            .and_then(|x| Some(basket_item.set_sub_merchant_price(x)));
-        basket_item
+        NewBasketItemBuilder::default()
+            .id(self.id.as_deref().unwrap())
+            .price(self.price.unwrap())
+            .name(self.name.as_deref().unwrap())
+            .category1(self.category1.as_deref().unwrap())
+            .category2(self.category2.as_deref().unwrap())
+            .item_type(self.item_type.as_deref().unwrap())
+            .sub_merchant_key(self.sub_merchant_key.as_deref().unwrap())
+            .sub_merchant_price(self.sub_merchant_price.unwrap())
+            .build()
+            .expect("Failed to build BasketItem")
     }
 }
 

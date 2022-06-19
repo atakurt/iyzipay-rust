@@ -134,88 +134,34 @@ impl PKISerialize for Option<RefundReason> {
     }
 }
 
-#[derive(Debug, Default, Serialize, Deserialize, Clone)]
+#[derive(Debug, Default, Serialize, Deserialize, Clone, Builder, Getters)]
 #[serde(rename_all = "camelCase")]
 #[serde(default)]
+#[builder(public, setter(strip_option, into))]
 pub struct BasketItem {
+    #[getset(get = "pub")]
     id: Option<String>,
 
+    #[getset(get = "pub")]
     price: Option<BigDecimal>,
 
+    #[getset(get = "pub")]
     name: Option<String>,
 
+    #[getset(get = "pub")]
     category1: Option<String>,
 
+    #[getset(get = "pub")]
     category2: Option<String>,
 
+    #[getset(get = "pub")]
     item_type: Option<String>,
 
+    #[getset(get = "pub")]
     sub_merchant_key: Option<String>,
 
+    #[getset(get = "pub")]
     sub_merchant_price: Option<BigDecimal>,
-}
-
-impl BasketItem {
-    pub fn new() -> Self {
-        BasketItem::default()
-    }
-
-    pub fn set_id<T: Into<String>>(&mut self, id: T) {
-        self.id = Some(id.into());
-    }
-
-    pub fn set_price<T: Into<BigDecimal>>(&mut self, price: T) {
-        self.price = Some(price.into());
-    }
-
-    pub fn set_name<T: Into<String>>(&mut self, name: T) {
-        self.name = Some(name.into());
-    }
-
-    pub fn set_category1<T: Into<String>>(&mut self, category1: T) {
-        self.category1 = Some(category1.into());
-    }
-
-    pub fn set_category2<T: Into<String>>(&mut self, category2: T) {
-        self.category2 = Some(category2.into());
-    }
-
-    pub fn set_item_type<T: Into<String>>(&mut self, item_type: T) {
-        self.item_type = Some(item_type.into());
-    }
-
-    pub fn set_sub_merchant_key<T: Into<String>>(&mut self, sub_merchant_key: T) {
-        self.sub_merchant_key = Some(sub_merchant_key.into());
-    }
-
-    pub fn set_sub_merchant_price<T: Into<BigDecimal>>(&mut self, sub_merchant_price: T) {
-        self.sub_merchant_price = Some(sub_merchant_price.into());
-    }
-
-    pub fn id(&self) -> Option<&String> {
-        self.id.as_ref()
-    }
-    pub fn price(&self) -> Option<&BigDecimal> {
-        self.price.as_ref()
-    }
-    pub fn name(&self) -> Option<&String> {
-        self.name.as_ref()
-    }
-    pub fn category1(&self) -> Option<&String> {
-        self.category1.as_ref()
-    }
-    pub fn category2(&self) -> Option<&String> {
-        self.category2.as_ref()
-    }
-    pub fn item_type(&self) -> Option<&String> {
-        self.item_type.as_ref()
-    }
-    pub fn sub_merchant_key(&self) -> Option<&String> {
-        self.sub_merchant_key.as_ref()
-    }
-    pub fn sub_merchant_price(&self) -> Option<&BigDecimal> {
-        self.sub_merchant_price.as_ref()
-    }
 }
 
 impl PKISerialize for BasketItem {
