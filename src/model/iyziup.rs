@@ -12,61 +12,25 @@ use crate::requests::RetrieveIyziupFormRequest;
 use crate::resource::IyzipayResource;
 use crate::types::Result;
 
-#[derive(Debug, Default, Serialize, Deserialize, Clone)]
+#[derive(Debug, Default, Serialize, Deserialize, Clone, Builder, Getters)]
 #[serde(rename_all = "camelCase")]
 #[serde(default)]
+#[builder(public, setter(strip_option, into))]
 pub struct InitialConsumer {
+    #[getset(get = "pub")]
     name: Option<String>,
 
+    #[getset(get = "pub")]
     surname: Option<String>,
 
+    #[getset(get = "pub")]
     email: Option<String>,
 
+    #[getset(get = "pub")]
     gsm_number: Option<String>,
 
+    #[getset(get = "pub")]
     address_list: Option<Vec<IyziupAddress>>,
-}
-
-impl InitialConsumer {
-    pub fn new() -> Self {
-        Self::default()
-    }
-
-    pub fn set_name<T: Into<String>>(&mut self, name: T) {
-        self.name = Some(name.into());
-    }
-
-    pub fn set_surname<T: Into<String>>(&mut self, surname: T) {
-        self.surname = Some(surname.into());
-    }
-
-    pub fn set_email<T: Into<String>>(&mut self, email: T) {
-        self.email = Some(email.into());
-    }
-
-    pub fn set_gsm_number<T: Into<String>>(&mut self, gsm_number: T) {
-        self.gsm_number = Some(gsm_number.into());
-    }
-
-    pub fn set_address_list<T: Into<Vec<IyziupAddress>>>(&mut self, address_list: T) {
-        self.address_list = Some(address_list.into());
-    }
-
-    pub fn name(&self) -> Option<&String> {
-        self.name.as_ref()
-    }
-    pub fn surname(&self) -> Option<&String> {
-        self.surname.as_ref()
-    }
-    pub fn email(&self) -> Option<&String> {
-        self.email.as_ref()
-    }
-    pub fn gsm_number(&self) -> Option<&String> {
-        self.gsm_number.as_ref()
-    }
-    pub fn address_list(&self) -> Option<&Vec<IyziupAddress>> {
-        self.address_list.as_ref()
-    }
 }
 
 impl PKISerialize for InitialConsumer {

@@ -1,6 +1,7 @@
 use std::str::FromStr;
 
 use bigdecimal::BigDecimal;
+use iyzipay_rust::model::InitialConsumerBuilder;
 use iyzipay_rust::options::OptionsBuilder;
 use log::debug;
 
@@ -136,12 +137,6 @@ fn get_options() -> Options {
 }
 
 fn create_dummy_initial_consumer_data() -> InitialConsumer {
-    let mut initial_consumer: InitialConsumer = InitialConsumer::new();
-    initial_consumer.set_name("ConsumerName");
-    initial_consumer.set_surname("ConsumerSurname");
-    initial_consumer.set_email("consumermail@mail.com");
-    initial_consumer.set_gsm_number("+905556667788");
-
     let mut home_address = IyziupAddress::new();
     home_address.set_alias("Home Address");
     home_address.set_contact_name("ConsumerWithHomeAddress Name Surname");
@@ -160,7 +155,12 @@ fn create_dummy_initial_consumer_data() -> InitialConsumer {
     work_address.set_city("WorkCity");
     work_address.set_zip_code("WorkZipCode");
 
-    initial_consumer.set_address_list(vec![home_address, work_address].to_vec());
-
-    initial_consumer
+    InitialConsumerBuilder::default()
+        .name("ConsumerName")
+        .surname("ConsumerSurname")
+        .email("consumermail@mail.com")
+        .gsm_number("+905556667788")
+        .address_list(vec![home_address, work_address].to_vec())
+        .build()
+        .expect("Failed to create dummy initial consumer data")
 }

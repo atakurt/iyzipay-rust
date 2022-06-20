@@ -4,6 +4,7 @@ use bigdecimal::BigDecimal;
 
 use iyzipay_rust::model::Currency;
 use iyzipay_rust::model::InitialConsumer;
+use iyzipay_rust::model::InitialConsumerBuilder;
 use iyzipay_rust::model::IyziupAddress;
 use iyzipay_rust::model::IyziupForm;
 use iyzipay_rust::model::IyziupFormInitialize;
@@ -151,12 +152,6 @@ fn should_initialize_iyziup_form_with_initial_consumer_data() {
     order_items.push(third_order_item);
     request.set_order_items(order_items);
 
-    let mut initial_consumer = InitialConsumer::new();
-    initial_consumer.set_name("ConsumerName");
-    initial_consumer.set_surname("ConsumerSurname");
-    initial_consumer.set_email("consumermail@mail.com");
-    initial_consumer.set_gsm_number("+905556667788");
-
     let mut home_address = IyziupAddress::new();
     home_address.set_alias("Home Address");
     home_address.set_contact_name("ConsumerWithHomeAddress Name Surname");
@@ -178,7 +173,16 @@ fn should_initialize_iyziup_form_with_initial_consumer_data() {
     let mut address_list = Vec::new();
     address_list.push(home_address);
     address_list.push(work_address);
-    initial_consumer.set_address_list(address_list);
+
+    let initial_consumer = InitialConsumerBuilder::default()
+        .name("ConsumerName")
+        .surname("ConsumerSurname")
+        .email("consumermail@mail.com")
+        .gsm_number("+905556667788")
+        .address_list(address_list)
+        .build()
+        .expect("Failed to build InitialConsumer");
+
     request.set_initial_consumer(initial_consumer);
 
     let iyziup_form_initialize =
