@@ -453,57 +453,25 @@ impl std::ops::Deref for IyziupForm {
     }
 }
 
-#[derive(Debug, Default, Serialize, Deserialize)]
+#[derive(Debug, Default, Serialize, Deserialize, Builder, Getters)]
 #[serde(rename_all = "camelCase")]
 #[serde(default)]
+#[builder(public, setter(strip_option, into))]
 pub struct Consumer {
+    #[getset(get = "pub")]
     name: Option<String>,
 
+    #[getset(get = "pub")]
     surname: Option<String>,
 
+    #[getset(get = "pub")]
     identity_number: Option<String>,
 
+    #[getset(get = "pub")]
     email: Option<String>,
 
+    #[getset(get = "pub")]
     gsm_number: Option<String>,
-}
-
-impl Consumer {
-    pub fn set_name<T: Into<String>>(&mut self, name: T) {
-        self.name = Some(name.into());
-    }
-
-    pub fn set_surname<T: Into<String>>(&mut self, surname: T) {
-        self.surname = Some(surname.into());
-    }
-
-    pub fn set_identity_number<T: Into<String>>(&mut self, identity_number: T) {
-        self.identity_number = Some(identity_number.into());
-    }
-
-    pub fn set_email<T: Into<String>>(&mut self, email: T) {
-        self.email = Some(email.into());
-    }
-
-    pub fn set_gsm_number<T: Into<String>>(&mut self, gsm_number: T) {
-        self.gsm_number = Some(gsm_number.into());
-    }
-
-    pub fn name(&self) -> Option<&String> {
-        self.name.as_ref()
-    }
-    pub fn surname(&self) -> Option<&String> {
-        self.surname.as_ref()
-    }
-    pub fn identity_number(&self) -> Option<&String> {
-        self.identity_number.as_ref()
-    }
-    pub fn email(&self) -> Option<&String> {
-        self.email.as_ref()
-    }
-    pub fn gsm_number(&self) -> Option<&String> {
-        self.gsm_number.as_ref()
-    }
 }
 
 #[derive(Debug, Default, Serialize, Deserialize)]
