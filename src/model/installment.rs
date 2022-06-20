@@ -90,36 +90,16 @@ pub struct InstallmentDetail {
     installment_prices: Option<Vec<InstallmentPrice>>,
 }
 
-#[derive(Debug, Clone, Default, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Clone, Default, Serialize, Deserialize, PartialEq, Builder, Getters)]
 #[serde(rename_all = "camelCase")]
+#[builder(public, setter(strip_option, into))]
 pub struct InstallmentPrice {
+    #[getset(get = "pub")]
     installment_price: Option<BigDecimal>,
 
+    #[getset(get = "pub")]
     total_price: Option<BigDecimal>,
 
+    #[getset(get = "pub")]
     installment_number: Option<u8>,
-}
-
-impl InstallmentPrice {
-    pub fn set_installment_price<T: Into<BigDecimal>>(&mut self, installment_price: T) {
-        self.installment_price = Some(installment_price.into());
-    }
-
-    pub fn set_total_price<T: Into<BigDecimal>>(&mut self, total_price: T) {
-        self.total_price = Some(total_price.into());
-    }
-
-    pub fn set_installment_number<T: Into<u8>>(&mut self, installment_number: T) {
-        self.installment_number = Some(installment_number.into());
-    }
-
-    pub fn installment_price(&self) -> Option<&BigDecimal> {
-        self.installment_price.as_ref()
-    }
-    pub fn total_price(&self) -> Option<&BigDecimal> {
-        self.total_price.as_ref()
-    }
-    pub fn installment_number(&self) -> Option<&u8> {
-        self.installment_number.as_ref()
-    }
 }

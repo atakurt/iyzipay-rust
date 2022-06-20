@@ -9,9 +9,11 @@ pub use self::checkout::CheckoutForm;
 pub use self::checkout::CheckoutFormInitialize;
 pub use self::currency::Currency;
 pub use self::installment::InstallmentInfo;
-pub use self::installment::InstallmentPrice;
 pub use self::installment::{
     InstallmentDetail, InstallmentDetailBuilder, InstallmentDetailBuilderError,
+};
+pub use self::installment::{
+    InstallmentPrice, InstallmentPriceBuilder, InstallmentPriceBuilderError,
 };
 pub use self::iyzilink::IyziLink;
 pub use self::iyzilink::IyziLinkItem;

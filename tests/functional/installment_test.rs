@@ -63,14 +63,18 @@ fn should_retrieve_installments() {
         installment_details[0].card_family_name()
     );
     assert_ne!(&None, installment_details[0].installment_prices());
-    assert!(installment_prices[0].installment_number().unwrap() > &0);
+    assert!(installment_prices[0].installment_number().unwrap() > 0);
     assert!(installment_prices[0]
         .installment_price()
+        .as_ref()
         .unwrap()
+        .clone()
         .gt(&BigDecimal::zero()));
     assert!(installment_prices[0]
         .total_price()
+        .as_ref()
         .unwrap()
+        .clone()
         .gt(&BigDecimal::zero()));
     assert_ne!(None, installment_info.system_time());
     assert_eq!(None, installment_info.error_code());
