@@ -6,7 +6,6 @@ use bigdecimal::BigDecimal;
 use bigdecimal::One;
 
 use iyzipay_rust::model::BasketItemType;
-use iyzipay_rust::model::CardInformation;
 use iyzipay_rust::model::Currency;
 use iyzipay_rust::model::InitialConsumer;
 use iyzipay_rust::model::Locale;
@@ -18,6 +17,7 @@ use iyzipay_rust::model::SubMerchantType;
 use iyzipay_rust::model::{Address, AddressBuilder as NewAddressBuilder};
 use iyzipay_rust::model::{BasketItem, BasketItemBuilder as NewBasketItemBuilder};
 use iyzipay_rust::model::{Buyer, BuyerBuilder as NewBuyerBuilder};
+use iyzipay_rust::model::{CardInformation, CardInformationBuilder as NewCardInformationBuilder};
 use iyzipay_rust::model::{PaymentCard, PaymentCardBuilder as NewPaymentCardBuilder};
 use iyzipay_rust::requests::CreateApprovalRequest;
 use iyzipay_rust::requests::CreateBkmInitializeRequest;
@@ -264,23 +264,14 @@ impl CardInformationBuilder {
 impl Builder for CardInformationBuilder {
     type BuildType = CardInformation;
     fn build(&self) -> CardInformation {
-        let mut card_information = CardInformation::new();
-        self.card_alias
-            .to_owned()
-            .and_then(|x| Some(card_information.set_card_alias(x)));
-        self.card_number
-            .to_owned()
-            .and_then(|x| Some(card_information.set_card_number(x)));
-        self.expire_year
-            .to_owned()
-            .and_then(|x| Some(card_information.set_expire_year(x)));
-        self.expire_month
-            .to_owned()
-            .and_then(|x| Some(card_information.set_expire_month(x)));
-        self.card_holder_name
-            .to_owned()
-            .and_then(|x| Some(card_information.set_card_holder_name(x)));
-        card_information
+        NewCardInformationBuilder::default()
+            .card_alias(self.card_alias.as_deref().unwrap())
+            .card_number(self.card_number.as_deref().unwrap())
+            .expire_year(self.expire_year.as_deref().unwrap())
+            .expire_month(self.expire_month.as_deref().unwrap())
+            .card_holder_name(self.card_holder_name.as_deref().unwrap())
+            .build()
+            .expect("Failed to build card information")
     }
 }
 
@@ -1431,13 +1422,13 @@ impl Builder for BasketItemBuilder {
     fn build(&self) -> BasketItem {
         NewBasketItemBuilder::default()
             .id(self.id.as_deref().unwrap())
-            .price(self.price.unwrap())
+            .price(self.price.as_ref().unwrap().clone())
             .name(self.name.as_deref().unwrap())
             .category1(self.category1.as_deref().unwrap())
             .category2(self.category2.as_deref().unwrap())
             .item_type(self.item_type.as_deref().unwrap())
             .sub_merchant_key(self.sub_merchant_key.as_deref().unwrap())
-            .sub_merchant_price(self.sub_merchant_price.unwrap())
+            .sub_merchant_price(self.sub_merchant_price.as_ref().unwrap().clone())
             .build()
             .expect("Failed to build BasketItem")
     }

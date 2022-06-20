@@ -1,10 +1,10 @@
 pub use self::api::Api;
 pub use self::bin_number::BinNumber;
 pub use self::card::Card;
-pub use self::card::CardInformation;
 pub use self::card::CardList;
 pub use self::card::CardManagementPageCard;
 pub use self::card::CardManagementPageInitialize;
+pub use self::card::{CardInformation, CardInformationBuilder, CardInformationBuilderError};
 pub use self::checkout::CheckoutForm;
 pub use self::checkout::CheckoutFormInitialize;
 pub use self::currency::Currency;

@@ -1,5 +1,6 @@
 use iyzipay_rust::model::Card;
 use iyzipay_rust::model::CardInformation;
+use iyzipay_rust::model::CardInformationBuilder;
 use iyzipay_rust::model::CardList;
 use iyzipay_rust::model::Locale;
 use iyzipay_rust::model::Status;
@@ -18,12 +19,15 @@ fn should_create_user_and_add_card() {
     request.set_email("email@email.com");
     request.set_external_id("external id");
 
-    let mut card_information = CardInformation::new();
-    card_information.set_card_alias("card alias");
-    card_information.set_card_holder_name("John Doe");
-    card_information.set_card_number("5528790000000008");
-    card_information.set_expire_month("12");
-    card_information.set_expire_year("2030");
+    let card_information = CardInformationBuilder::default()
+        .card_alias("card alias")
+        .card_holder_name("John Doe")
+        .card_number("5528790000000008")
+        .expire_month("12")
+        .expire_year("2030")
+        .build()
+        .expect("Failed to build card information");
+
     request.set_card(card_information);
 
     let card: Card = Card::create(&request, &get_test_options()).unwrap();
@@ -58,12 +62,15 @@ fn should_create_card() {
     request.set_external_id("external id");
     request.set_card_user_key("card user key");
 
-    let mut card_information = CardInformation::new();
-    card_information.set_card_alias("card alias");
-    card_information.set_card_holder_name("John Doe");
-    card_information.set_card_number("5528790000000008");
-    card_information.set_expire_month("12");
-    card_information.set_expire_year("2030");
+    let card_information = CardInformationBuilder::default()
+        .card_alias("card alias")
+        .card_holder_name("John Doe")
+        .card_number("5528790000000008")
+        .expire_month("12")
+        .expire_year("2030")
+        .build()
+        .expect("Failed to build card information");
+
     request.set_card(card_information);
 
     let card = Card::create(&request, &get_test_options()).unwrap();
