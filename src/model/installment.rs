@@ -52,113 +52,45 @@ impl std::ops::Deref for InstallmentInfo {
     }
 }
 
-#[derive(Debug, Default, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Clone, Default, Serialize, Deserialize, PartialEq, Builder, Getters)]
 #[serde(rename_all = "camelCase")]
+#[builder(public, setter(strip_option, into))]
 pub struct InstallmentDetail {
+    #[getset(get = "pub")]
     bin_number: Option<String>,
 
+    #[getset(get = "pub")]
     price: Option<BigDecimal>,
 
+    #[getset(get = "pub")]
     card_type: Option<String>,
 
+    #[getset(get = "pub")]
     card_association: Option<String>,
 
+    #[getset(get = "pub")]
     card_family_name: Option<String>,
 
+    #[getset(get = "pub")]
     force3ds: Option<u8>,
 
+    #[getset(get = "pub")]
     bank_code: Option<i64>,
 
+    #[getset(get = "pub")]
     bank_name: Option<String>,
 
+    #[getset(get = "pub")]
     force_cvc: Option<u8>,
 
+    #[getset(get = "pub")]
     commercial: Option<u8>,
 
+    #[getset(get = "pub")]
     installment_prices: Option<Vec<InstallmentPrice>>,
 }
 
-impl InstallmentDetail {
-    pub fn set_price<T: Into<BigDecimal>>(&mut self, price: T) {
-        self.price = Some(price.into());
-    }
-
-    pub fn set_card_type<T: Into<String>>(&mut self, card_type: T) {
-        self.card_type = Some(card_type.into());
-    }
-
-    pub fn set_card_association<T: Into<String>>(&mut self, card_association: T) {
-        self.card_association = Some(card_association.into());
-    }
-
-    pub fn set_card_family_name<T: Into<String>>(&mut self, card_family_name: T) {
-        self.card_family_name = Some(card_family_name.into());
-    }
-
-    pub fn set_force3ds<T: Into<u8>>(&mut self, force3ds: T) {
-        self.force3ds = Some(force3ds.into());
-    }
-
-    pub fn set_bank_code<T: Into<i64>>(&mut self, bank_code: T) {
-        self.bank_code = Some(bank_code.into());
-    }
-
-    pub fn set_bank_name<T: Into<String>>(&mut self, bank_name: T) {
-        self.bank_name = Some(bank_name.into());
-    }
-
-    pub fn set_force_cvc<T: Into<u8>>(&mut self, force_cvc: T) {
-        self.force_cvc = Some(force_cvc.into());
-    }
-
-    pub fn set_commercial<T: Into<u8>>(&mut self, commercial: T) {
-        self.commercial = Some(commercial.into());
-    }
-
-    pub fn set_installment_prices<T: Into<Vec<InstallmentPrice>>>(
-        &mut self,
-        installment_prices: T,
-    ) {
-        self.installment_prices = Some(installment_prices.into());
-    }
-
-    pub fn bin_number(&self) -> Option<&String> {
-        self.bin_number.as_ref()
-    }
-
-    pub fn price(&self) -> Option<&BigDecimal> {
-        self.price.as_ref()
-    }
-    pub fn card_type(&self) -> Option<&String> {
-        self.card_type.as_ref()
-    }
-    pub fn card_association(&self) -> Option<&String> {
-        self.card_association.as_ref()
-    }
-    pub fn card_family_name(&self) -> Option<&String> {
-        self.card_family_name.as_ref()
-    }
-    pub fn force3ds(&self) -> Option<&u8> {
-        self.force3ds.as_ref()
-    }
-    pub fn bank_code(&self) -> Option<&i64> {
-        self.bank_code.as_ref()
-    }
-    pub fn bank_name(&self) -> Option<&String> {
-        self.bank_name.as_ref()
-    }
-    pub fn force_cvc(&self) -> Option<&u8> {
-        self.force_cvc.as_ref()
-    }
-    pub fn commercial(&self) -> Option<&u8> {
-        self.commercial.as_ref()
-    }
-    pub fn installment_prices(&self) -> Option<&Vec<InstallmentPrice>> {
-        self.installment_prices.as_ref()
-    }
-}
-
-#[derive(Debug, Default, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Clone, Default, Serialize, Deserialize, PartialEq)]
 #[serde(rename_all = "camelCase")]
 pub struct InstallmentPrice {
     installment_price: Option<BigDecimal>,

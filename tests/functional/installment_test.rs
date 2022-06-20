@@ -27,7 +27,11 @@ fn should_retrieve_installments() {
     debug!("{:?}", installment_info);
 
     let installment_details = installment_info.installment_details().unwrap();
-    let installment_prices = installment_details[0].installment_prices().unwrap();
+    let installment_prices = installment_details[0]
+        .installment_prices()
+        .as_ref()
+        .unwrap()
+        .clone();
 
     assert_eq!(
         Some(&Status::Success.to_string()),
@@ -39,26 +43,26 @@ fn should_retrieve_installments() {
     );
     assert_ne!(None, installment_info.installment_details());
     assert_eq!(
-        Some(&String::from("554960")),
+        &Some(String::from("554960")),
         installment_details[0].bin_number()
     );
     assert_eq!(
-        Some(&BigDecimal::from_str("100").unwrap()),
+        &Some(BigDecimal::from_str("100").unwrap()),
         installment_details[0].price()
     );
     assert_eq!(
-        Some(&String::from("CREDIT_CARD")),
+        &Some(String::from("CREDIT_CARD")),
         installment_details[0].card_type()
     );
     assert_eq!(
-        Some(&String::from("MASTER_CARD")),
+        &Some(String::from("MASTER_CARD")),
         installment_details[0].card_association()
     );
     assert_eq!(
-        Some(&String::from("Bonus")),
+        &Some(String::from("Bonus")),
         installment_details[0].card_family_name()
     );
-    assert_ne!(None, installment_details[0].installment_prices());
+    assert_ne!(&None, installment_details[0].installment_prices());
     assert!(installment_prices[0].installment_number().unwrap() > &0);
     assert!(installment_prices[0]
         .installment_price()
