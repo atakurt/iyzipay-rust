@@ -16,12 +16,12 @@ pub use self::installment::{
     InstallmentPrice, InstallmentPriceBuilder, InstallmentPriceBuilderError,
 };
 pub use self::iyzilink::IyziLink;
-pub use self::iyzilink::IyziLinkPaging;
 pub use self::iyzilink::IyziLinkPagingResource;
 pub use self::iyzilink::IyziLinkResource;
 pub use self::iyzilink::IyziLinkSaveResource;
 pub use self::iyzilink::IyziLinkStatus;
 pub use self::iyzilink::{IyziLinkItem, IyziLinkItemBuilder, IyziLinkItemBuilderError};
+pub use self::iyzilink::{IyziLinkPaging, IyziLinkPagingBuilder, IyziLinkPagingBuilderError};
 pub use self::iyziup::Consumer;
 pub use self::iyziup::InitialConsumer;
 pub use self::iyziup::IyziupAddress;

@@ -126,8 +126,17 @@ fn should_retrieve_iyzi_links_with_pagination() {
     assert_eq!(Some(&Locale::TR.to_string()), response.locale());
     assert_eq!(Some(&String::from("123456789")), response.conversation_id());
     assert_ne!(None, response.system_time());
-    assert_eq!(1, response.data().unwrap().iyzi_link_items().unwrap().len());
-    assert_eq!(&1, response.data().unwrap().current_page().unwrap());
+    assert_eq!(
+        1,
+        response
+            .data()
+            .unwrap()
+            .iyzi_link_items()
+            .as_ref()
+            .unwrap()
+            .len()
+    );
+    assert_eq!(1, response.data().unwrap().current_page().unwrap());
 }
 
 #[test]

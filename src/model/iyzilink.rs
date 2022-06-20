@@ -271,49 +271,23 @@ impl std::ops::Deref for IyziLinkPagingResource {
     }
 }
 
-#[derive(Debug, Default, Serialize, Deserialize)]
+#[derive(Debug, Default, Serialize, Deserialize, Builder, Getters)]
 #[serde(rename_all = "camelCase")]
 #[serde(default)]
+#[builder(public, setter(strip_option, into))]
 pub struct IyziLinkPaging {
+    #[getset(get = "pub")]
     #[serde(rename = "items")]
     iyzi_link_items: Option<Vec<IyziLinkItem>>,
 
+    #[getset(get = "pub")]
     total_count: Option<i64>,
 
+    #[getset(get = "pub")]
     current_page: Option<i32>,
 
+    #[getset(get = "pub")]
     page_count: Option<i32>,
-}
-
-impl IyziLinkPaging {
-    pub fn set_iyzi_link_items<T: Into<Vec<IyziLinkItem>>>(&mut self, iyzi_link_items: T) {
-        self.iyzi_link_items = Some(iyzi_link_items.into());
-    }
-
-    pub fn set_total_count<T: Into<i64>>(&mut self, total_count: T) {
-        self.total_count = Some(total_count.into());
-    }
-
-    pub fn set_current_page<T: Into<i32>>(&mut self, current_page: T) {
-        self.current_page = Some(current_page.into());
-    }
-
-    pub fn set_page_count<T: Into<i32>>(&mut self, page_count: T) {
-        self.page_count = Some(page_count.into());
-    }
-
-    pub fn iyzi_link_items(&self) -> Option<&Vec<IyziLinkItem>> {
-        self.iyzi_link_items.as_ref()
-    }
-    pub fn total_count(&self) -> Option<&i64> {
-        self.total_count.as_ref()
-    }
-    pub fn current_page(&self) -> Option<&i32> {
-        self.current_page.as_ref()
-    }
-    pub fn page_count(&self) -> Option<&i32> {
-        self.page_count.as_ref()
-    }
 }
 
 #[derive(Debug, Clone, Default, Serialize, Deserialize, Builder, Getters)]
