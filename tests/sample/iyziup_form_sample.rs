@@ -6,6 +6,7 @@ use iyzipay_rust::model::Currency;
 use iyzipay_rust::model::InitialConsumer;
 use iyzipay_rust::model::InitialConsumerBuilder;
 use iyzipay_rust::model::IyziupAddress;
+use iyzipay_rust::model::IyziupAddressBuilder;
 use iyzipay_rust::model::IyziupForm;
 use iyzipay_rust::model::IyziupFormInitialize;
 use iyzipay_rust::model::Locale;
@@ -152,23 +153,27 @@ fn should_initialize_iyziup_form_with_initial_consumer_data() {
     order_items.push(third_order_item);
     request.set_order_items(order_items);
 
-    let mut home_address = IyziupAddress::new();
-    home_address.set_alias("Home Address");
-    home_address.set_contact_name("ConsumerWithHomeAddress Name Surname");
-    home_address.set_address_line1("Home Address Line 1");
-    home_address.set_address_line2("Home Address Line 2");
-    home_address.set_country("HomeCountry");
-    home_address.set_city("HomeCity");
-    home_address.set_zip_code("HomeZipCode");
+    let home_address = IyziupAddressBuilder::default()
+        .alias("Home Address")
+        .contact_name("ConsumerWithHomeAddress Name Surname")
+        .address_line1("Home Address Line 1")
+        .address_line2("Home Address Line 2")
+        .country("HomeCountry")
+        .city("HomeCity")
+        .zip_code("HomeZipCode")
+        .build()
+        .expect("Failed to build home address");
 
-    let mut work_address = IyziupAddress::new();
-    work_address.set_alias("Work Address");
-    work_address.set_contact_name("ConsumerWithWorkAddress Name Surname");
-    work_address.set_address_line1("Work Address Line 1");
-    work_address.set_address_line2("Work Address Line 2");
-    work_address.set_country("WorkCountry");
-    work_address.set_city("WorkCity");
-    work_address.set_zip_code("WorkZipCode");
+    let work_address = IyziupAddressBuilder::default()
+        .alias("Work Address")
+        .contact_name("ConsumerWithWorkAddress Name Surname")
+        .address_line1("Work Address Line 1")
+        .address_line2("Work Address Line 2")
+        .country("WorkCountry")
+        .city("WorkCity")
+        .zip_code("WorkZipCode")
+        .build()
+        .expect("Failed to build work address");
 
     let mut address_list = Vec::new();
     address_list.push(home_address);

@@ -2,6 +2,7 @@ use std::str::FromStr;
 
 use bigdecimal::BigDecimal;
 use iyzipay_rust::model::InitialConsumerBuilder;
+use iyzipay_rust::model::IyziupAddressBuilder;
 use iyzipay_rust::options::OptionsBuilder;
 use log::debug;
 
@@ -137,23 +138,27 @@ fn get_options() -> Options {
 }
 
 fn create_dummy_initial_consumer_data() -> InitialConsumer {
-    let mut home_address = IyziupAddress::new();
-    home_address.set_alias("Home Address");
-    home_address.set_contact_name("ConsumerWithHomeAddress Name Surname");
-    home_address.set_address_line1("Home Address Line 1");
-    home_address.set_address_line2("Home Address Line 2");
-    home_address.set_country("HomeCountry");
-    home_address.set_city("HomeCity");
-    home_address.set_zip_code("HomeZipCode");
+    let home_address = IyziupAddressBuilder::default()
+        .alias("Home Address")
+        .contact_name("ConsumerWithHomeAddress Name Surname")
+        .address_line1("Home Address Line 1")
+        .address_line2("Home Address Line 2")
+        .country("HomeCountry")
+        .city("HomeCity")
+        .zip_code("HomeZipCode")
+        .build()
+        .expect("Failed to build home address");
 
-    let mut work_address = IyziupAddress::new();
-    work_address.set_alias("Work Address");
-    work_address.set_contact_name("ConsumerWithWorkAddress Name Surname");
-    work_address.set_address_line1("Work Address Line 1");
-    work_address.set_address_line2("Work Address Line 2");
-    work_address.set_country("WorkCountry");
-    work_address.set_city("WorkCity");
-    work_address.set_zip_code("WorkZipCode");
+    let work_address = IyziupAddressBuilder::default()
+        .alias("Work Address")
+        .contact_name("ConsumerWithWorkAddress Name Surname")
+        .address_line1("Work Address Line 1")
+        .address_line2("Work Address Line 2")
+        .country("WorkCountry")
+        .city("WorkCity")
+        .zip_code("WorkZipCode")
+        .build()
+        .expect("Failed to build work address");
 
     InitialConsumerBuilder::default()
         .name("ConsumerName")
