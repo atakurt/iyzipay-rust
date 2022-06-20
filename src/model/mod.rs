@@ -24,12 +24,12 @@ pub use self::iyzilink::{IyziLinkItem, IyziLinkItemBuilder, IyziLinkItemBuilderE
 pub use self::iyzilink::{IyziLinkPaging, IyziLinkPagingBuilder, IyziLinkPagingBuilderError};
 pub use self::iyziup::IyziupForm;
 pub use self::iyziup::IyziupFormInitialize;
-pub use self::iyziup::IyziupPayment;
 pub use self::iyziup::OrderItem;
 pub use self::iyziup::OrderItemType;
 pub use self::iyziup::{Consumer, ConsumerBuilder, ConsumerBuilderError};
 pub use self::iyziup::{InitialConsumer, InitialConsumerBuilder, InitialConsumerBuilderError};
 pub use self::iyziup::{IyziupAddress, IyziupAddressBuilder, IyziupAddressBuilderError};
+pub use self::iyziup::{IyziupPayment, IyziupPaymentBuilder, IyziupPaymentBuilderError};
 pub use self::locale::Locale;
 pub use self::payment::BasketItemType;
 pub use self::payment::Bkm;

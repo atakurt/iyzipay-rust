@@ -22,7 +22,7 @@ const RANDOM_HEADER_NAME: &str = "x-iyzi-rnd";
 const CLIENT_VERSION_HEADER_NAME: &str = "x-iyzi-client-version";
 const RANDOM_STRING_SIZE: usize = 8;
 
-#[derive(Debug, Default, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Clone, Default, Serialize, Deserialize, PartialEq)]
 #[serde(rename_all = "camelCase")]
 pub struct IyzipayResource {
     status: Option<String>,

@@ -325,7 +325,7 @@ impl PKISerialize for Buyer {
     }
 }
 
-#[derive(Debug, Default, Serialize, Deserialize)]
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Payment {
     #[serde(flatten)]
@@ -365,7 +365,7 @@ impl std::ops::Deref for Payment {
     }
 }
 
-#[derive(Debug, Default, Serialize, Deserialize)]
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 #[serde(default)]
 pub struct PaymentResource {
@@ -618,7 +618,7 @@ impl std::ops::Deref for PaymentResource {
     }
 }
 
-#[derive(Debug, Default, Serialize, Deserialize)]
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 #[serde(default)]
 pub struct PaymentItem {
@@ -840,7 +840,7 @@ impl std::ops::Deref for PaymentItem {
     }
 }
 
-#[derive(Debug, Default, Serialize, Deserialize)]
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 #[serde(default)]
 pub struct ConvertedPayout {

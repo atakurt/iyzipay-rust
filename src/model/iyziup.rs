@@ -390,218 +390,75 @@ pub struct Consumer {
     gsm_number: Option<String>,
 }
 
-#[derive(Debug, Default, Serialize, Deserialize)]
+#[derive(Debug, Default, Serialize, Deserialize, Builder, Getters)]
 #[serde(rename_all = "camelCase")]
 #[serde(default)]
+#[builder(public, setter(strip_option, into))]
 pub struct IyziupPayment {
+    #[getset(get = "pub")]
     price: Option<BigDecimal>,
 
+    #[getset(get = "pub")]
     paid_price: Option<BigDecimal>,
 
+    #[getset(get = "pub")]
     currency: Option<String>,
 
+    #[getset(get = "pub")]
     installment: Option<i32>,
 
+    #[getset(get = "pub")]
     payment_id: Option<String>,
 
+    #[getset(get = "pub")]
     payment_status: Option<String>,
 
+    #[getset(get = "pub")]
     fraud_status: Option<i32>,
 
+    #[getset(get = "pub")]
     merchant_commission_rate: Option<BigDecimal>,
 
+    #[getset(get = "pub")]
     merchant_commission_rate_amount: Option<BigDecimal>,
 
+    #[getset(get = "pub")]
     iyzi_commission_rate_amount: Option<BigDecimal>,
 
+    #[getset(get = "pub")]
     iyzi_commission_fee: Option<BigDecimal>,
 
+    #[getset(get = "pub")]
     card_type: Option<String>,
 
+    #[getset(get = "pub")]
     card_association: Option<String>,
 
+    #[getset(get = "pub")]
     card_family: Option<String>,
 
+    #[getset(get = "pub")]
     bin_number: Option<String>,
 
+    #[getset(get = "pub")]
     basket_id: Option<String>,
 
+    #[getset(get = "pub")]
     #[serde(rename = "itemTransactions")]
     payment_items: Option<Vec<PaymentItem>>,
 
+    #[getset(get = "pub")]
     connector_name: Option<String>,
 
+    #[getset(get = "pub")]
     auth_code: Option<String>,
 
+    #[getset(get = "pub")]
     phase: Option<String>,
 
+    #[getset(get = "pub")]
     last_four_digits: Option<String>,
 
+    #[getset(get = "pub")]
     pos_order_id: Option<String>,
-}
-
-impl IyziupPayment {
-    pub fn set_price<T: Into<BigDecimal>>(&mut self, price: T) {
-        self.price = Some(price.into());
-    }
-
-    pub fn set_paid_price<T: Into<BigDecimal>>(&mut self, paid_price: T) {
-        self.paid_price = Some(paid_price.into());
-    }
-
-    pub fn set_currency<T: Into<String>>(&mut self, currency: T) {
-        self.currency = Some(currency.into());
-    }
-
-    pub fn set_installment<T: Into<i32>>(&mut self, installment: T) {
-        self.installment = Some(installment.into());
-    }
-
-    pub fn set_payment_id<T: Into<String>>(&mut self, payment_id: T) {
-        self.payment_id = Some(payment_id.into());
-    }
-
-    pub fn set_payment_status<T: Into<String>>(&mut self, payment_status: T) {
-        self.payment_status = Some(payment_status.into());
-    }
-
-    pub fn set_fraud_status<T: Into<i32>>(&mut self, fraud_status: T) {
-        self.fraud_status = Some(fraud_status.into());
-    }
-
-    pub fn set_merchant_commission_rate<T: Into<BigDecimal>>(
-        &mut self,
-        merchant_commission_rate: T,
-    ) {
-        self.merchant_commission_rate = Some(merchant_commission_rate.into());
-    }
-
-    pub fn set_merchant_commission_rate_amount<T: Into<BigDecimal>>(
-        &mut self,
-        merchant_commission_rate_amount: T,
-    ) {
-        self.merchant_commission_rate_amount = Some(merchant_commission_rate_amount.into());
-    }
-
-    pub fn set_iyzi_commission_rate_amount<T: Into<BigDecimal>>(
-        &mut self,
-        iyzi_commission_rate_amount: T,
-    ) {
-        self.iyzi_commission_rate_amount = Some(iyzi_commission_rate_amount.into());
-    }
-
-    pub fn set_iyzi_commission_fee<T: Into<BigDecimal>>(&mut self, iyzi_commission_fee: T) {
-        self.iyzi_commission_fee = Some(iyzi_commission_fee.into());
-    }
-
-    pub fn set_card_type<T: Into<String>>(&mut self, card_type: T) {
-        self.card_type = Some(card_type.into());
-    }
-
-    pub fn set_card_association<T: Into<String>>(&mut self, card_association: T) {
-        self.card_association = Some(card_association.into());
-    }
-
-    pub fn set_card_family<T: Into<String>>(&mut self, card_family: T) {
-        self.card_family = Some(card_family.into());
-    }
-
-    pub fn set_bin_number<T: Into<String>>(&mut self, bin_number: T) {
-        self.bin_number = Some(bin_number.into());
-    }
-
-    pub fn set_basket_id<T: Into<String>>(&mut self, basket_id: T) {
-        self.basket_id = Some(basket_id.into());
-    }
-
-    pub fn set_payment_items<T: Into<Vec<PaymentItem>>>(&mut self, payment_items: T) {
-        self.payment_items = Some(payment_items.into());
-    }
-
-    pub fn set_connector_name<T: Into<String>>(&mut self, connector_name: T) {
-        self.connector_name = Some(connector_name.into());
-    }
-
-    pub fn set_auth_code<T: Into<String>>(&mut self, auth_code: T) {
-        self.auth_code = Some(auth_code.into());
-    }
-
-    pub fn set_phase<T: Into<String>>(&mut self, phase: T) {
-        self.phase = Some(phase.into());
-    }
-
-    pub fn set_last_four_digits<T: Into<String>>(&mut self, last_four_digits: T) {
-        self.last_four_digits = Some(last_four_digits.into());
-    }
-
-    pub fn set_pos_order_id<T: Into<String>>(&mut self, pos_order_id: T) {
-        self.pos_order_id = Some(pos_order_id.into());
-    }
-
-    pub fn price(&self) -> Option<&BigDecimal> {
-        self.price.as_ref()
-    }
-    pub fn paid_price(&self) -> Option<&BigDecimal> {
-        self.paid_price.as_ref()
-    }
-    pub fn currency(&self) -> Option<&String> {
-        self.currency.as_ref()
-    }
-    pub fn installment(&self) -> Option<&i32> {
-        self.installment.as_ref()
-    }
-    pub fn payment_id(&self) -> Option<&String> {
-        self.payment_id.as_ref()
-    }
-    pub fn payment_status(&self) -> Option<&String> {
-        self.payment_status.as_ref()
-    }
-    pub fn fraud_status(&self) -> Option<&i32> {
-        self.fraud_status.as_ref()
-    }
-    pub fn merchant_commission_rate(&self) -> Option<&BigDecimal> {
-        self.merchant_commission_rate.as_ref()
-    }
-    pub fn merchant_commission_rate_amount(&self) -> Option<&BigDecimal> {
-        self.merchant_commission_rate_amount.as_ref()
-    }
-    pub fn iyzi_commission_rate_amount(&self) -> Option<&BigDecimal> {
-        self.iyzi_commission_rate_amount.as_ref()
-    }
-    pub fn iyzi_commission_fee(&self) -> Option<&BigDecimal> {
-        self.iyzi_commission_fee.as_ref()
-    }
-    pub fn card_type(&self) -> Option<&String> {
-        self.card_type.as_ref()
-    }
-    pub fn card_association(&self) -> Option<&String> {
-        self.card_association.as_ref()
-    }
-    pub fn card_family(&self) -> Option<&String> {
-        self.card_family.as_ref()
-    }
-    pub fn bin_number(&self) -> Option<&String> {
-        self.bin_number.as_ref()
-    }
-    pub fn basket_id(&self) -> Option<&String> {
-        self.basket_id.as_ref()
-    }
-    pub fn payment_items(&self) -> Option<&Vec<PaymentItem>> {
-        self.payment_items.as_ref()
-    }
-    pub fn connector_name(&self) -> Option<&String> {
-        self.connector_name.as_ref()
-    }
-    pub fn auth_code(&self) -> Option<&String> {
-        self.auth_code.as_ref()
-    }
-    pub fn phase(&self) -> Option<&String> {
-        self.phase.as_ref()
-    }
-    pub fn last_four_digits(&self) -> Option<&String> {
-        self.last_four_digits.as_ref()
-    }
-    pub fn pos_order_id(&self) -> Option<&String> {
-        self.pos_order_id.as_ref()
-    }
 }
