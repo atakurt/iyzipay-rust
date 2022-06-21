@@ -9,7 +9,6 @@ use iyzipay_rust::model::BasketItemType;
 use iyzipay_rust::model::Currency;
 use iyzipay_rust::model::InitialConsumer;
 use iyzipay_rust::model::Locale;
-use iyzipay_rust::model::OrderItem;
 use iyzipay_rust::model::OrderItemType;
 use iyzipay_rust::model::PaymentChannel;
 use iyzipay_rust::model::PaymentGroup;
@@ -18,6 +17,7 @@ use iyzipay_rust::model::{Address, AddressBuilder as NewAddressBuilder};
 use iyzipay_rust::model::{BasketItem, BasketItemBuilder as NewBasketItemBuilder};
 use iyzipay_rust::model::{Buyer, BuyerBuilder as NewBuyerBuilder};
 use iyzipay_rust::model::{CardInformation, CardInformationBuilder as NewCardInformationBuilder};
+use iyzipay_rust::model::{OrderItem, OrderItemBuilder as NewOrderItemBuilder};
 use iyzipay_rust::model::{PaymentCard, PaymentCardBuilder as NewPaymentCardBuilder};
 use iyzipay_rust::requests::CreateApprovalRequest;
 use iyzipay_rust::requests::CreateBkmInitializeRequest;
@@ -2326,30 +2326,17 @@ impl OrderItemBuilder {
 impl Builder for OrderItemBuilder {
     type BuildType = OrderItem;
     fn build(&self) -> OrderItem {
-        let mut order_item = OrderItem::new();
-        self.id.to_owned().and_then(|x| Some(order_item.set_id(x)));
-        self.price
-            .to_owned()
-            .and_then(|x| Some(order_item.set_price(x)));
-        self.name
-            .to_owned()
-            .and_then(|x| Some(order_item.set_name(x)));
-        self.category1
-            .to_owned()
-            .and_then(|x| Some(order_item.set_category1(x)));
-        self.category2
-            .to_owned()
-            .and_then(|x| Some(order_item.set_category2(x)));
-        self.item_type
-            .to_owned()
-            .and_then(|x| Some(order_item.set_item_type(x)));
-        self.item_url
-            .to_owned()
-            .and_then(|x| Some(order_item.set_item_url(x)));
-        self.item_description
-            .to_owned()
-            .and_then(|x| Some(order_item.set_item_description(x)));
-        order_item
+        NewOrderItemBuilder::default()
+            .id(self.id.as_deref().unwrap())
+            .price(self.price.clone().unwrap())
+            .name(self.name.as_deref().unwrap())
+            .category1(self.category1.as_deref().unwrap())
+            .category2(self.category2.as_deref().unwrap())
+            .item_type(self.item_type.as_deref().unwrap())
+            .item_url(self.item_url.as_deref().unwrap())
+            .item_description(self.item_description.as_deref().unwrap())
+            .build()
+            .expect("Failed to build OrderItem")
     }
 }
 
