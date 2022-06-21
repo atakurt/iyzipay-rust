@@ -370,57 +370,25 @@ impl std::ops::Deref for PayoutCompletedTransactionList {
     }
 }
 
-#[derive(Debug, Default, Serialize, Deserialize)]
+#[derive(Debug, Default, Serialize, Deserialize, Builder, Getters)]
 #[serde(rename_all = "camelCase")]
 #[serde(default)]
+#[builder(public, setter(strip_option, into))]
 pub struct PayoutCompletedTransaction {
+    #[getset(get = "pub")]
     payment_transaction_id: Option<String>,
 
+    #[getset(get = "pub")]
     payout_amount: Option<BigDecimal>,
 
+    #[getset(get = "pub")]
     payout_type: Option<String>,
 
+    #[getset(get = "pub")]
     sub_merchant_key: Option<String>,
 
+    #[getset(get = "pub")]
     currency: Option<String>,
-}
-
-impl PayoutCompletedTransaction {
-    pub fn set_payment_transaction_id<T: Into<String>>(&mut self, payment_transaction_id: T) {
-        self.payment_transaction_id = Some(payment_transaction_id.into());
-    }
-
-    pub fn set_payout_amount<T: Into<BigDecimal>>(&mut self, payout_amount: T) {
-        self.payout_amount = Some(payout_amount.into());
-    }
-
-    pub fn set_payout_type<T: Into<String>>(&mut self, payout_type: T) {
-        self.payout_type = Some(payout_type.into());
-    }
-
-    pub fn set_sub_merchant_key<T: Into<String>>(&mut self, sub_merchant_key: T) {
-        self.sub_merchant_key = Some(sub_merchant_key.into());
-    }
-
-    pub fn set_currency<T: Into<String>>(&mut self, currency: T) {
-        self.currency = Some(currency.into());
-    }
-
-    pub fn payment_transaction_id(&self) -> Option<&String> {
-        self.payment_transaction_id.as_ref()
-    }
-    pub fn payout_amount(&self) -> Option<&BigDecimal> {
-        self.payout_amount.as_ref()
-    }
-    pub fn payout_type(&self) -> Option<&String> {
-        self.payout_type.as_ref()
-    }
-    pub fn sub_merchant_key(&self) -> Option<&String> {
-        self.sub_merchant_key.as_ref()
-    }
-    pub fn currency(&self) -> Option<&String> {
-        self.currency.as_ref()
-    }
 }
 
 #[derive(Debug, Default, Serialize, Deserialize)]

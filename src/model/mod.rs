@@ -56,10 +56,13 @@ pub use self::sub_merchant::ApmType;
 pub use self::sub_merchant::Approval;
 pub use self::sub_merchant::BouncedBankTransferList;
 pub use self::sub_merchant::Disapproval;
-pub use self::sub_merchant::PayoutCompletedTransaction;
 pub use self::sub_merchant::PayoutCompletedTransactionList;
 pub use self::sub_merchant::SubMerchant;
 pub use self::sub_merchant::SubMerchantType;
+pub use self::sub_merchant::{
+    PayoutCompletedTransaction, PayoutCompletedTransactionBuilder,
+    PayoutCompletedTransactionBuilderError,
+};
 
 mod api;
 mod bin_number;
