@@ -7,7 +7,7 @@ use iyzipay_rust::options::OptionsBuilder;
 use log::debug;
 
 use iyzipay_rust::model::InitialConsumer;
-use iyzipay_rust::model::IyziupAddress;
+
 use iyzipay_rust::model::IyziupForm;
 use iyzipay_rust::model::IyziupFormInitialize;
 use iyzipay_rust::model::Locale;
@@ -18,7 +18,7 @@ use crate::functional::builder::Builder;
 use crate::functional::builder::CreateIyziupFormInitializeRequestBuilder;
 use crate::functional::builder::OrderItemBuilder;
 use crate::functional::builder::RetrieveIyziupFormRequestBuilder;
-use crate::get_test_options;
+
 
 #[test]
 fn should_initialize_iyziup_form_for_standard_merchant() {

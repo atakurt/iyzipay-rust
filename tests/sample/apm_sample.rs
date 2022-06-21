@@ -8,7 +8,7 @@ use iyzipay_rust::model::BuyerBuilder;
 use iyzipay_rust::model::Locale;
 use iyzipay_rust::model::Status;
 use iyzipay_rust::model::{
-    Address, Apm, ApmType, BasketItem, BasketItemType, Buyer, Currency, PaymentChannel,
+    Apm, ApmType, BasketItemType, Currency, PaymentChannel,
     PaymentGroup,
 };
 use iyzipay_rust::requests::{CreateApmInitializeRequest, RetrieveApmRequest};
@@ -74,7 +74,7 @@ fn should_initialize_apm_payment() {
 
     request.set_billing_address(billing_address);
 
-    let basket_items = vec![
+    let _basket_items = vec![
         BasketItemBuilder::default()
             .id("BI101")
             .name("Binocular")

@@ -3,14 +3,14 @@ use std::str::FromStr;
 use bigdecimal::BigDecimal;
 
 use iyzipay_rust::model::Currency;
-use iyzipay_rust::model::InitialConsumer;
+
 use iyzipay_rust::model::InitialConsumerBuilder;
-use iyzipay_rust::model::IyziupAddress;
+
 use iyzipay_rust::model::IyziupAddressBuilder;
 use iyzipay_rust::model::IyziupForm;
 use iyzipay_rust::model::IyziupFormInitialize;
 use iyzipay_rust::model::Locale;
-use iyzipay_rust::model::OrderItem;
+
 use iyzipay_rust::model::OrderItemBuilder;
 use iyzipay_rust::model::OrderItemType;
 use iyzipay_rust::model::PaymentGroup;

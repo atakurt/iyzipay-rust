@@ -1,5 +1,5 @@
 use iyzipay_rust::model::Card;
-use iyzipay_rust::model::CardInformation;
+
 use iyzipay_rust::model::CardInformationBuilder;
 use iyzipay_rust::model::CardList;
 use iyzipay_rust::model::Locale;

@@ -2,12 +2,12 @@ use std::str::FromStr;
 
 use bigdecimal::BigDecimal;
 
-use iyzipay_rust::model::Address;
+
 use iyzipay_rust::model::AddressBuilder;
-use iyzipay_rust::model::BasketItem;
+
 use iyzipay_rust::model::BasketItemBuilder;
 use iyzipay_rust::model::BasketItemType;
-use iyzipay_rust::model::Buyer;
+
 use iyzipay_rust::model::BuyerBuilder;
 use iyzipay_rust::model::Currency;
 use iyzipay_rust::model::Locale;

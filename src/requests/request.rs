@@ -208,7 +208,7 @@ impl RequestStringBuilder {
     }
 
     pub fn append_raw<T: Into<String>>(&mut self, value: T) -> &mut Self {
-        &mut self.0.push_str(value.into().as_str());
+        let _ = &mut self.0.push_str(value.into().as_str());
         self
     }
 
