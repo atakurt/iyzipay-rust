@@ -11,15 +11,14 @@ env:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
+    
     steps:
     - uses: actions/checkout@v2
     - name: Build
       run: cargo build --verbose
     - name: Run tests
       env:
-          API_KEY: ${{ secrets.API_KEY }}
-          SECRET_KEY: ${{ secrets.SECRET_KEY }}
-      run:  api_key=""$env:API_KEY"" secret_key=""$env:SECRET_KEY"" base_url=https://sandbox-api.iyzipay.com cargo test -- --skip sample
+          api_key: ${{ secrets.API_KEY }}
+          secret_key: ${{ secrets.SECRET_KEY }}
+      run: base_url=https://sandbox-api.iyzipay.com cargo test -- --skip sample
