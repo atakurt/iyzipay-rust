@@ -48,6 +48,7 @@ pub use self::payment::ThreedsPayment;
 pub use self::payment::{Address, AddressBuilder, AddressBuilderError};
 pub use self::payment::{BasketItem, BasketItemBuilder, BasketItemBuilderError};
 pub use self::payment::{Buyer, BuyerBuilder, BuyerBuilderError};
+pub use self::payment::{ConvertedPayout, ConvertedPayoutBuilder, ConvertedPayoutBuilderError};
 pub use self::payment::{PaymentCard, PaymentCardBuilder, PaymentCardBuilderError};
 pub use self::status::Status;
 pub use self::sub_merchant::Apm;

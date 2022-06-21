@@ -840,117 +840,40 @@ impl std::ops::Deref for PaymentItem {
     }
 }
 
-#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+#[derive(Debug, Clone, Default, Serialize, Deserialize, Builder, Getters)]
 #[serde(rename_all = "camelCase")]
 #[serde(default)]
+#[builder(public, setter(strip_option, into))]
 pub struct ConvertedPayout {
+    #[getset(get = "pub")]
     paid_price: Option<BigDecimal>,
 
+    #[getset(get = "pub")]
     iyzi_commission_rate_amount: Option<BigDecimal>,
 
+    #[getset(get = "pub")]
     iyzi_commission_fee: Option<BigDecimal>,
 
+    #[getset(get = "pub")]
     blockage_rate_amount_merchant: Option<BigDecimal>,
 
+    #[getset(get = "pub")]
     blockage_rate_amount_sub_merchant: Option<BigDecimal>,
 
+    #[getset(get = "pub")]
     sub_merchant_payout_amount: Option<BigDecimal>,
 
+    #[getset(get = "pub")]
     merchant_payout_amount: Option<BigDecimal>,
 
+    #[getset(get = "pub")]
     iyzi_conversion_rate: Option<BigDecimal>,
 
+    #[getset(get = "pub")]
     iyzi_conversion_rate_amount: Option<BigDecimal>,
 
+    #[getset(get = "pub")]
     currency: Option<String>,
-}
-
-impl ConvertedPayout {
-    pub fn set_paid_price<T: Into<BigDecimal>>(&mut self, paid_price: T) {
-        self.paid_price = Some(paid_price.into());
-    }
-
-    pub fn set_iyzi_commission_rate_amount<T: Into<BigDecimal>>(
-        &mut self,
-        iyzi_commission_rate_amount: T,
-    ) {
-        self.iyzi_commission_rate_amount = Some(iyzi_commission_rate_amount.into());
-    }
-
-    pub fn set_iyzi_commission_fee<T: Into<BigDecimal>>(&mut self, iyzi_commission_fee: T) {
-        self.iyzi_commission_fee = Some(iyzi_commission_fee.into());
-    }
-
-    pub fn set_blockage_rate_amount_merchant<T: Into<BigDecimal>>(
-        &mut self,
-        blockage_rate_amount_merchant: T,
-    ) {
-        self.blockage_rate_amount_merchant = Some(blockage_rate_amount_merchant.into());
-    }
-
-    pub fn set_blockage_rate_amount_sub_merchant<T: Into<BigDecimal>>(
-        &mut self,
-        blockage_rate_amount_sub_merchant: T,
-    ) {
-        self.blockage_rate_amount_sub_merchant = Some(blockage_rate_amount_sub_merchant.into());
-    }
-
-    pub fn set_sub_merchant_payout_amount<T: Into<BigDecimal>>(
-        &mut self,
-        sub_merchant_payout_amount: T,
-    ) {
-        self.sub_merchant_payout_amount = Some(sub_merchant_payout_amount.into());
-    }
-
-    pub fn set_merchant_payout_amount<T: Into<BigDecimal>>(&mut self, merchant_payout_amount: T) {
-        self.merchant_payout_amount = Some(merchant_payout_amount.into());
-    }
-
-    pub fn set_iyzi_conversion_rate<T: Into<BigDecimal>>(&mut self, iyzi_conversion_rate: T) {
-        self.iyzi_conversion_rate = Some(iyzi_conversion_rate.into());
-    }
-
-    pub fn set_iyzi_conversion_rate_amount<T: Into<BigDecimal>>(
-        &mut self,
-        iyzi_conversion_rate_amount: T,
-    ) {
-        self.iyzi_conversion_rate_amount = Some(iyzi_conversion_rate_amount.into());
-    }
-
-    pub fn set_currency<T: Into<String>>(&mut self, currency: T) {
-        self.currency = Some(currency.into());
-    }
-
-    pub fn paid_price(&self) -> Option<&BigDecimal> {
-        self.paid_price.as_ref()
-    }
-    pub fn iyzi_commission_rate_amount(&self) -> Option<&BigDecimal> {
-        self.iyzi_commission_rate_amount.as_ref()
-    }
-    pub fn iyzi_commission_fee(&self) -> Option<&BigDecimal> {
-        self.iyzi_commission_fee.as_ref()
-    }
-    pub fn blockage_rate_amount_merchant(&self) -> Option<&BigDecimal> {
-        self.blockage_rate_amount_merchant.as_ref()
-    }
-    pub fn blockage_rate_amount_sub_merchant(&self) -> Option<&BigDecimal> {
-        self.blockage_rate_amount_sub_merchant.as_ref()
-    }
-    pub fn sub_merchant_payout_amount(&self) -> Option<&BigDecimal> {
-        self.sub_merchant_payout_amount.as_ref()
-    }
-    pub fn merchant_payout_amount(&self) -> Option<&BigDecimal> {
-        self.merchant_payout_amount.as_ref()
-    }
-    pub fn iyzi_conversion_rate(&self) -> Option<&BigDecimal> {
-        self.iyzi_conversion_rate.as_ref()
-    }
-    pub fn iyzi_conversion_rate_amount(&self) -> Option<&BigDecimal> {
-        self.iyzi_conversion_rate_amount.as_ref()
-    }
-    pub fn currency(&self) -> Option<&String> {
-        self.currency.as_ref()
-    }
 }
 
 #[derive(Debug, Default, Serialize, Deserialize)]
