@@ -6,6 +6,7 @@ on:
   pull_request:
     branches: [ master,main ]
 
+environment: test
 env:
   CARGO_TERM_COLOR: always
   API_KEY: ${{ secrets.API_KEY }}
@@ -15,9 +16,8 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
-    environment: test
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Build
       run: cargo build --verbose
     - name: Run tests
