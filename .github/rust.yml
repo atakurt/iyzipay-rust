@@ -8,6 +8,8 @@ on:
 
 env:
   CARGO_TERM_COLOR: always
+  api_key: ${{ secrets.API_KEY }}
+  secret_key: ${{ secrets.SECRET_KEY }}
 
 jobs:
   build:
@@ -18,7 +20,4 @@ jobs:
     - name: Build
       run: cargo build --verbose
     - name: Run tests
-      env:
-          api_key: ${{ secrets.API_KEY }}
-          secret_key: ${{ secrets.SECRET_KEY }}
       run: base_url=https://sandbox-api.iyzipay.com cargo test -- --skip sample
