@@ -4,9 +4,9 @@ use iyzipay_rust::options::{Options, OptionsBuilder};
 
 pub fn get_test_options() -> Options {
     OptionsBuilder::default()
-        .api_key(env::var("api_key").expect("`api_key` enviroment variable not set"))
-        .secret_key(env::var("secret_key").expect("`secret_key` enviroment variable not set"))
-        .base_url(env::var("base_url").expect("`base_url` environment variable not set"))
+        .api_key(env::var("API_KEY").expect("`API_KEY` enviroment variable not set"))
+        .secret_key(env::var("SECRET_KEY").expect("`SECRET_KEY` enviroment variable not set"))
+        .base_url(env::var("BASE_URL").expect("`BASE_URL` environment variable not set"))
         .build()
         .expect("Failed to build `Options` instance.")
 }
