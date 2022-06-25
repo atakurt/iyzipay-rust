@@ -41,7 +41,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: actions-rs/toolchain@v3
+      - uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
           components: rustfmt
@@ -52,7 +52,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: actions-rs/toolchain@v3
+      - uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
           components: clippy
