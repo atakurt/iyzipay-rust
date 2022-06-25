@@ -8,16 +8,55 @@ on:
 
 env:
   CARGO_TERM_COLOR: always
+  RUST_BACKTRACE: 1
   API_KEY: ${{ secrets.API_KEY }}
   SECRET_KEY: ${{ secrets.SECRET_KEY }}
   BASE_URL: https://sandbox-api.iyzipay.com 
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-latest
+          - macOS-latest
+        rust:
+          - "1.56.1" # Current MSRV
+          - stable
+          - beta
+          - nightly
     steps:
     - uses: actions/checkout@v3
     - name: Build
-      run: cargo build --verbose
+      run: cargo build --all --verbose
+      env:
+          TARGET: ${{ matrix.target }}
+      continue-on-error: ${{ matrix.allow_failure }}
     - name: Run tests
       run: cargo test -- --skip sample
+
+  fmt:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          components: rustfmt
+          override: true
+      - name: Run fmt check
+        run: cargo fmt --all -- --check
+  clippy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          components: clippy
+          override: true
+      - name: Run clippy check
+        run: cargo clippy
+      
