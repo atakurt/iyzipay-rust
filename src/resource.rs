@@ -22,7 +22,7 @@ const RANDOM_HEADER_NAME: &str = "x-iyzi-rnd";
 const CLIENT_VERSION_HEADER_NAME: &str = "x-iyzi-client-version";
 const RANDOM_STRING_SIZE: usize = 8;
 
-#[derive(Debug, Default, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Clone, Default, Serialize, Deserialize, PartialEq)]
 #[serde(rename_all = "camelCase")]
 pub struct IyzipayResource {
     status: Option<String>,
@@ -98,8 +98,8 @@ impl IyzipayResource {
             "IYZWS",
             options.api_key(),
             HashGenerator::generate_hash(
-                options.api_key(),
-                options.secret_key(),
+                &options.api_key(),
+                &options.secret_key(),
                 random_string.as_str(),
                 request.as_str()
             )
@@ -118,8 +118,8 @@ impl IyzipayResource {
             "IYZWSv2",
             IyziAuthV2Generator::generate_auth_content(
                 uri.as_str(),
-                options.api_key(),
-                options.secret_key(),
+                &options.api_key(),
+                &options.secret_key(),
                 random_string.as_str(),
                 request.as_str()
             )

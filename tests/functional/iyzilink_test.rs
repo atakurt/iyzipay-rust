@@ -126,8 +126,17 @@ fn should_retrieve_iyzi_links_with_pagination() {
     assert_eq!(Some(&Locale::TR.to_string()), response.locale());
     assert_eq!(Some(&String::from("123456789")), response.conversation_id());
     assert_ne!(None, response.system_time());
-    assert_eq!(1, response.data().unwrap().iyzi_link_items().unwrap().len());
-    assert_eq!(&1, response.data().unwrap().current_page().unwrap());
+    assert_eq!(
+        1,
+        response
+            .data()
+            .unwrap()
+            .iyzi_link_items()
+            .as_ref()
+            .unwrap()
+            .len()
+    );
+    assert_eq!(1, response.data().unwrap().current_page().unwrap());
 }
 
 #[test]
@@ -166,23 +175,32 @@ fn should_retrieve_iyzi_link_with_token() {
     assert_eq!(Some(&Locale::TR.to_string()), response.locale());
     assert_eq!(Some(&String::from("123456789")), response.conversation_id());
     assert_ne!(None, response.system_time());
-    assert_eq!("ft-name", response.data().unwrap().name().unwrap());
+    assert_eq!("ft-name", response.data().unwrap().name().clone().unwrap());
     assert_eq!(
         "ft-description",
-        response.data().unwrap().description().unwrap()
+        response.data().unwrap().description().clone().unwrap()
     );
     assert_eq!(
-        &BigDecimal::from_str("1.00000000").unwrap(),
-        response.data().unwrap().price().unwrap()
+        BigDecimal::from_str("1.00000000").unwrap(),
+        response.data().unwrap().price().clone().unwrap()
     );
     assert_eq!(
         Currency::TRY.value(),
-        response.data().unwrap().currency().unwrap()
+        response.data().unwrap().currency().clone().unwrap()
     );
-    assert_eq!(token, response.data().unwrap().token().unwrap().to_string());
     assert_eq!(
-        &IyziLinkStatus::Active,
-        response.data().unwrap().iyzi_link_status().unwrap()
+        token,
+        response
+            .data()
+            .unwrap()
+            .token()
+            .clone()
+            .unwrap()
+            .to_string()
+    );
+    assert_eq!(
+        IyziLinkStatus::Active,
+        response.data().unwrap().iyzi_link_status().clone().unwrap()
     );
 }
 

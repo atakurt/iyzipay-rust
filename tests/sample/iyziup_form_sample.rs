@@ -3,12 +3,15 @@ use std::str::FromStr;
 use bigdecimal::BigDecimal;
 
 use iyzipay_rust::model::Currency;
-use iyzipay_rust::model::InitialConsumer;
-use iyzipay_rust::model::IyziupAddress;
+
+use iyzipay_rust::model::InitialConsumerBuilder;
+
+use iyzipay_rust::model::IyziupAddressBuilder;
 use iyzipay_rust::model::IyziupForm;
 use iyzipay_rust::model::IyziupFormInitialize;
 use iyzipay_rust::model::Locale;
-use iyzipay_rust::model::OrderItem;
+
+use iyzipay_rust::model::OrderItemBuilder;
 use iyzipay_rust::model::OrderItemType;
 use iyzipay_rust::model::PaymentGroup;
 use iyzipay_rust::model::Status;
@@ -40,39 +43,42 @@ fn should_initialize_iyziup_form() {
 
     request.set_enabled_installments(enabled_installments);
 
-    let mut order_items = Vec::new();
-    let mut first_order_item = OrderItem::new();
-    first_order_item.set_id("BI101");
-    first_order_item.set_name("Binocular");
-    first_order_item.set_category1("Collectibles");
-    first_order_item.set_category2("Accessories");
-    first_order_item.set_item_url("www.merchant.biz/item1");
-    first_order_item.set_item_description("item1 description");
-    first_order_item.set_item_type(OrderItemType::Physical.value());
-    first_order_item.set_price(BigDecimal::from_str("0.3").unwrap());
-    order_items.push(first_order_item);
+    let order_items = vec![
+        OrderItemBuilder::default()
+            .id("BI101")
+            .name("Binocular")
+            .category1("Collectibles")
+            .category2("Accessories")
+            .item_url("www.merchant.biz/item1")
+            .item_description("item1 description")
+            .item_type(OrderItemType::Physical.value())
+            .price(BigDecimal::from_str("0.3").unwrap())
+            .build()
+            .expect("Failed to build order item"),
+        OrderItemBuilder::default()
+            .id("BI102")
+            .name("Game code")
+            .category1("Game")
+            .category2("Online Game Items")
+            .item_url("www.merchant.biz/item2")
+            .item_description("item2 description")
+            .item_type(OrderItemType::Virtual.value())
+            .price(BigDecimal::from_str("0.5").unwrap())
+            .build()
+            .expect("Failed to build order item"),
+        OrderItemBuilder::default()
+            .id("BI103")
+            .name("Usb")
+            .category1("Electronics")
+            .category2("Usb / Cable")
+            .item_url("www.merchant.biz/item3")
+            .item_description("item3 description")
+            .item_type(OrderItemType::Physical.value())
+            .price(BigDecimal::from_str("0.2").unwrap())
+            .build()
+            .expect("Failed to build order item"),
+    ];
 
-    let mut second_order_item = OrderItem::new();
-    second_order_item.set_id("BI102");
-    second_order_item.set_name("Game code");
-    second_order_item.set_category1("Game");
-    second_order_item.set_category2("Online Game Items");
-    second_order_item.set_item_url("www.merchant.biz/item2");
-    second_order_item.set_item_description("item2 description");
-    second_order_item.set_item_type(OrderItemType::Virtual.value());
-    second_order_item.set_price(BigDecimal::from_str("0.5").unwrap());
-    order_items.push(second_order_item);
-
-    let mut third_order_item = OrderItem::new();
-    third_order_item.set_id("BI103");
-    third_order_item.set_name("Usb");
-    third_order_item.set_category1("Electronics");
-    third_order_item.set_category2("Usb / Cable");
-    third_order_item.set_item_url("www.merchant.biz/item3");
-    third_order_item.set_item_description("item3 description");
-    third_order_item.set_item_type(OrderItemType::Physical.value());
-    third_order_item.set_price(BigDecimal::from_str("0.2").unwrap());
-    order_items.push(third_order_item);
     request.set_order_items(order_items);
 
     let iyziup_form_initialize: IyziupFormInitialize =
@@ -116,69 +122,79 @@ fn should_initialize_iyziup_form_with_initial_consumer_data() {
 
     request.set_enabled_installments(enabled_installments);
 
-    let mut order_items = Vec::new();
-    let mut first_order_item = OrderItem::new();
-    first_order_item.set_id("BI101");
-    first_order_item.set_name("Binocular");
-    first_order_item.set_category1("Collectibles");
-    first_order_item.set_category2("Accessories");
-    first_order_item.set_item_url("www.merchant.biz/item1");
-    first_order_item.set_item_description("item1 description");
-    first_order_item.set_item_type(OrderItemType::Physical.value());
-    first_order_item.set_price(BigDecimal::from_str("0.3").unwrap());
-    order_items.push(first_order_item);
+    let order_items = vec![
+        OrderItemBuilder::default()
+            .id("BI101")
+            .name("Binocular")
+            .category1("Collectibles")
+            .category2("Accessories")
+            .item_url("www.merchant.biz/item1")
+            .item_description("item1 description")
+            .item_type(OrderItemType::Physical.value())
+            .price(BigDecimal::from_str("0.3").unwrap())
+            .build()
+            .expect("Failed to build order item"),
+        OrderItemBuilder::default()
+            .id("BI102")
+            .name("Game code")
+            .category1("Game")
+            .category2("Online Game Items")
+            .item_url("www.merchant.biz/item2")
+            .item_description("item2 description")
+            .item_type(OrderItemType::Virtual.value())
+            .price(BigDecimal::from_str("0.5").unwrap())
+            .build()
+            .expect("Failed to build order item"),
+        OrderItemBuilder::default()
+            .id("BI103")
+            .name("Usb")
+            .category1("Electronics")
+            .category2("Usb / Cable")
+            .item_url("www.merchant.biz/item3")
+            .item_description("item3 description")
+            .item_type(OrderItemType::Physical.value())
+            .price(BigDecimal::from_str("0.2").unwrap())
+            .build()
+            .expect("Failed to build order item"),
+    ];
 
-    let mut second_order_item = OrderItem::new();
-    second_order_item.set_id("BI102");
-    second_order_item.set_name("Game code");
-    second_order_item.set_category1("Game");
-    second_order_item.set_category2("Online Game Items");
-    second_order_item.set_item_url("www.merchant.biz/item2");
-    second_order_item.set_item_description("item2 description");
-    second_order_item.set_item_type(OrderItemType::Virtual.value());
-    second_order_item.set_price(BigDecimal::from_str("0.5").unwrap());
-    order_items.push(second_order_item);
-
-    let mut third_order_item = OrderItem::new();
-    third_order_item.set_id("BI103");
-    third_order_item.set_name("Usb");
-    third_order_item.set_category1("Electronics");
-    third_order_item.set_category2("Usb / Cable");
-    third_order_item.set_item_url("www.merchant.biz/item3");
-    third_order_item.set_item_description("item3 description");
-    third_order_item.set_item_type(OrderItemType::Physical.value());
-    third_order_item.set_price(BigDecimal::from_str("0.2").unwrap());
-    order_items.push(third_order_item);
     request.set_order_items(order_items);
 
-    let mut initial_consumer = InitialConsumer::new();
-    initial_consumer.set_name("ConsumerName");
-    initial_consumer.set_surname("ConsumerSurname");
-    initial_consumer.set_email("consumermail@mail.com");
-    initial_consumer.set_gsm_number("+905556667788");
+    let home_address = IyziupAddressBuilder::default()
+        .alias("Home Address")
+        .contact_name("ConsumerWithHomeAddress Name Surname")
+        .address_line1("Home Address Line 1")
+        .address_line2("Home Address Line 2")
+        .country("HomeCountry")
+        .city("HomeCity")
+        .zip_code("HomeZipCode")
+        .build()
+        .expect("Failed to build home address");
 
-    let mut home_address = IyziupAddress::new();
-    home_address.set_alias("Home Address");
-    home_address.set_contact_name("ConsumerWithHomeAddress Name Surname");
-    home_address.set_address_line1("Home Address Line 1");
-    home_address.set_address_line2("Home Address Line 2");
-    home_address.set_country("HomeCountry");
-    home_address.set_city("HomeCity");
-    home_address.set_zip_code("HomeZipCode");
-
-    let mut work_address = IyziupAddress::new();
-    work_address.set_alias("Work Address");
-    work_address.set_contact_name("ConsumerWithWorkAddress Name Surname");
-    work_address.set_address_line1("Work Address Line 1");
-    work_address.set_address_line2("Work Address Line 2");
-    work_address.set_country("WorkCountry");
-    work_address.set_city("WorkCity");
-    work_address.set_zip_code("WorkZipCode");
+    let work_address = IyziupAddressBuilder::default()
+        .alias("Work Address")
+        .contact_name("ConsumerWithWorkAddress Name Surname")
+        .address_line1("Work Address Line 1")
+        .address_line2("Work Address Line 2")
+        .country("WorkCountry")
+        .city("WorkCity")
+        .zip_code("WorkZipCode")
+        .build()
+        .expect("Failed to build work address");
 
     let mut address_list = Vec::new();
     address_list.push(home_address);
     address_list.push(work_address);
-    initial_consumer.set_address_list(address_list);
+
+    let initial_consumer = InitialConsumerBuilder::default()
+        .name("ConsumerName")
+        .surname("ConsumerSurname")
+        .email("consumermail@mail.com")
+        .gsm_number("+905556667788")
+        .address_list(address_list)
+        .build()
+        .expect("Failed to build InitialConsumer");
+
     request.set_initial_consumer(initial_consumer);
 
     let iyziup_form_initialize =

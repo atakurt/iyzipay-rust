@@ -1,3 +1,4 @@
+use iyzipay_rust::options::OptionsBuilder;
 use log::debug;
 
 use iyzipay_rust::model::CardManagementPageCard;
@@ -42,9 +43,13 @@ fn should_retrieve_cards() {
 }
 
 fn get_options() -> Options {
-    let mut options = get_test_options().to_owned();
-    options.set_base_url("https://sandbox-cm.iyzipay.com");
-    options
+    let options = get_test_options();
+    OptionsBuilder::default()
+        .api_key(options.api_key())
+        .secret_key(options.secret_key())
+        .base_url("https://sandbox-cm.iyzipay.com")
+        .build()
+        .expect("Could not build options")
 }
 
 #[test]

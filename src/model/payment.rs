@@ -134,88 +134,34 @@ impl PKISerialize for Option<RefundReason> {
     }
 }
 
-#[derive(Debug, Default, Serialize, Deserialize, Clone)]
+#[derive(Debug, Default, Serialize, Deserialize, Clone, Builder, Getters)]
 #[serde(rename_all = "camelCase")]
 #[serde(default)]
+#[builder(public, setter(strip_option, into))]
 pub struct BasketItem {
+    #[getset(get = "pub")]
     id: Option<String>,
 
+    #[getset(get = "pub")]
     price: Option<BigDecimal>,
 
+    #[getset(get = "pub")]
     name: Option<String>,
 
+    #[getset(get = "pub")]
     category1: Option<String>,
 
+    #[getset(get = "pub")]
     category2: Option<String>,
 
+    #[getset(get = "pub")]
     item_type: Option<String>,
 
+    #[getset(get = "pub")]
     sub_merchant_key: Option<String>,
 
+    #[getset(get = "pub")]
     sub_merchant_price: Option<BigDecimal>,
-}
-
-impl BasketItem {
-    pub fn new() -> Self {
-        BasketItem::default()
-    }
-
-    pub fn set_id<T: Into<String>>(&mut self, id: T) {
-        self.id = Some(id.into());
-    }
-
-    pub fn set_price<T: Into<BigDecimal>>(&mut self, price: T) {
-        self.price = Some(price.into());
-    }
-
-    pub fn set_name<T: Into<String>>(&mut self, name: T) {
-        self.name = Some(name.into());
-    }
-
-    pub fn set_category1<T: Into<String>>(&mut self, category1: T) {
-        self.category1 = Some(category1.into());
-    }
-
-    pub fn set_category2<T: Into<String>>(&mut self, category2: T) {
-        self.category2 = Some(category2.into());
-    }
-
-    pub fn set_item_type<T: Into<String>>(&mut self, item_type: T) {
-        self.item_type = Some(item_type.into());
-    }
-
-    pub fn set_sub_merchant_key<T: Into<String>>(&mut self, sub_merchant_key: T) {
-        self.sub_merchant_key = Some(sub_merchant_key.into());
-    }
-
-    pub fn set_sub_merchant_price<T: Into<BigDecimal>>(&mut self, sub_merchant_price: T) {
-        self.sub_merchant_price = Some(sub_merchant_price.into());
-    }
-
-    pub fn id(&self) -> Option<&String> {
-        self.id.as_ref()
-    }
-    pub fn price(&self) -> Option<&BigDecimal> {
-        self.price.as_ref()
-    }
-    pub fn name(&self) -> Option<&String> {
-        self.name.as_ref()
-    }
-    pub fn category1(&self) -> Option<&String> {
-        self.category1.as_ref()
-    }
-    pub fn category2(&self) -> Option<&String> {
-        self.category2.as_ref()
-    }
-    pub fn item_type(&self) -> Option<&String> {
-        self.item_type.as_ref()
-    }
-    pub fn sub_merchant_key(&self) -> Option<&String> {
-        self.sub_merchant_key.as_ref()
-    }
-    pub fn sub_merchant_price(&self) -> Option<&BigDecimal> {
-        self.sub_merchant_price.as_ref()
-    }
 }
 
 impl PKISerialize for BasketItem {
@@ -233,61 +179,25 @@ impl PKISerialize for BasketItem {
     }
 }
 
-#[derive(Debug, Default, Serialize, Deserialize, Clone)]
+#[derive(Debug, Default, Serialize, Deserialize, Clone, Builder, Getters)]
 #[serde(rename_all = "camelCase")]
 #[serde(default)]
+#[builder(public, setter(strip_option, into))]
 pub struct Address {
+    #[getset(get = "pub")]
     address: Option<String>,
 
+    #[getset(get = "pub")]
     zip_code: Option<String>,
 
+    #[getset(get = "pub")]
     contact_name: Option<String>,
 
+    #[getset(get = "pub")]
     city: Option<String>,
 
+    #[getset(get = "pub")]
     country: Option<String>,
-}
-
-impl Address {
-    pub fn new() -> Self {
-        Address::default()
-    }
-
-    pub fn set_address<T: Into<String>>(&mut self, address: T) {
-        self.address = Some(address.into());
-    }
-
-    pub fn set_zip_code<T: Into<String>>(&mut self, zip_code: T) {
-        self.zip_code = Some(zip_code.into());
-    }
-
-    pub fn set_contact_name<T: Into<String>>(&mut self, contact_name: T) {
-        self.contact_name = Some(contact_name.into());
-    }
-
-    pub fn set_city<T: Into<String>>(&mut self, city: T) {
-        self.city = Some(city.into());
-    }
-
-    pub fn set_country<T: Into<String>>(&mut self, country: T) {
-        self.country = Some(country.into());
-    }
-
-    pub fn address(&self) -> Option<&String> {
-        self.address.as_ref()
-    }
-    pub fn zip_code(&self) -> Option<&String> {
-        self.zip_code.as_ref()
-    }
-    pub fn contact_name(&self) -> Option<&String> {
-        self.contact_name.as_ref()
-    }
-    pub fn city(&self) -> Option<&String> {
-        self.city.as_ref()
-    }
-    pub fn country(&self) -> Option<&String> {
-        self.country.as_ref()
-    }
 }
 
 impl PKISerialize for Address {
@@ -302,97 +212,36 @@ impl PKISerialize for Address {
     }
 }
 
-#[derive(Debug, Default, Serialize, Deserialize, Clone)]
+#[derive(Debug, Default, Serialize, Deserialize, Clone, Builder, Getters)]
 #[serde(rename_all = "camelCase")]
 #[serde(default)]
+#[builder(public, setter(strip_option, into))]
 pub struct PaymentCard {
+    #[getset(get = "pub")]
     card_holder_name: Option<String>,
 
+    #[getset(get = "pub")]
     card_number: Option<String>,
 
+    #[getset(get = "pub")]
     expire_year: Option<String>,
 
+    #[getset(get = "pub")]
     expire_month: Option<String>,
 
+    #[getset(get = "pub")]
     cvc: Option<String>,
-
+    #[getset(get = "pub")]
     register_card: Option<u8>,
 
+    #[getset(get = "pub")]
     card_alias: Option<String>,
 
+    #[getset(get = "pub")]
     card_token: Option<String>,
 
+    #[getset(get = "pub")]
     card_user_key: Option<String>,
-}
-
-impl PaymentCard {
-    pub fn new() -> Self {
-        PaymentCard::default()
-    }
-
-    pub fn set_card_holder_name<T: Into<String>>(&mut self, card_holder_name: T) {
-        self.card_holder_name = Some(card_holder_name.into());
-    }
-
-    pub fn set_card_number<T: Into<String>>(&mut self, card_number: T) {
-        self.card_number = Some(card_number.into());
-    }
-
-    pub fn set_expire_year<T: Into<String>>(&mut self, expire_year: T) {
-        self.expire_year = Some(expire_year.into());
-    }
-
-    pub fn set_expire_month<T: Into<String>>(&mut self, expire_month: T) {
-        self.expire_month = Some(expire_month.into());
-    }
-
-    pub fn set_cvc<T: Into<String>>(&mut self, cvc: T) {
-        self.cvc = Some(cvc.into());
-    }
-
-    pub fn set_register_card<T: Into<u8>>(&mut self, register_card: T) {
-        self.register_card = Some(register_card.into());
-    }
-
-    pub fn set_card_alias<T: Into<String>>(&mut self, card_alias: T) {
-        self.card_alias = Some(card_alias.into());
-    }
-
-    pub fn set_card_token<T: Into<String>>(&mut self, card_token: T) {
-        self.card_token = Some(card_token.into());
-    }
-
-    pub fn set_card_user_key<T: Into<String>>(&mut self, card_user_key: T) {
-        self.card_user_key = Some(card_user_key.into());
-    }
-
-    pub fn card_holder_name(&self) -> Option<&String> {
-        self.card_holder_name.as_ref()
-    }
-    pub fn card_number(&self) -> Option<&String> {
-        self.card_number.as_ref()
-    }
-    pub fn expire_year(&self) -> Option<&String> {
-        self.expire_year.as_ref()
-    }
-    pub fn expire_month(&self) -> Option<&String> {
-        self.expire_month.as_ref()
-    }
-    pub fn cvc(&self) -> Option<&String> {
-        self.cvc.as_ref()
-    }
-    pub fn register_card(&self) -> Option<&u8> {
-        self.register_card.as_ref()
-    }
-    pub fn card_alias(&self) -> Option<&String> {
-        self.card_alias.as_ref()
-    }
-    pub fn card_token(&self) -> Option<&String> {
-        self.card_token.as_ref()
-    }
-    pub fn card_user_key(&self) -> Option<&String> {
-        self.card_user_key.as_ref()
-    }
 }
 
 impl PKISerialize for PaymentCard {
@@ -411,133 +260,49 @@ impl PKISerialize for PaymentCard {
     }
 }
 
-#[derive(Debug, Default, Serialize, Deserialize, Clone)]
+#[derive(Debug, Default, Serialize, Deserialize, Clone, Builder, Getters)]
 #[serde(rename_all = "camelCase")]
 #[serde(default)]
+#[builder(public, setter(strip_option, into))]
 pub struct Buyer {
+    #[getset(get = "pub")]
     id: Option<String>,
 
+    #[getset(get = "pub")]
     name: Option<String>,
 
+    #[getset(get = "pub")]
     surname: Option<String>,
 
+    #[getset(get = "pub")]
     identity_number: Option<String>,
 
+    #[getset(get = "pub")]
     email: Option<String>,
 
+    #[getset(get = "pub")]
     gsm_number: Option<String>,
 
+    #[getset(get = "pub")]
     registration_date: Option<String>,
 
+    #[getset(get = "pub")]
     last_login_date: Option<String>,
 
+    #[getset(get = "pub")]
     registration_address: Option<String>,
 
+    #[getset(get = "pub")]
     city: Option<String>,
 
+    #[getset(get = "pub")]
     country: Option<String>,
 
+    #[getset(get = "pub")]
     zip_code: Option<String>,
 
+    #[getset(get = "pub")]
     ip: Option<String>,
-}
-
-impl Buyer {
-    pub fn new() -> Self {
-        Buyer::default()
-    }
-
-    pub fn set_id<T: Into<String>>(&mut self, id: T) {
-        self.id = Some(id.into());
-    }
-
-    pub fn set_name<T: Into<String>>(&mut self, name: T) {
-        self.name = Some(name.into());
-    }
-
-    pub fn set_surname<T: Into<String>>(&mut self, surname: T) {
-        self.surname = Some(surname.into());
-    }
-
-    pub fn set_identity_number<T: Into<String>>(&mut self, identity_number: T) {
-        self.identity_number = Some(identity_number.into());
-    }
-
-    pub fn set_email<T: Into<String>>(&mut self, email: T) {
-        self.email = Some(email.into());
-    }
-
-    pub fn set_gsm_number<T: Into<String>>(&mut self, gsm_number: T) {
-        self.gsm_number = Some(gsm_number.into());
-    }
-
-    pub fn set_registration_date<T: Into<String>>(&mut self, registration_date: T) {
-        self.registration_date = Some(registration_date.into());
-    }
-
-    pub fn set_last_login_date<T: Into<String>>(&mut self, last_login_date: T) {
-        self.last_login_date = Some(last_login_date.into());
-    }
-
-    pub fn set_registration_address<T: Into<String>>(&mut self, registration_address: T) {
-        self.registration_address = Some(registration_address.into());
-    }
-
-    pub fn set_city<T: Into<String>>(&mut self, city: T) {
-        self.city = Some(city.into());
-    }
-
-    pub fn set_country<T: Into<String>>(&mut self, country: T) {
-        self.country = Some(country.into());
-    }
-
-    pub fn set_zip_code<T: Into<String>>(&mut self, zip_code: T) {
-        self.zip_code = Some(zip_code.into());
-    }
-
-    pub fn set_ip<T: Into<String>>(&mut self, ip: T) {
-        self.ip = Some(ip.into());
-    }
-
-    pub fn id(&self) -> Option<&String> {
-        self.id.as_ref()
-    }
-    pub fn name(&self) -> Option<&String> {
-        self.name.as_ref()
-    }
-    pub fn surname(&self) -> Option<&String> {
-        self.surname.as_ref()
-    }
-    pub fn identity_number(&self) -> Option<&String> {
-        self.identity_number.as_ref()
-    }
-    pub fn email(&self) -> Option<&String> {
-        self.email.as_ref()
-    }
-    pub fn gsm_number(&self) -> Option<&String> {
-        self.gsm_number.as_ref()
-    }
-    pub fn registration_date(&self) -> Option<&String> {
-        self.registration_date.as_ref()
-    }
-    pub fn last_login_date(&self) -> Option<&String> {
-        self.last_login_date.as_ref()
-    }
-    pub fn registration_address(&self) -> Option<&String> {
-        self.registration_address.as_ref()
-    }
-    pub fn city(&self) -> Option<&String> {
-        self.city.as_ref()
-    }
-    pub fn country(&self) -> Option<&String> {
-        self.country.as_ref()
-    }
-    pub fn zip_code(&self) -> Option<&String> {
-        self.zip_code.as_ref()
-    }
-    pub fn ip(&self) -> Option<&String> {
-        self.ip.as_ref()
-    }
 }
 
 impl PKISerialize for Buyer {
@@ -560,7 +325,7 @@ impl PKISerialize for Buyer {
     }
 }
 
-#[derive(Debug, Default, Serialize, Deserialize)]
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Payment {
     #[serde(flatten)]
@@ -600,7 +365,7 @@ impl std::ops::Deref for Payment {
     }
 }
 
-#[derive(Debug, Default, Serialize, Deserialize)]
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 #[serde(default)]
 pub struct PaymentResource {
@@ -853,7 +618,7 @@ impl std::ops::Deref for PaymentResource {
     }
 }
 
-#[derive(Debug, Default, Serialize, Deserialize)]
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 #[serde(default)]
 pub struct PaymentItem {
@@ -1075,117 +840,40 @@ impl std::ops::Deref for PaymentItem {
     }
 }
 
-#[derive(Debug, Default, Serialize, Deserialize)]
+#[derive(Debug, Clone, Default, Serialize, Deserialize, Builder, Getters)]
 #[serde(rename_all = "camelCase")]
 #[serde(default)]
+#[builder(public, setter(strip_option, into))]
 pub struct ConvertedPayout {
+    #[getset(get = "pub")]
     paid_price: Option<BigDecimal>,
 
+    #[getset(get = "pub")]
     iyzi_commission_rate_amount: Option<BigDecimal>,
 
+    #[getset(get = "pub")]
     iyzi_commission_fee: Option<BigDecimal>,
 
+    #[getset(get = "pub")]
     blockage_rate_amount_merchant: Option<BigDecimal>,
 
+    #[getset(get = "pub")]
     blockage_rate_amount_sub_merchant: Option<BigDecimal>,
 
+    #[getset(get = "pub")]
     sub_merchant_payout_amount: Option<BigDecimal>,
 
+    #[getset(get = "pub")]
     merchant_payout_amount: Option<BigDecimal>,
 
+    #[getset(get = "pub")]
     iyzi_conversion_rate: Option<BigDecimal>,
 
+    #[getset(get = "pub")]
     iyzi_conversion_rate_amount: Option<BigDecimal>,
 
+    #[getset(get = "pub")]
     currency: Option<String>,
-}
-
-impl ConvertedPayout {
-    pub fn set_paid_price<T: Into<BigDecimal>>(&mut self, paid_price: T) {
-        self.paid_price = Some(paid_price.into());
-    }
-
-    pub fn set_iyzi_commission_rate_amount<T: Into<BigDecimal>>(
-        &mut self,
-        iyzi_commission_rate_amount: T,
-    ) {
-        self.iyzi_commission_rate_amount = Some(iyzi_commission_rate_amount.into());
-    }
-
-    pub fn set_iyzi_commission_fee<T: Into<BigDecimal>>(&mut self, iyzi_commission_fee: T) {
-        self.iyzi_commission_fee = Some(iyzi_commission_fee.into());
-    }
-
-    pub fn set_blockage_rate_amount_merchant<T: Into<BigDecimal>>(
-        &mut self,
-        blockage_rate_amount_merchant: T,
-    ) {
-        self.blockage_rate_amount_merchant = Some(blockage_rate_amount_merchant.into());
-    }
-
-    pub fn set_blockage_rate_amount_sub_merchant<T: Into<BigDecimal>>(
-        &mut self,
-        blockage_rate_amount_sub_merchant: T,
-    ) {
-        self.blockage_rate_amount_sub_merchant = Some(blockage_rate_amount_sub_merchant.into());
-    }
-
-    pub fn set_sub_merchant_payout_amount<T: Into<BigDecimal>>(
-        &mut self,
-        sub_merchant_payout_amount: T,
-    ) {
-        self.sub_merchant_payout_amount = Some(sub_merchant_payout_amount.into());
-    }
-
-    pub fn set_merchant_payout_amount<T: Into<BigDecimal>>(&mut self, merchant_payout_amount: T) {
-        self.merchant_payout_amount = Some(merchant_payout_amount.into());
-    }
-
-    pub fn set_iyzi_conversion_rate<T: Into<BigDecimal>>(&mut self, iyzi_conversion_rate: T) {
-        self.iyzi_conversion_rate = Some(iyzi_conversion_rate.into());
-    }
-
-    pub fn set_iyzi_conversion_rate_amount<T: Into<BigDecimal>>(
-        &mut self,
-        iyzi_conversion_rate_amount: T,
-    ) {
-        self.iyzi_conversion_rate_amount = Some(iyzi_conversion_rate_amount.into());
-    }
-
-    pub fn set_currency<T: Into<String>>(&mut self, currency: T) {
-        self.currency = Some(currency.into());
-    }
-
-    pub fn paid_price(&self) -> Option<&BigDecimal> {
-        self.paid_price.as_ref()
-    }
-    pub fn iyzi_commission_rate_amount(&self) -> Option<&BigDecimal> {
-        self.iyzi_commission_rate_amount.as_ref()
-    }
-    pub fn iyzi_commission_fee(&self) -> Option<&BigDecimal> {
-        self.iyzi_commission_fee.as_ref()
-    }
-    pub fn blockage_rate_amount_merchant(&self) -> Option<&BigDecimal> {
-        self.blockage_rate_amount_merchant.as_ref()
-    }
-    pub fn blockage_rate_amount_sub_merchant(&self) -> Option<&BigDecimal> {
-        self.blockage_rate_amount_sub_merchant.as_ref()
-    }
-    pub fn sub_merchant_payout_amount(&self) -> Option<&BigDecimal> {
-        self.sub_merchant_payout_amount.as_ref()
-    }
-    pub fn merchant_payout_amount(&self) -> Option<&BigDecimal> {
-        self.merchant_payout_amount.as_ref()
-    }
-    pub fn iyzi_conversion_rate(&self) -> Option<&BigDecimal> {
-        self.iyzi_conversion_rate.as_ref()
-    }
-    pub fn iyzi_conversion_rate_amount(&self) -> Option<&BigDecimal> {
-        self.iyzi_conversion_rate_amount.as_ref()
-    }
-    pub fn currency(&self) -> Option<&String> {
-        self.currency.as_ref()
-    }
 }
 
 #[derive(Debug, Default, Serialize, Deserialize)]

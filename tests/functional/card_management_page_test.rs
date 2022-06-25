@@ -1,3 +1,4 @@
+use iyzipay_rust::options::OptionsBuilder;
 use log::debug;
 
 use iyzipay_rust::model::CardManagementPageInitialize;
@@ -74,7 +75,11 @@ fn should_not_initialize_card_management_page_when_callback_url_not_exist() {
 }
 
 fn get_options() -> Options {
-    let mut options = get_test_options().clone();
-    options.set_base_url("https://sandbox-cm.iyzipay.com");
-    options
+    let options = get_test_options();
+    OptionsBuilder::default()
+        .api_key(options.api_key())
+        .secret_key(options.secret_key())
+        .base_url("https://sandbox-api.iyzipay.com")
+        .build()
+        .unwrap()
 }

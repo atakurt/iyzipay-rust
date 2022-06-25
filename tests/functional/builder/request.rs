@@ -5,20 +5,20 @@ use std::str::FromStr;
 use bigdecimal::BigDecimal;
 use bigdecimal::One;
 
-use iyzipay_rust::model::Address;
-use iyzipay_rust::model::BasketItem;
 use iyzipay_rust::model::BasketItemType;
-use iyzipay_rust::model::Buyer;
-use iyzipay_rust::model::CardInformation;
 use iyzipay_rust::model::Currency;
 use iyzipay_rust::model::InitialConsumer;
 use iyzipay_rust::model::Locale;
-use iyzipay_rust::model::OrderItem;
 use iyzipay_rust::model::OrderItemType;
-use iyzipay_rust::model::PaymentCard;
 use iyzipay_rust::model::PaymentChannel;
 use iyzipay_rust::model::PaymentGroup;
 use iyzipay_rust::model::SubMerchantType;
+use iyzipay_rust::model::{Address, AddressBuilder as NewAddressBuilder};
+use iyzipay_rust::model::{BasketItem, BasketItemBuilder as NewBasketItemBuilder};
+use iyzipay_rust::model::{Buyer, BuyerBuilder as NewBuyerBuilder};
+use iyzipay_rust::model::{CardInformation, CardInformationBuilder as NewCardInformationBuilder};
+use iyzipay_rust::model::{OrderItem, OrderItemBuilder as NewOrderItemBuilder};
+use iyzipay_rust::model::{PaymentCard, PaymentCardBuilder as NewPaymentCardBuilder};
 use iyzipay_rust::requests::CreateApprovalRequest;
 use iyzipay_rust::requests::CreateBkmInitializeRequest;
 use iyzipay_rust::requests::CreateCancelRequest;
@@ -264,23 +264,14 @@ impl CardInformationBuilder {
 impl Builder for CardInformationBuilder {
     type BuildType = CardInformation;
     fn build(&self) -> CardInformation {
-        let mut card_information = CardInformation::new();
-        self.card_alias
-            .to_owned()
-            .and_then(|x| Some(card_information.set_card_alias(x)));
-        self.card_number
-            .to_owned()
-            .and_then(|x| Some(card_information.set_card_number(x)));
-        self.expire_year
-            .to_owned()
-            .and_then(|x| Some(card_information.set_expire_year(x)));
-        self.expire_month
-            .to_owned()
-            .and_then(|x| Some(card_information.set_expire_month(x)));
-        self.card_holder_name
-            .to_owned()
-            .and_then(|x| Some(card_information.set_card_holder_name(x)));
-        card_information
+        NewCardInformationBuilder::default()
+            .card_alias(self.card_alias.as_deref().unwrap())
+            .card_number(self.card_number.as_deref().unwrap())
+            .expire_year(self.expire_year.as_deref().unwrap())
+            .expire_month(self.expire_month.as_deref().unwrap())
+            .card_holder_name(self.card_holder_name.as_deref().unwrap())
+            .build()
+            .expect("Failed to build card information")
     }
 }
 
@@ -1083,35 +1074,18 @@ impl PaymentCardBuilder {
 impl Builder for PaymentCardBuilder {
     type BuildType = PaymentCard;
     fn build(&self) -> PaymentCard {
-        let mut payment_card = PaymentCard::new();
-        self.card_holder_name
-            .to_owned()
-            .and_then(|x| Some(payment_card.set_card_holder_name(x)));
-        self.card_number
-            .to_owned()
-            .and_then(|x| Some(payment_card.set_card_number(x)));
-        self.expire_year
-            .to_owned()
-            .and_then(|x| Some(payment_card.set_expire_year(x)));
-        self.expire_month
-            .to_owned()
-            .and_then(|x| Some(payment_card.set_expire_month(x)));
-        self.cvc
-            .to_owned()
-            .and_then(|x| Some(payment_card.set_cvc(x)));
-        self.register_card
-            .to_owned()
-            .and_then(|x| Some(payment_card.set_register_card(x)));
-        self.card_alias
-            .to_owned()
-            .and_then(|x| Some(payment_card.set_card_alias(x)));
-        self.card_token
-            .to_owned()
-            .and_then(|x| Some(payment_card.set_card_token(x)));
-        self.card_user_key
-            .to_owned()
-            .and_then(|x| Some(payment_card.set_card_user_key(x)));
-        payment_card
+        NewPaymentCardBuilder::default()
+            .card_holder_name(self.card_holder_name.as_deref().unwrap())
+            .card_number(self.card_number.as_deref().unwrap())
+            .expire_year(self.expire_year.as_deref().unwrap())
+            .expire_month(self.expire_month.as_deref().unwrap())
+            .cvc(self.cvc.as_deref().unwrap())
+            .register_card(self.register_card.unwrap())
+            .card_alias(self.card_alias.as_deref().unwrap())
+            .card_token(self.card_token.as_deref().unwrap())
+            .card_user_key(self.card_user_key.as_deref().unwrap())
+            .build()
+            .expect("Failed to build payment card")
     }
 }
 
@@ -1234,37 +1208,22 @@ impl BuyerBuilder {
 impl Builder for BuyerBuilder {
     type BuildType = Buyer;
     fn build(&self) -> Buyer {
-        let mut buyer = Buyer::new();
-        self.id.to_owned().and_then(|x| Some(buyer.set_id(x)));
-        self.name.to_owned().and_then(|x| Some(buyer.set_name(x)));
-        self.surname
-            .to_owned()
-            .and_then(|x| Some(buyer.set_surname(x)));
-        self.identity_number
-            .to_owned()
-            .and_then(|x| Some(buyer.set_identity_number(x)));
-        self.email.to_owned().and_then(|x| Some(buyer.set_email(x)));
-        self.gsm_number
-            .to_owned()
-            .and_then(|x| Some(buyer.set_gsm_number(x)));
-        self.registration_date
-            .to_owned()
-            .and_then(|x| Some(buyer.set_registration_date(x)));
-        self.last_login_date
-            .to_owned()
-            .and_then(|x| Some(buyer.set_last_login_date(x)));
-        self.registration_address
-            .to_owned()
-            .and_then(|x| Some(buyer.set_registration_address(x)));
-        self.city.to_owned().and_then(|x| Some(buyer.set_city(x)));
-        self.country
-            .to_owned()
-            .and_then(|x| Some(buyer.set_country(x)));
-        self.zip_code
-            .to_owned()
-            .and_then(|x| Some(buyer.set_zip_code(x)));
-        self.ip.to_owned().and_then(|x| Some(buyer.set_ip(x)));
-        buyer
+        NewBuyerBuilder::default()
+            .id(self.id.as_deref().unwrap())
+            .name(self.name.as_deref().unwrap())
+            .surname(self.surname.as_deref().unwrap())
+            .identity_number(self.identity_number.as_deref().unwrap())
+            .email(self.email.as_deref().unwrap())
+            .gsm_number(self.gsm_number.as_deref().unwrap())
+            .registration_date(self.registration_date.as_deref().unwrap())
+            .last_login_date(self.last_login_date.as_deref().unwrap())
+            .registration_address(self.registration_address.as_deref().unwrap())
+            .city(self.city.as_deref().unwrap())
+            .country(self.country.as_deref().unwrap())
+            .zip_code(self.zip_code.as_deref().unwrap())
+            .ip(self.ip.as_deref().unwrap())
+            .build()
+            .expect("Failed to build payment card")
     }
 }
 
@@ -1321,21 +1280,14 @@ impl AddressBuilder {
 impl Builder for AddressBuilder {
     type BuildType = Address;
     fn build(&self) -> Address {
-        let mut address = Address::new();
-        self.address
-            .to_owned()
-            .and_then(|x| Some(address.set_address(x)));
-        self.zip_code
-            .to_owned()
-            .and_then(|x| Some(address.set_zip_code(x)));
-        self.contact_name
-            .to_owned()
-            .and_then(|x| Some(address.set_contact_name(x)));
-        self.city.to_owned().and_then(|x| Some(address.set_city(x)));
-        self.country
-            .to_owned()
-            .and_then(|x| Some(address.set_country(x)));
-        address
+        NewAddressBuilder::default()
+            .address(self.address.as_deref().unwrap())
+            .zip_code(self.zip_code.as_deref().unwrap())
+            .contact_name(self.contact_name.as_deref().unwrap())
+            .city(self.city.as_deref().unwrap())
+            .country(self.country.as_deref().unwrap())
+            .build()
+            .expect("Failed to build address")
     }
 }
 
@@ -1468,30 +1420,17 @@ impl BasketItemBuilder {
 impl Builder for BasketItemBuilder {
     type BuildType = BasketItem;
     fn build(&self) -> BasketItem {
-        let mut basket_item = BasketItem::new();
-        self.id.to_owned().and_then(|x| Some(basket_item.set_id(x)));
-        self.price
-            .to_owned()
-            .and_then(|x| Some(basket_item.set_price(x)));
-        self.name
-            .to_owned()
-            .and_then(|x| Some(basket_item.set_name(x)));
-        self.category1
-            .to_owned()
-            .and_then(|x| Some(basket_item.set_category1(x)));
-        self.category2
-            .to_owned()
-            .and_then(|x| Some(basket_item.set_category2(x)));
-        self.item_type
-            .to_owned()
-            .and_then(|x| Some(basket_item.set_item_type(x)));
-        self.sub_merchant_key
-            .to_owned()
-            .and_then(|x| Some(basket_item.set_sub_merchant_key(x)));
-        self.sub_merchant_price
-            .to_owned()
-            .and_then(|x| Some(basket_item.set_sub_merchant_price(x)));
-        basket_item
+        NewBasketItemBuilder::default()
+            .id(self.id.as_deref().unwrap())
+            .price(self.price.as_ref().unwrap().clone())
+            .name(self.name.as_deref().unwrap())
+            .category1(self.category1.as_deref().unwrap())
+            .category2(self.category2.as_deref().unwrap())
+            .item_type(self.item_type.as_deref().unwrap())
+            .sub_merchant_key(self.sub_merchant_key.as_deref().unwrap())
+            .sub_merchant_price(self.sub_merchant_price.as_ref().unwrap().clone())
+            .build()
+            .expect("Failed to build BasketItem")
     }
 }
 
@@ -2387,30 +2326,17 @@ impl OrderItemBuilder {
 impl Builder for OrderItemBuilder {
     type BuildType = OrderItem;
     fn build(&self) -> OrderItem {
-        let mut order_item = OrderItem::new();
-        self.id.to_owned().and_then(|x| Some(order_item.set_id(x)));
-        self.price
-            .to_owned()
-            .and_then(|x| Some(order_item.set_price(x)));
-        self.name
-            .to_owned()
-            .and_then(|x| Some(order_item.set_name(x)));
-        self.category1
-            .to_owned()
-            .and_then(|x| Some(order_item.set_category1(x)));
-        self.category2
-            .to_owned()
-            .and_then(|x| Some(order_item.set_category2(x)));
-        self.item_type
-            .to_owned()
-            .and_then(|x| Some(order_item.set_item_type(x)));
-        self.item_url
-            .to_owned()
-            .and_then(|x| Some(order_item.set_item_url(x)));
-        self.item_description
-            .to_owned()
-            .and_then(|x| Some(order_item.set_item_description(x)));
-        order_item
+        NewOrderItemBuilder::default()
+            .id(self.id.as_deref().unwrap())
+            .price(self.price.clone().unwrap())
+            .name(self.name.as_deref().unwrap())
+            .category1(self.category1.as_deref().unwrap())
+            .category2(self.category2.as_deref().unwrap())
+            .item_type(self.item_type.as_deref().unwrap())
+            .item_url(self.item_url.as_deref().unwrap())
+            .item_description(self.item_description.as_deref().unwrap())
+            .build()
+            .expect("Failed to build OrderItem")
     }
 }
 

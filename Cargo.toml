@@ -19,9 +19,12 @@ hmac = "0.9.0"
 base64 = "0.12.3"
 reqwest = { version = "0.10", features = ["blocking", "json"] }
 chrono = { version = "0.4.15", features = ["serde"] }
-bigdecimal = { version="0.2.0", features = ["serde"] }
+bigdecimal = { version = "0.2.0", features = ["serde"] }
 uuid = { version = "0.8", features = ["v4"] }
 log = "0.4.6"
+derive_builder = "0.11.2"
+getset = "0.1.2"
 
 [dev-dependencies]
+dotenv = "0.15.0"
 env_logger = "0.7.1"

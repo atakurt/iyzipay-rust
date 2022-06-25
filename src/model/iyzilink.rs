@@ -271,179 +271,73 @@ impl std::ops::Deref for IyziLinkPagingResource {
     }
 }
 
-#[derive(Debug, Default, Serialize, Deserialize)]
+#[derive(Debug, Default, Serialize, Deserialize, Builder, Getters)]
 #[serde(rename_all = "camelCase")]
 #[serde(default)]
+#[builder(public, setter(strip_option, into))]
 pub struct IyziLinkPaging {
+    #[getset(get = "pub")]
     #[serde(rename = "items")]
     iyzi_link_items: Option<Vec<IyziLinkItem>>,
 
+    #[getset(get = "pub")]
     total_count: Option<i64>,
 
+    #[getset(get = "pub")]
     current_page: Option<i32>,
 
+    #[getset(get = "pub")]
     page_count: Option<i32>,
 }
 
-impl IyziLinkPaging {
-    pub fn set_iyzi_link_items<T: Into<Vec<IyziLinkItem>>>(&mut self, iyzi_link_items: T) {
-        self.iyzi_link_items = Some(iyzi_link_items.into());
-    }
-
-    pub fn set_total_count<T: Into<i64>>(&mut self, total_count: T) {
-        self.total_count = Some(total_count.into());
-    }
-
-    pub fn set_current_page<T: Into<i32>>(&mut self, current_page: T) {
-        self.current_page = Some(current_page.into());
-    }
-
-    pub fn set_page_count<T: Into<i32>>(&mut self, page_count: T) {
-        self.page_count = Some(page_count.into());
-    }
-
-    pub fn iyzi_link_items(&self) -> Option<&Vec<IyziLinkItem>> {
-        self.iyzi_link_items.as_ref()
-    }
-    pub fn total_count(&self) -> Option<&i64> {
-        self.total_count.as_ref()
-    }
-    pub fn current_page(&self) -> Option<&i32> {
-        self.current_page.as_ref()
-    }
-    pub fn page_count(&self) -> Option<&i32> {
-        self.page_count.as_ref()
-    }
-}
-
-#[derive(Debug, Default, Serialize, Deserialize)]
+#[derive(Debug, Clone, Default, Serialize, Deserialize, Builder, Getters)]
 #[serde(rename_all = "camelCase")]
 #[serde(default)]
+#[builder(public, setter(strip_option, into))]
 pub struct IyziLinkItem {
+    #[getset(get = "pub")]
     name: Option<String>,
 
+    #[getset(get = "pub")]
     description: Option<String>,
 
+    #[getset(get = "pub")]
     price: Option<BigDecimal>,
 
+    #[getset(get = "pub")]
     #[serde(rename = "currencyCode")]
     currency: Option<String>,
 
+    #[getset(get = "pub")]
     token: Option<String>,
 
+    #[getset(get = "pub")]
     #[serde(rename = "productStatus")]
     iyzi_link_status: Option<IyziLinkStatus>,
 
+    #[getset(get = "pub")]
     url: Option<String>,
 
+    #[getset(get = "pub")]
     image_url: Option<String>,
 
+    #[getset(get = "pub")]
     address_ignorable: Option<bool>,
 
+    #[getset(get = "pub")]
     sold_count: Option<i32>,
 
+    #[getset(get = "pub")]
     sold_limit: Option<i32>,
 
+    #[getset(get = "pub")]
     remaining_sold_limit: Option<i32>,
 
+    #[getset(get = "pub")]
     installment_requested: Option<bool>,
 }
 
-impl IyziLinkItem {
-    pub fn set_name<T: Into<String>>(&mut self, name: T) {
-        self.name = Some(name.into());
-    }
-
-    pub fn set_description<T: Into<String>>(&mut self, description: T) {
-        self.description = Some(description.into());
-    }
-
-    pub fn set_price<T: Into<BigDecimal>>(&mut self, price: T) {
-        self.price = Some(price.into());
-    }
-
-    pub fn set_currency<T: Into<String>>(&mut self, currency: T) {
-        self.currency = Some(currency.into());
-    }
-
-    pub fn set_token<T: Into<String>>(&mut self, token: T) {
-        self.token = Some(token.into());
-    }
-
-    pub fn set_iyzi_link_status<T: Into<IyziLinkStatus>>(&mut self, iyzi_link_status: T) {
-        self.iyzi_link_status = Some(iyzi_link_status.into());
-    }
-
-    pub fn set_url<T: Into<String>>(&mut self, url: T) {
-        self.url = Some(url.into());
-    }
-
-    pub fn set_image_url<T: Into<String>>(&mut self, image_url: T) {
-        self.image_url = Some(image_url.into());
-    }
-
-    pub fn set_address_ignorable<T: Into<bool>>(&mut self, address_ignorable: T) {
-        self.address_ignorable = Some(address_ignorable.into());
-    }
-
-    pub fn set_sold_count<T: Into<i32>>(&mut self, sold_count: T) {
-        self.sold_count = Some(sold_count.into());
-    }
-
-    pub fn set_sold_limit<T: Into<i32>>(&mut self, sold_limit: T) {
-        self.sold_limit = Some(sold_limit.into());
-    }
-
-    pub fn set_remaining_sold_limit<T: Into<i32>>(&mut self, remaining_sold_limit: T) {
-        self.remaining_sold_limit = Some(remaining_sold_limit.into());
-    }
-
-    pub fn set_installment_requested<T: Into<bool>>(&mut self, installment_requested: T) {
-        self.installment_requested = Some(installment_requested.into());
-    }
-
-    pub fn name(&self) -> Option<&String> {
-        self.name.as_ref()
-    }
-    pub fn description(&self) -> Option<&String> {
-        self.description.as_ref()
-    }
-    pub fn price(&self) -> Option<&BigDecimal> {
-        self.price.as_ref()
-    }
-    pub fn currency(&self) -> Option<&String> {
-        self.currency.as_ref()
-    }
-    pub fn token(&self) -> Option<&String> {
-        self.token.as_ref()
-    }
-    pub fn iyzi_link_status(&self) -> Option<&IyziLinkStatus> {
-        self.iyzi_link_status.as_ref()
-    }
-    pub fn url(&self) -> Option<&String> {
-        self.url.as_ref()
-    }
-    pub fn image_url(&self) -> Option<&String> {
-        self.image_url.as_ref()
-    }
-    pub fn address_ignorable(&self) -> Option<&bool> {
-        self.address_ignorable.as_ref()
-    }
-    pub fn sold_count(&self) -> Option<&i32> {
-        self.sold_count.as_ref()
-    }
-    pub fn sold_limit(&self) -> Option<&i32> {
-        self.sold_limit.as_ref()
-    }
-    pub fn remaining_sold_limit(&self) -> Option<&i32> {
-        self.remaining_sold_limit.as_ref()
-    }
-    pub fn installment_requested(&self) -> Option<&bool> {
-        self.installment_requested.as_ref()
-    }
-}
-
-#[derive(Debug, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 #[serde(rename_all = "SCREAMING_SNAKE_CASE")]
 pub enum IyziLinkStatus {
     Deleted,

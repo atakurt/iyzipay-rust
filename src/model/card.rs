@@ -235,44 +235,24 @@ impl CardList {
     }
 }
 
-#[derive(Debug, Default, Serialize, Deserialize, Clone)]
+#[derive(Debug, Default, Serialize, Deserialize, Clone, Builder, Getters)]
 #[serde(rename_all = "camelCase")]
+#[builder(public, setter(strip_option, into))]
 pub struct CardInformation {
+    #[getset(get = "pub")]
     card_alias: Option<String>,
 
+    #[getset(get = "pub")]
     card_number: Option<String>,
 
+    #[getset(get = "pub")]
     expire_year: Option<String>,
 
+    #[getset(get = "pub")]
     expire_month: Option<String>,
 
+    #[getset(get = "pub")]
     card_holder_name: Option<String>,
-}
-
-impl CardInformation {
-    pub fn new() -> Self {
-        CardInformation::default()
-    }
-
-    pub fn set_card_alias<S: Into<String>>(&mut self, card_alias: S) {
-        self.card_alias = Some(card_alias.into());
-    }
-
-    pub fn set_card_number<S: Into<String>>(&mut self, card_number: S) {
-        self.card_number = Some(card_number.into());
-    }
-
-    pub fn set_expire_year<S: Into<String>>(&mut self, expire_year: S) {
-        self.expire_year = Some(expire_year.into());
-    }
-
-    pub fn set_expire_month<S: Into<String>>(&mut self, expire_month: S) {
-        self.expire_month = Some(expire_month.into());
-    }
-
-    pub fn set_card_holder_name<S: Into<String>>(&mut self, card_holder_name: S) {
-        self.card_holder_name = Some(card_holder_name.into());
-    }
 }
 
 impl PKISerialize for CardInformation {
